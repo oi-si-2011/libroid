@@ -40,8 +40,10 @@ class bookMenu extends JPopupMenu implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.isPopupTrigger()){
-            int rowIndex = lt.rowAtPoint(e.getPoint());
-            lt.getSelectionModel().setSelectionInterval(rowIndex, rowIndex);
+            if(lt.getSelectedRowCount() == 0){
+                int rowIndex = lt.rowAtPoint(e.getPoint());
+                lt.getSelectionModel().setSelectionInterval(rowIndex, rowIndex);
+            }
             bookMenu m = new bookMenu(lt);
             m.show(e.getComponent(), e.getX(), e.getY());
         }
