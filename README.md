@@ -1,6 +1,6 @@
-# Správce knih
+# Projekt byl přejměnován na Libroid
 
-Wiki: https://github.com/oi-si-2011/libroid/wiki
+Nová adresa: [https://github.com/oi-si-2011/libroid](https://github.com/oi-si-2011/libroid)
 
-Dokumenty jsou v adresáři doc.
+Pozor, změnila se i adresa pro fetch/push pro git.
 
