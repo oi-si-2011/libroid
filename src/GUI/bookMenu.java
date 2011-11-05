@@ -33,7 +33,7 @@ class bookMenu extends JPopupMenu implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getClickCount() == 2){
-            JOptionPane.showMessageDialog(this, "Not yet implemented", "Warning", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Row: " + lt.getSelectedRow(), "Warning", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

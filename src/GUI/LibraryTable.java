@@ -12,6 +12,7 @@ public class LibraryTable extends JTable{
 
     public LibraryTable(){
         setModel(tableModel);
+        setAutoCreateRowSorter(true);
         tableModel.addBook(new Book("Vlakna hypercesu", "R. Susta"));
         tableModel.addBook(new Book("Kryptonomikon", "N. Stephenson"));
         tableModel.addBook(new Book("Velke U", "N. Stephenson"));
