@@ -1,12 +1,12 @@
 package libroid.model;
 
-public class List {
+public class BookList {
 
     private String name;
     private int date_created;
     private int date_last_modified;
 
-    public List(String name) {
+    public BookList(String name) {
         this.name = name;
     }
 
