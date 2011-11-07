@@ -12,11 +12,13 @@ public class Book{
         this.author = author;
     }
 
+    /*
     public Book(String bookInString) {
         String [] data = bookInString.split(separator);
         this.name = data[0];
         this.author = data[1];
     }
+     */
 
     public String getName() {
         return name;

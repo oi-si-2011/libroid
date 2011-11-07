@@ -30,6 +30,7 @@ public class LibraryTable extends JTable{
         getColumnModel().getColumn(0).setMaxWidth(30);
     }
 
+    /*
     public LibraryTable(File f){
         setModel(tableModel);
         setAutoCreateRowSorter(true);
@@ -50,6 +51,7 @@ public class LibraryTable extends JTable{
             }
         }
     }
+     */
 
     void removeBook() {
         int count = getSelectedRowCount();
