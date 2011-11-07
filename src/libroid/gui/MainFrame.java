@@ -1,6 +1,7 @@
 package libroid.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +14,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.basic.BasicBorders.SplitPaneBorder;
 
 public class MainFrame extends JFrame {
 
@@ -24,9 +27,10 @@ public class MainFrame extends JFrame {
     private JMenuBar menuBar = new JMenuBar();
     private JMenu menu;
     private JMenuItem menuItem = new JMenuItem();
-    private JTabbedPane leftPanel = new JTabbedPane(SwingConstants.TOP);
-
+    private JPanel leftPanel = new JPanel();
+    private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
+    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     // </editor-fold>
 
     public MainFrame() {
@@ -65,7 +69,7 @@ public class MainFrame extends JFrame {
         menuItem.setMnemonic(KeyEvent.VK_S);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription("Adds a new list of books");
-        //menuItem.addActionListener(ukladac);
+        //menuItem.addActionListener();
         menu.add(menuItem);
 
         menu.addSeparator();
@@ -127,11 +131,15 @@ public class MainFrame extends JFrame {
         LibraryTable libraryTable = new LibraryTable();
         JScrollPane bookTableContainer = new JScrollPane(libraryTable);
 
-        leftPanel.addTab("Lists", new JPanel());
-        leftPanel.setPreferredSize(new Dimension(200, 500));
 
-        add(leftPanel, BorderLayout.WEST);
-        add(bookTableContainer, BorderLayout.CENTER);
+        leftPanel.setPreferredSize(new Dimension(200, 500));
+        leftPanel.setBackground(Color.white);
+
+        add(toolBar, BorderLayout.NORTH);
+
+        content.add(leftPanel);
+        content.add(bookTableContainer);
+        add(content, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
     }
 
