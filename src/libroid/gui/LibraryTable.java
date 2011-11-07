@@ -57,14 +57,19 @@ public class LibraryTable extends JTable{
             switch (JOptionPane.showConfirmDialog(null, "Do you really want to remove selected book(s) from your library?", "Remove book", JOptionPane.WARNING_MESSAGE)){
                 case JOptionPane.OK_OPTION: 
                     if(count > 1){
-                        int [] selecetedBooks = getSelectedRows();
-                        for (int i = 0; i < selecetedBooks.length; i++) {
-                            tableModel.removeBook(convertRowIndexToModel(selecetedBooks[i]));
+                        int [] selecetedBookIndexes = getSelectedRows();
+                        Book [] selectedBooks = new Book [getSelectedRowCount()];
+                        for (int i = 0; i < selecetedBookIndexes.length; i++) {
+                            selecetedBookIndexes[i] = convertRowIndexToModel(selecetedBookIndexes[i]);
+                            selectedBooks[i] = tableModel.getBook(selecetedBookIndexes[i]);
+                        }
+                        for (int i = 0; i < selectedBooks.length; i++) {
+                            tableModel.removeBook(selectedBooks[i]);
                         }
                         tableModel.fireTableDataChanged();
                     }else{
                         int index = convertRowIndexToModel(getSelectedRow());
-                        tableModel.removeBook(index);
+                        tableModel.removeBookByIndex(index);
                         tableModel.fireTableDataChanged();
                     }
                     updateUI();
@@ -86,8 +91,16 @@ class TableModel extends AbstractTableModel{
         list.add(b);
     }
 
-    public void removeBook(int index){
+    public void removeBookByIndex(int index){
         list.remove(index);
+    }
+
+    public void removeBook(Book b){
+        list.remove(b);
+    }
+
+    Book getBook(int i) {
+        return list.get(i);
     }
 
     public int getRowCount() {

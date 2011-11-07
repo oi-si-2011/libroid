@@ -38,7 +38,6 @@ public class Main extends JFrame {
         // <editor-fold defaultstate="collapsed" desc="main Frame">
         setTitle("Libroid");
         setSize(1000, 640);
-        //setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
         setLayout(new BorderLayout());
