@@ -1,8 +1,6 @@
 package libroid.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -24,7 +22,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Main extends JFrame {
 
     private static final Logger logger = Logger.getLogger(Main.class.getName());
-
     // <editor-fold defaultstate="collapsed" desc="Components init">
     private JMenuBar menuBar = new JMenuBar();
     private JMenu menu;
