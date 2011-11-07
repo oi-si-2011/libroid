@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -29,6 +30,7 @@ public class Main extends JFrame {
         private JMenu menu;
         private JMenuItem menuItem = new JMenuItem();
         private JTabbedPane left = new JTabbedPane(SwingConstants.LEFT);
+        private JPanel bottomBar = new JPanel();
     // </editor-fold>
 
     public Main(){
@@ -40,6 +42,7 @@ public class Main extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((d.width - getSize().width) / 2, (d.height - getSize().height) / 2);
+        setLayout(new BorderLayout());
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Menu">
@@ -54,7 +57,11 @@ public class Main extends JFrame {
                 menuItem.setMnemonic(KeyEvent.VK_O);
                 menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
                 menuItem.getAccessibleContext().setAccessibleDescription("Adds a new book into library");
-                //menuItem.addActionListener(new OtevritSoubor(this));
+                menuItem.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                         
+                    }
+                });
                 menu.add(menuItem);
 
                 menuItem = new JMenuItem("Add a list", new ImageIcon("icons/addList.gif"));
@@ -71,7 +78,6 @@ public class Main extends JFrame {
                 menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
                 menuItem.getAccessibleContext().setAccessibleDescription("Close the app");
                 menuItem.addActionListener(new ActionListener() {
-
                     public void actionPerformed(ActionEvent e) {
                         dispose();
                     }
@@ -126,8 +132,15 @@ public class Main extends JFrame {
 
             left.addTab("Books", bookTableContainer);
             left.addTab("Lists", new JPanel());
+<<<<<<< HEAD
             left.addTab("Wishlist", new JPanel());
             add(left);
+=======
+            left.addTab("wishlist", new JPanel());
+            add(left, BorderLayout.CENTER);
+            bottomBar.getAccessibleContext();
+            add(bottomBar, BorderLayout.SOUTH);
+>>>>>>> 244996ed79cf05b91c4cfb57ba060caddb77a9ff
         // </editor-fold>
 
     }

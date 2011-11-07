@@ -1,26 +1,53 @@
 package GUI;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableColumn;
 import spravceknih.Book;
 
 public class LibraryTable extends JTable{
-    private TableModel tableModel = new TableModel();
+    private static TableModel tableModel = new TableModel();
 
     public LibraryTable(){
         setModel(tableModel);
-        //setAutoCreateRowSorter(true);
-        tableModel.addBook(new Book("Vlakna hypercesu", "R. Susta"));
+        setAutoCreateRowSorter(true);
+        tableModel.addBook(new Book("Vlakna hypercasu", "R. Susta"));
         tableModel.addBook(new Book("Kryptonomikon", "N. Stephenson"));
-        tableModel.addBook(new Book("Velke U", "N. Stephenson"));
+        tableModel.addBook(new Book("Velke U", "Neal Stephenson"));
         tableModel.addBook(new Book("Hordubal", "K. Capek"));
+        tableModel.addBook(new Book("A", "1"));
+        tableModel.addBook(new Book("B", "2"));
         addMouseListener(new bookMenu(this));
-        setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        getColumnModel().getColumn(0).setPreferredWidth(50);
+        getColumnModel().getColumn(0).setMaxWidth(30);
+    }
+
+    public LibraryTable(File f){
+        setModel(tableModel);
+        setAutoCreateRowSorter(true);
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(f));
+            String bookInString = "";
+            while((bookInString = br.readLine()) != null){
+                tableModel.addBook(new Book(bookInString));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Couldn't read file "+f.getName(), "Error!", JOptionPane.WARNING_MESSAGE);
+        } finally {
+            try {
+                br.close();
+            } catch (IOException ex) {
+                Logger.getLogger(LibraryTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     void removeBook() {
@@ -31,17 +58,13 @@ public class LibraryTable extends JTable{
                     if(count > 1){
                         int [] selecetedBooks = getSelectedRows();
                         for (int i = 0; i < selecetedBooks.length; i++) {
-                            tableModel.removeBook(selecetedBooks[i]-i);
+                            tableModel.removeBook(convertRowIndexToModel(selecetedBooks[i]));
                         }
+                        tableModel.fireTableDataChanged();
                     }else{
-                        for (int i = 0; i < getRowCount(); i++) {
-                            Object name = tableModel.getValueAt(i, 0);
-                            if(name.equals(tableModel.getValueAt(getSelectedRow(), 0))){
-                                tableModel.removeBook(i);
-                                updateUI();
-                                break;
-                            }
-                        }
+                        int index = convertRowIndexToModel(getSelectedRow());
+                        tableModel.removeBook(index);
+                        tableModel.fireTableDataChanged();
                     }
                     updateUI();
                 case JOptionPane.CANCEL_OPTION: break;
@@ -49,6 +72,8 @@ public class LibraryTable extends JTable{
         }
     }
 }
+
+
 
 class TableModel extends AbstractTableModel{
 
@@ -69,12 +94,12 @@ class TableModel extends AbstractTableModel{
     }
 
     public int getColumnCount() {
-        return 3;
+        return columnNames.length;
     }
 
-    public Object getValueAt(int rowIndex, int columnIndex) {
+    public Object getValueAt(int rowIndex, int columnIndex) { 
         Book b = list.get(rowIndex);
-        switch (columnIndex){
+        switch (columnIndex) {
             case 0: return b.getIndex();
             case 1: return b.getName();
             case 2: return b.getAuthor();
