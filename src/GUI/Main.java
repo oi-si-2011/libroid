@@ -132,15 +132,10 @@ public class Main extends JFrame {
 
             left.addTab("Books", bookTableContainer);
             left.addTab("Lists", new JPanel());
-<<<<<<< HEAD
-            left.addTab("Wishlist", new JPanel());
-            add(left);
-=======
             left.addTab("wishlist", new JPanel());
             add(left, BorderLayout.CENTER);
             bottomBar.getAccessibleContext();
             add(bottomBar, BorderLayout.SOUTH);
->>>>>>> 244996ed79cf05b91c4cfb57ba060caddb77a9ff
         // </editor-fold>
 
     }
