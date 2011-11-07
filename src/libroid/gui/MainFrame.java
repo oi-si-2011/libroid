@@ -28,17 +28,20 @@ public class MainFrame extends JFrame {
     // </editor-fold>
 
     public MainFrame() {
+        setupAttributes();
+        setupMenu();
+        setupComponents();
+    }
 
-        // <editor-fold defaultstate="collapsed" desc="main Frame">
+    private void setupAttributes() {
         setTitle("Libroid");
         setSize(1000, 640);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
         setLayout(new BorderLayout());
-        // </editor-fold>
+    }
 
-        // <editor-fold defaultstate="collapsed" desc="Menu">
-
+    private void setupMenu() {
         // <editor-fold defaultstate="collapsed" desc="File">
         menu = new JMenu("File");
         setJMenuBar(menuBar);
@@ -116,10 +119,9 @@ public class MainFrame extends JFrame {
         //menuItem.addActionListener();
         menu.add(menuItem);
         // </editor-fold>
+    }
 
-        // </editor-fold>
-
-        // <editor-fold defaultstate="collapsed" desc="Components">
+    private void setupComponents() {
         LibraryTable libraryTable = new LibraryTable();
         JScrollPane bookTableContainer = new JScrollPane(libraryTable);
 
@@ -129,8 +131,6 @@ public class MainFrame extends JFrame {
         add(left, BorderLayout.CENTER);
         bottomBar.getAccessibleContext();
         add(bottomBar, BorderLayout.SOUTH);
-        // </editor-fold>
-
     }
 
 }
