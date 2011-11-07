@@ -5,7 +5,7 @@ public class Book{
     private String name;
     private String author;
 
-    private String separator = ":;:";
+    // private String separator = ":;:";
 
     public Book(String name, String author){
         this.name = name;
@@ -36,9 +36,13 @@ public class Book{
         this.index = index;
     }
 
+    /**
+     * Get a string description of a book.
+     * Only for debugging purposes.
+     */
     @Override
     public String toString(){
-        return this.name.concat(separator).concat(this.author);
+        return String.format("Book name='%s' author='%s'", this.name, this.author);
     }
 
     @Override

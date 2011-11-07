@@ -58,4 +58,10 @@ public class BookTest {
         Book book = new Book("name", "author");
         assertEquals(-1308485047, book.hashCode());
     }
+
+    @Test
+    public void testToString() {
+        Book b = new Book("name", "author");
+        assertTrue(b.toString().equals("Book name='name' author='author'"));
+    }
 }
