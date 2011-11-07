@@ -14,6 +14,7 @@ import javax.swing.table.AbstractTableModel;
 import libroid.model.Book;
 
 public class LibraryTable extends JTable{
+    private static final Logger logger = Logger.getLogger(LibraryTable.class.getName());
     private static TableModel tableModel = new TableModel();
 
     public LibraryTable(){
@@ -45,7 +46,7 @@ public class LibraryTable extends JTable{
             try {
                 br.close();
             } catch (IOException ex) {
-                Logger.getLogger(LibraryTable.class.getName()).log(Level.SEVERE, null, ex);
+                logger.log(Level.SEVERE, null, ex);
             }
         }
     }

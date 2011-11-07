@@ -23,6 +23,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main extends JFrame {
 
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
     // <editor-fold defaultstate="collapsed" desc="Components init">
     private JMenuBar menuBar = new JMenuBar();
     private JMenu menu;
@@ -144,13 +146,13 @@ public class Main extends JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             new Main().setVisible(true);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 }
