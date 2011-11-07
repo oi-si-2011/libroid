@@ -40,8 +40,7 @@ public class Main extends JFrame {
         setSize(1000, 640);
         //setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((d.width - getSize().width) / 2, (d.height - getSize().height) / 2);
+        setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
         setLayout(new BorderLayout());
         // </editor-fold>
 
