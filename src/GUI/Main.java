@@ -126,7 +126,7 @@ public class Main extends JFrame {
 
             left.addTab("Books", bookTableContainer);
             left.addTab("Lists", new JPanel());
-            left.addTab("wishlist", new JPanel());
+            left.addTab("Wishlist", new JPanel());
             add(left);
         // </editor-fold>
 
