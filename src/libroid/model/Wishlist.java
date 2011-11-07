@@ -1,5 +1,10 @@
 package libroid.model;
 
+/**
+ * Zatim si nejsme jisti konkretni podobou teto tridy.
+ * Funkcnost by mela byt takova, ze by program nasel zaznamy knih, ke kterym
+ * nemame fyzicke knihy, a pripadne dohledal, zda byly vydany.
+ */
 public class Wishlist {
 
     public String name;
