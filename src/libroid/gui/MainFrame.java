@@ -19,9 +19,9 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class Main extends JFrame {
+public class MainFrame extends JFrame {
 
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
+    private static final Logger logger = Logger.getLogger(MainFrame.class.getName());
     // <editor-fold defaultstate="collapsed" desc="Components init">
     private JMenuBar menuBar = new JMenuBar();
     private JMenu menu;
@@ -30,7 +30,7 @@ public class Main extends JFrame {
     private JPanel bottomBar = new JPanel();
     // </editor-fold>
 
-    public Main() {
+    public MainFrame() {
 
         // <editor-fold defaultstate="collapsed" desc="main Frame">
         setTitle("Libroid");
@@ -136,18 +136,4 @@ public class Main extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            new Main().setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            logger.log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            logger.log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            logger.log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            logger.log(Level.SEVERE, null, ex);
-        }
-    }
 }
