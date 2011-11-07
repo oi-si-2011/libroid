@@ -1,12 +1,7 @@
 package libroid.gui;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -27,31 +22,7 @@ public class LibraryTable extends JTable{
         tableModel.addBook(new Book("A", "1"));
         tableModel.addBook(new Book("B", "2"));
         addMouseListener(new BookMenu(this));
-        getColumnModel().getColumn(0).setMaxWidth(30);
     }
-
-    /*
-    public LibraryTable(File f){
-        setModel(tableModel);
-        setAutoCreateRowSorter(true);
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(f));
-            String bookInString = "";
-            while((bookInString = br.readLine()) != null){
-                tableModel.addBook(new Book(bookInString));
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Couldn't read file "+f.getName(), "Error!", JOptionPane.WARNING_MESSAGE);
-        } finally {
-            try {
-                br.close();
-            } catch (IOException ex) {
-                logger.log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-     */
 
     void removeBook() {
         int count = getSelectedRowCount();
@@ -85,11 +56,10 @@ public class LibraryTable extends JTable{
 
 class TableModel extends AbstractTableModel{
 
-    private String[] columnNames = {"#","Name","Author"};
+    private String[] columnNames = {"Name","Author"};
     List<Book> list = new ArrayList<Book>();
 
     public void addBook(Book b){
-        b.setIndex(list.size());
         list.add(b);
     }
 
@@ -116,9 +86,8 @@ class TableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) { 
         Book b = list.get(rowIndex);
         switch (columnIndex) {
-            case 0: return b.getIndex();
-            case 1: return b.getName();
-            case 2: return b.getAuthor();
+            case 0: return b.getName();
+            case 1: return b.getAuthor();
             default: throw new IllegalArgumentException();
         }
     }

@@ -1,7 +1,6 @@
 package libroid.model;
 
 public class Book{
-    private int index;
     private String name;
     private String author;
 
@@ -26,14 +25,6 @@ public class Book{
 
     public String getAuthor() {
         return author;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     /**

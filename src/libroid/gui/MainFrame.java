@@ -1,6 +1,7 @@
 package libroid.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -26,7 +27,8 @@ public class MainFrame extends JFrame {
     private JMenuBar menuBar = new JMenuBar();
     private JMenu menu;
     private JMenuItem menuItem = new JMenuItem();
-    private JTabbedPane left = new JTabbedPane(SwingConstants.LEFT);
+    private JTabbedPane leftPanel = new JTabbedPane(SwingConstants.TOP);
+
     private JPanel bottomBar = new JPanel();
     // </editor-fold>
 
@@ -126,11 +128,11 @@ public class MainFrame extends JFrame {
         LibraryTable libraryTable = new LibraryTable();
         JScrollPane bookTableContainer = new JScrollPane(libraryTable);
 
-        left.addTab("Books", bookTableContainer);
-        left.addTab("Lists", new JPanel());
-        left.addTab("wishlist", new JPanel());
-        add(left, BorderLayout.CENTER);
-        bottomBar.getAccessibleContext();
+        leftPanel.addTab("Lists", new JPanel());
+        leftPanel.setPreferredSize(new Dimension(200, 500));
+
+        add(leftPanel, BorderLayout.WEST);
+        add(bookTableContainer, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
         // </editor-fold>
 
