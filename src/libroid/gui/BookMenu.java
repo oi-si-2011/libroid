@@ -7,12 +7,11 @@ import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.SwingConstants;
 
-class bookMenu extends JPopupMenu implements MouseListener {
+class BookMenu extends JPopupMenu implements MouseListener {
     private LibraryTable lt;
 
-    public bookMenu(final LibraryTable lt){
+    public BookMenu(final LibraryTable lt){
         this.lt = lt;
 
         if(lt.getSelectedRowCount() == 1){
@@ -65,7 +64,7 @@ class bookMenu extends JPopupMenu implements MouseListener {
                 int rowIndex = lt.rowAtPoint(e.getPoint());
                 lt.getSelectionModel().setSelectionInterval(rowIndex, rowIndex);
             }
-            bookMenu m = new bookMenu(lt);
+            BookMenu m = new BookMenu(lt);
             m.show(e.getComponent(), e.getX(), e.getY());
         }
     }

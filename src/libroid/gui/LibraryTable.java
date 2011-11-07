@@ -25,7 +25,7 @@ public class LibraryTable extends JTable{
         tableModel.addBook(new Book("Hordubal", "K. Capek"));
         tableModel.addBook(new Book("A", "1"));
         tableModel.addBook(new Book("B", "2"));
-        addMouseListener(new bookMenu(this));
+        addMouseListener(new BookMenu(this));
         getColumnModel().getColumn(0).setMaxWidth(30);
     }
 
