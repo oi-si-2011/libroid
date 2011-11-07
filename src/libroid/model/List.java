@@ -1,4 +1,4 @@
-package spravceknih;
+package libroid.model;
 
 public class List {
 

@@ -1,4 +1,4 @@
-package GUI;
+package libroid.gui;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import spravceknih.Book;
+import libroid.model.Book;
 
 public class LibraryTable extends JTable{
     private static TableModel tableModel = new TableModel();
