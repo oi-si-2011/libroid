@@ -1,16 +1,14 @@
 package libroid.gui;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 import libroid.model.Book;
 
 public class LibraryTable extends JTable{
     private static final Logger logger = Logger.getLogger(LibraryTable.class.getName());
-    private static TableModel tableModel = new TableModel();
+    private static LibraryTableModel tableModel = new LibraryTableModel();
 
     public LibraryTable(){
         setModel(tableModel);
@@ -52,48 +50,3 @@ public class LibraryTable extends JTable{
     }
 }
 
-
-
-class TableModel extends AbstractTableModel{
-
-    private String[] columnNames = {"Name","Author"};
-    List<Book> list = new ArrayList<Book>();
-
-    public void addBook(Book b){
-        list.add(b);
-    }
-
-    public void removeBookByIndex(int index){
-        list.remove(index);
-    }
-
-    public void removeBook(Book b){
-        list.remove(b);
-    }
-
-    Book getBook(int i) {
-        return list.get(i);
-    }
-
-    public int getRowCount() {
-        return list.size();
-    }
-
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    public Object getValueAt(int rowIndex, int columnIndex) { 
-        Book b = list.get(rowIndex);
-        switch (columnIndex) {
-            case 0: return b.getName();
-            case 1: return b.getAuthor();
-            default: throw new IllegalArgumentException();
-        }
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-}
