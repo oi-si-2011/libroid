@@ -62,6 +62,6 @@ public class BookTest {
     @Test
     public void testToString() {
         Book b = new Book("name", "author");
-        assertTrue(b.toString().equals("Book name='name' author='author'"));
+        assertTrue(b.toString().equals("Book(name='name' author='author')"));
     }
 }
