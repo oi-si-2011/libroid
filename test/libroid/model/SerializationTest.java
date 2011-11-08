@@ -12,7 +12,11 @@ public class SerializationTest {
         byte[] result = Serialization.serialize(m);
         String resultStr = new String(result, "latin1");
         //System.out.println("Result: '" + resultStr + "'");
-        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\n";
+        String expected =
+                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+                + "<LibroidLibrary>\n"
+                + "<books/>\n"
+                + "</LibroidLibrary>\n";
         assertEquals(expected, resultStr);
     }
 
@@ -23,7 +27,21 @@ public class SerializationTest {
         m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
         byte[] result = Serialization.serialize(m);
         String resultStr = new String(result, "latin1");
-        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\n";
+        System.out.println("Result: '" + resultStr + "'");
+        String expected =
+                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+                + "<LibroidLibrary>\n"
+                + "<books>\n"
+                + "<Book>\n"
+                + "<name>Vlakna hypercasu</name>\n"
+                + "<author>R. Susta</author>\n"
+                + "</Book>\n"
+                + "<Book>\n"
+                + "<name>Kryptonomikon</name>\n"
+                + "<author>N. Stephenson</author>\n"
+                + "</Book>\n"
+                + "</books>\n"
+                + "</LibroidLibrary>\n";
         assertEquals(expected, resultStr);
     }
 }

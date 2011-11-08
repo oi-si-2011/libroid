@@ -14,6 +14,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class Serialization {
 
@@ -31,6 +32,7 @@ public class Serialization {
     private static class XMLBuilder {
 
         Document xmldoc;
+        Element books;
 
         public XMLBuilder() {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -41,6 +43,12 @@ public class Serialization {
                 throw new RuntimeException(ex);
             }
             xmldoc = builder.newDocument();
+            Element root = xmldoc.createElement("LibroidLibrary");
+            xmldoc.appendChild(root);
+
+            books = xmldoc.createElement("books");
+            root.appendChild(books);
+
         }
 
         public byte[] serialize() {
@@ -66,6 +74,17 @@ public class Serialization {
         }
 
         private void addBook(Book b) {
+            Element book = xmldoc.createElement("Book");
+            books.appendChild(book);
+
+            Element e;
+            e = xmldoc.createElement("name");
+            e.appendChild(xmldoc.createTextNode(b.getName()));
+            book.appendChild(e);
+
+            e = xmldoc.createElement("author");
+            e.appendChild(xmldoc.createTextNode(b.getAuthor()));
+            book.appendChild(e);
         }
     }
 }
