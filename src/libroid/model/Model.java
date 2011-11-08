@@ -14,7 +14,7 @@ public class Model {
     public Model() {
     }
 
-    private void addBook(Book book) {
+    public void addBook(Book book) {
         allBooks.add(book);
     }
 
