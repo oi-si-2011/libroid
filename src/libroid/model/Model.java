@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 public class Model {
 
     private static final Logger logger = Logger.getLogger(Model.class.getName());
-
     private List<Book> allBooks = new ArrayList<Book>();
+    private List<BookList> alLBookLists = new ArrayList<BookList>();
 
     public Model() {
     }
@@ -22,6 +22,15 @@ public class Model {
         return allBooks.size();
     }
 
+    public Book getBook(int index) {
+        return allBooks.get(index);
+    }
+
+    public void removeBooks(List<Book> booksToRemove) {
+        logger.log(Level.INFO, "Removing {0} books: {1}",
+                new Object[]{booksToRemove.size(), booksToRemove});
+        allBooks.removeAll(booksToRemove);
+    }
 
     public static Model createSampleModel() {
         Model m = new Model();
@@ -35,16 +44,4 @@ public class Model {
 
         return m;
     }
-
-    public Book getBook(int index) {
-        return allBooks.get(index);
-    }
-
-    public void removeBooks(List<Book> booksToRemove) {
-        logger.log(Level.INFO, "Removing {0} books: {1}",
-                new Object[]{booksToRemove.size(), booksToRemove});
-        allBooks.removeAll(booksToRemove);
-    }
-
-
 }
