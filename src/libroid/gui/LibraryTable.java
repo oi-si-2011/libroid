@@ -3,14 +3,14 @@ package libroid.gui;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.TableModel;
 import libroid.model.Book;
 
 public class LibraryTable extends JTable{
     private static final Logger logger = Logger.getLogger(LibraryTable.class.getName());
-    private static LibraryTableModel tableModel = new LibraryTableModel();
+    private LibraryTableModel tableModel = new LibraryTableModel();
 
     public LibraryTable(){
+        super();
         setModel(tableModel);
         setAutoCreateRowSorter(true);
         tableModel.addBook(new Book("Vlakna hypercasu", "R. Susta"));
