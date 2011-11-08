@@ -1,5 +1,7 @@
-package libroid.model;
+package libroid.model.serialization;
 
+import libroid.model.Book;
+import libroid.model.Model;
 import java.io.UnsupportedEncodingException;
 import org.junit.Test;
 import static org.junit.Assert.*;
