@@ -15,10 +15,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
-import javax.swing.plaf.basic.BasicBorders.SplitPaneBorder;
+import libroid.model.Model;
 
 public class MainFrame extends JFrame {
 
@@ -33,10 +31,11 @@ public class MainFrame extends JFrame {
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     // </editor-fold>
 
-    public MainFrame() {
+    public MainFrame(Model model) {
+        super();
         setupAttributes();
         setupMenu();
-        setupComponents();
+        setupComponents(model);
     }
 
     private void setupAttributes() {
@@ -127,8 +126,8 @@ public class MainFrame extends JFrame {
         // </editor-fold>
     }
 
-    private void setupComponents() {
-        LibraryTable libraryTable = new LibraryTable();
+    private void setupComponents(Model model) {
+        LibraryTable libraryTable = new LibraryTable(model);
         JScrollPane bookTableContainer = new JScrollPane(libraryTable);
 
 

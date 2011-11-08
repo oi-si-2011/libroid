@@ -1,33 +1,21 @@
 package libroid.gui;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import libroid.model.Book;
+import libroid.model.Model;
 
 public class LibraryTableModel extends AbstractTableModel {
 
-    private String[] columnNames = {"Name","Author"};
-    List<Book> list = new ArrayList<Book>();
+    private Model dataModel;
+    private String[] columnNames = {"Name", "Author"};
 
-    public void addBook(Book b){
-        list.add(b);
-    }
-
-    public void removeBookByIndex(int index){
-        list.remove(index);
-    }
-
-    public void removeBook(Book b){
-        list.remove(b);
-    }
-
-    Book getBook(int i) {
-        return list.get(i);
+    public LibraryTableModel(Model dataModel) {
+        super();
+        this.dataModel = dataModel;
     }
 
     public int getRowCount() {
-        return list.size();
+        return dataModel.bookCount();
     }
 
     public int getColumnCount() {
@@ -35,11 +23,14 @@ public class LibraryTableModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Book b = list.get(rowIndex);
+        Book b = dataModel.getBook(rowIndex);
         switch (columnIndex) {
-            case 0: return b.getName();
-            case 1: return b.getAuthor();
-            default: throw new IllegalArgumentException();
+            case 0:
+                return b.getName();
+            case 1:
+                return b.getAuthor();
+            default:
+                throw new IllegalArgumentException();
         }
     }
 
@@ -47,6 +38,4 @@ public class LibraryTableModel extends AbstractTableModel {
     public String getColumnName(int col) {
         return columnNames[col];
     }
-
 }
-

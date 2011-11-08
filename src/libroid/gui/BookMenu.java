@@ -26,7 +26,7 @@ class BookMenu extends JPopupMenu implements MouseListener {
             menuItem = new JMenuItem("Remove book");
             menuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    lt.removeBook();
+                    lt.removeSelectedBooks();
                 }
             });
             add(menuItem);
@@ -43,7 +43,7 @@ class BookMenu extends JPopupMenu implements MouseListener {
             menuItem = new JMenuItem("Remove books");
             menuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    lt.removeBook();
+                    lt.removeSelectedBooks();
                 }
             });
             add(menuItem);
