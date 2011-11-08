@@ -37,6 +37,7 @@ public class XMLUtil {
             throw new RuntimeException(ex);
         }
         aTransformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        aTransformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         Source src = new DOMSource(xmldoc);
         Result dest = new StreamResult(os);
         try {

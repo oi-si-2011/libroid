@@ -17,7 +17,7 @@ public class SerializationTest {
         String expected =
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
                 + "<LibroidLibrary>\n"
-                + "<books/>\n"
+                + "    <books/>\n"
                 + "</LibroidLibrary>\n";
         assertEquals(expected, resultStr);
     }
@@ -33,16 +33,16 @@ public class SerializationTest {
         String expected =
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
                 + "<LibroidLibrary>\n"
-                + "<books>\n"
-                + "<Book>\n"
-                + "<name>Vlakna hypercasu</name>\n"
-                + "<author>R. Susta</author>\n"
-                + "</Book>\n"
-                + "<Book>\n"
-                + "<name>Kryptonomikon</name>\n"
-                + "<author>N. Stephenson</author>\n"
-                + "</Book>\n"
-                + "</books>\n"
+                + "    <books>\n"
+                + "        <Book>\n"
+                + "            <name>Vlakna hypercasu</name>\n"
+                + "            <author>R. Susta</author>\n"
+                + "        </Book>\n"
+                + "        <Book>\n"
+                + "            <name>Kryptonomikon</name>\n"
+                + "            <author>N. Stephenson</author>\n"
+                + "        </Book>\n"
+                + "    </books>\n"
                 + "</LibroidLibrary>\n";
         assertEquals(expected, resultStr);
     }
