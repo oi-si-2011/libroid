@@ -10,7 +10,6 @@ public class LibraryTableModel extends AbstractTableModel {
     private String[] columnNames = {"Name", "Author"};
 
     public LibraryTableModel(Model dataModel) {
-        super();
         this.dataModel = dataModel;
     }
 

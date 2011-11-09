@@ -32,7 +32,6 @@ public class MainFrame extends JFrame {
     // </editor-fold>
 
     public MainFrame(Model model) {
-        super();
         setupAttributes();
         setupMenu();
         setupComponents(model);
