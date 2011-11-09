@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
     private JPanel leftPanel = new JPanel();
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
-    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
     // </editor-fold>
 
     public MainFrame() {
