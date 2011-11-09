@@ -3,19 +3,24 @@ package libroid.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.table.TableRowSorter;
 import libroid.model.Model;
 
 public class MainFrame extends JFrame {
@@ -29,6 +34,7 @@ public class MainFrame extends JFrame {
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
+    private FilterField filterTextField;
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -128,11 +134,13 @@ public class MainFrame extends JFrame {
     private void setupComponents(Model model) {
         LibraryTable libraryTable = new LibraryTable(model);
         JScrollPane bookTableContainer = new JScrollPane(libraryTable);
-
+        filterTextField = new FilterField(libraryTable);
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
         leftPanel.setBackground(Color.white);
 
+        toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        toolBar.add(filterTextField);
         add(toolBar, BorderLayout.NORTH);
 
         content.add(leftPanel);

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 import libroid.model.Book;
 import libroid.model.Model;
 
@@ -13,6 +15,7 @@ public class LibraryTable extends JTable {
     private static final Logger logger = Logger.getLogger(LibraryTable.class.getName());
     private Model appDataModel;
     private LibraryTableModel tableModel;
+    private TableRowSorter sorter = new TableRowSorter<LibraryTableModel>();
 
     public LibraryTable(Model dataModel) {
         this.appDataModel = dataModel;
@@ -20,6 +23,9 @@ public class LibraryTable extends JTable {
         setModel(tableModel);
         setAutoCreateRowSorter(true);
         addMouseListener(new BookMenu(this));
+
+        sorter = (TableRowSorter) getRowSorter();
+
     }
 
     List<Book> getSelectedBooks() {
@@ -46,5 +52,9 @@ public class LibraryTable extends JTable {
             case JOptionPane.CANCEL_OPTION:
                 break;
         }
+    }
+
+    void setRowFilter(RowFilter<LibraryTableModel, Object> rf) {
+        sorter.setRowFilter(rf);
     }
 }
