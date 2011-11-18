@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -34,7 +35,13 @@ public class MainFrame extends JFrame {
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
+<<<<<<< HEAD
     //private FilterField filterTextField;
+=======
+    private FilterField filterTextField;
+    private BookDescription bookDescriptionPanel = new BookDescription();
+    private JLayeredPane bookDescriptionLayer = new JLayeredPane();
+>>>>>>> origin/master
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -139,9 +146,27 @@ public class MainFrame extends JFrame {
         leftPanel.setPreferredSize(new Dimension(200, 500));
         leftPanel.setBackground(Color.white);
 
+        JButton button = new JButton("show");
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                bookDescriptionPanel.setMinimumSize(new Dimension(200, 300));
+            }
+        });
+        add(button);
+
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
+<<<<<<< HEAD
         //toolBar.add(filterTextField);
+=======
+        toolBar.add(button);
+        toolBar.add(filterTextField);
+>>>>>>> origin/master
         add(toolBar, BorderLayout.NORTH);
+
+        
+        bookDescriptionLayer.setOpaque(true);
+        bookDescriptionLayer.add(bookTableContainer);
+        bookDescriptionLayer.add(bookDescriptionPanel);
 
         content.add(leftPanel);
         content.add(bookTableContainer);
