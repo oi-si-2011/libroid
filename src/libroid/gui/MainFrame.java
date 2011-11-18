@@ -35,9 +35,13 @@ public class MainFrame extends JFrame {
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
+<<<<<<< HEAD
+    //private FilterField filterTextField;
+=======
     private FilterField filterTextField;
     private BookDescription bookDescriptionPanel = new BookDescription();
     private JLayeredPane bookDescriptionLayer = new JLayeredPane();
+>>>>>>> origin/master
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -137,7 +141,7 @@ public class MainFrame extends JFrame {
     private void setupComponents(Model model) {
         LibraryTable libraryTable = new LibraryTable(model);
         JScrollPane bookTableContainer = new JScrollPane(libraryTable);
-        filterTextField = new FilterField(libraryTable);
+        //filterTextField = new FilterField(libraryTable);
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
         leftPanel.setBackground(Color.white);
@@ -151,8 +155,12 @@ public class MainFrame extends JFrame {
         add(button);
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
+<<<<<<< HEAD
+        //toolBar.add(filterTextField);
+=======
         toolBar.add(button);
         toolBar.add(filterTextField);
+>>>>>>> origin/master
         add(toolBar, BorderLayout.NORTH);
 
         
