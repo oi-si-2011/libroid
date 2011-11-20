@@ -1,57 +1,63 @@
 package libroid.gui;
 
-import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import libroid.model.Book;
 
-public class BookDescription extends JPanel {
-    private Book b;
+public class BookDescription extends JFrame {
+    private Book book;
+    private Point origin;
+    private String title = "";
+    JLabel label = new JLabel(title);
 
     public BookDescription(){
-        setPreferredSize(new Dimension(1, 300));
+        setSize(200, 200);
+        setLayout(new FlowLayout());
+        setUndecorated(true);
 
         JButton button = new JButton("Hide");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                showPanel(false);
+                dispose();
             }
         });
         add(button);
+        add(label);
+
+        addWindowFocusListener(new WindowFocusListener() {
+            public void windowGainedFocus(WindowEvent e) {}
+            public void windowLostFocus(WindowEvent e) {
+                if(isVisible()){
+                   dispose();
+                }
+            }
+        });
     }
 
-    public void showPanel(Boolean show){
-        if(show){
-            final Timer t = new Timer();
-            TimerTask opening = new TimerTask() {
-            @Override
-            public void run() {
-                int x = getWidth();
-                setPreferredSize(new Dimension(x+2, 300));
-                if(x>200){
-                    t.cancel();
-                }
-            }
-            };
-            t.schedule(opening, new Date(), 5);
-        }else{
-            final Timer t = new Timer();
-            TimerTask opening = new TimerTask() {
-            @Override
-            public void run() {
-                int x = getWidth();
-                setPreferredSize(new Dimension(x-2, 300));
-                if(x == 2){
-                    t.cancel();
-                }
-            }
-            };
-            t.schedule(opening, new Date(), 5);
-        }
+    public void showPanel(){
+        requestFocusInWindow();
+        setLocation(origin.x, origin.y);
+        setVisible(true);
+    }
+
+    void setOriginPoint(int x, int y) {
+        origin = new Point(x, y);
+    }
+
+    void setHeight(int height) {
+        setSize(getSize().width, height);
+    }
+
+    void setBook(Book b){
+        this.book = b;
+        title = b.getAuthor();
+        label.setText(title);
     }
 }

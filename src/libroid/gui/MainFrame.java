@@ -11,17 +11,13 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.table.TableRowSorter;
 import libroid.model.Model;
 
 public class MainFrame extends JFrame {
@@ -37,7 +33,7 @@ public class MainFrame extends JFrame {
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
     private FilterField filterTextField;
     private BookDescription bookDescriptionPanel = new BookDescription();
-    private JLayeredPane bookDescriptionLayer = new JLayeredPane();
+    private JScrollPane bookTableContainer;
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -136,7 +132,7 @@ public class MainFrame extends JFrame {
 
     private void setupComponents(Model model) {
         LibraryTable libraryTable = new LibraryTable(model);
-        JScrollPane bookTableContainer = new JScrollPane(libraryTable);
+        bookTableContainer = new JScrollPane(libraryTable);
         filterTextField = new FilterField(libraryTable);
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
@@ -145,23 +141,22 @@ public class MainFrame extends JFrame {
         JButton button = new JButton("show");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                bookDescriptionPanel.setMinimumSize(new Dimension(200, 300));
+                int y = bookTableContainer.getLocationOnScreen().y;
+                int x = getLocation().x + getWidth();
+                bookDescriptionPanel.setOriginPoint(x,y);
+                bookDescriptionPanel.setHeight(bookTableContainer.getHeight());
+                bookDescriptionPanel.showPanel();
             }
         });
-        add(button);
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         toolBar.add(button);
         toolBar.add(filterTextField);
         add(toolBar, BorderLayout.NORTH);
 
-        
-        bookDescriptionLayer.setOpaque(true);
-        bookDescriptionLayer.add(bookTableContainer);
-        bookDescriptionLayer.add(bookDescriptionPanel);
-
         content.add(leftPanel);
         content.add(bookTableContainer);
+
         add(content, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
     }
