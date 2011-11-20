@@ -44,4 +44,7 @@ public class Model {
 
         return m;
     }
+    public List <Book> getAllBooks(){
+        return allBooks;
+    }
 }

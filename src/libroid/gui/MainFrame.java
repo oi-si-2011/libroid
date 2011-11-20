@@ -31,6 +31,7 @@ public class MainFrame extends JFrame {
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
+    //private FilterField filterTextField;
     private FilterField filterTextField;
     private BookDescription bookDescriptionPanel = new BookDescription();
     private JScrollPane bookTableContainer;
@@ -132,26 +133,17 @@ public class MainFrame extends JFrame {
 
     private void setupComponents(Model model) {
         LibraryTable libraryTable = new LibraryTable(model);
+
         bookTableContainer = new JScrollPane(libraryTable);
         filterTextField = new FilterField(libraryTable);
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
         leftPanel.setBackground(Color.white);
 
-        JButton button = new JButton("show");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int y = bookTableContainer.getLocationOnScreen().y;
-                int x = getLocation().x + getWidth();
-                bookDescriptionPanel.setOriginPoint(x,y);
-                bookDescriptionPanel.setHeight(bookTableContainer.getHeight());
-                bookDescriptionPanel.showPanel();
-            }
-        });
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        toolBar.add(button);
         toolBar.add(filterTextField);
+
         add(toolBar, BorderLayout.NORTH);
 
         content.add(leftPanel);
