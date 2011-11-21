@@ -10,6 +10,7 @@ import javax.swing.JPopupMenu;
 
 class BookMenu extends JPopupMenu implements MouseListener {
     private LibraryTable lt;
+    private BookDescription description = new BookDescription();
 
     public BookMenu(final LibraryTable lt){
         this.lt = lt;
@@ -18,7 +19,7 @@ class BookMenu extends JPopupMenu implements MouseListener {
             JMenuItem menuItem = new JMenuItem("Open book");
             menuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    //setVisible(false);
+                    
                 }
             });
             add(menuItem);
@@ -53,7 +54,11 @@ class BookMenu extends JPopupMenu implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
-            
+            if(lt.getSelectedRowCount() == 1){
+                description.setOriginPoint(e.getXOnScreen(), e.getYOnScreen());
+                description.setBook(lt.getSelectedBooks().get(0));
+                description.showPanel();
+            }
         }
     }
 

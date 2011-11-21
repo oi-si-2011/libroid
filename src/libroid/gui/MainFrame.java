@@ -11,17 +11,13 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.table.TableRowSorter;
 import libroid.model.Model;
 
 public class MainFrame extends JFrame {
@@ -35,6 +31,7 @@ public class MainFrame extends JFrame {
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
+<<<<<<< HEAD
 
     //private FilterField filterTextField;
 
@@ -42,6 +39,12 @@ public class MainFrame extends JFrame {
     private BookDescription bookDescriptionPanel = new BookDescription();
     private JLayeredPane bookDescriptionLayer = new JLayeredPane();
 
+=======
+    //private FilterField filterTextField;
+    private FilterField filterTextField;
+    private BookDescription bookDescriptionPanel = new BookDescription();
+    private JScrollPane bookTableContainer;
+>>>>>>> ad18d46b9cbb7750da7be32380415c2c37d99d2d
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -140,21 +143,16 @@ public class MainFrame extends JFrame {
 
     private void setupComponents(Model model) {
         LibraryTable libraryTable = new LibraryTable(model);
-        JScrollPane bookTableContainer = new JScrollPane(libraryTable);
-        //filterTextField = new FilterField(libraryTable);
+
+        bookTableContainer = new JScrollPane(libraryTable);
+        filterTextField = new FilterField(libraryTable);
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
         leftPanel.setBackground(Color.white);
 
-        JButton button = new JButton("show");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                bookDescriptionPanel.setMinimumSize(new Dimension(200, 300));
-            }
-        });
-        add(button);
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
+<<<<<<< HEAD
 
         //toolBar.add(filterTextField);
 
@@ -162,14 +160,15 @@ public class MainFrame extends JFrame {
         toolBar.add(filterTextField);
 
         add(toolBar, BorderLayout.NORTH);
+=======
+        toolBar.add(filterTextField);
+>>>>>>> ad18d46b9cbb7750da7be32380415c2c37d99d2d
 
-        
-        bookDescriptionLayer.setOpaque(true);
-        bookDescriptionLayer.add(bookTableContainer);
-        bookDescriptionLayer.add(bookDescriptionPanel);
+        add(toolBar, BorderLayout.NORTH);
 
         content.add(leftPanel);
         content.add(bookTableContainer);
+
         add(content, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
     }
