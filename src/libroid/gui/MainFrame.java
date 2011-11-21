@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,20 +32,14 @@ public class MainFrame extends JFrame {
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
-<<<<<<< HEAD
 
     //private FilterField filterTextField;
 
     private FilterField filterTextField;
     private BookDescription bookDescriptionPanel = new BookDescription();
     private JLayeredPane bookDescriptionLayer = new JLayeredPane();
-
-=======
-    //private FilterField filterTextField;
-    private FilterField filterTextField;
-    private BookDescription bookDescriptionPanel = new BookDescription();
     private JScrollPane bookTableContainer;
->>>>>>> ad18d46b9cbb7750da7be32380415c2c37d99d2d
+
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -152,17 +147,7 @@ public class MainFrame extends JFrame {
 
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
-<<<<<<< HEAD
-
-        //toolBar.add(filterTextField);
-
-        toolBar.add(button);
         toolBar.add(filterTextField);
-
-        add(toolBar, BorderLayout.NORTH);
-=======
-        toolBar.add(filterTextField);
->>>>>>> ad18d46b9cbb7750da7be32380415c2c37d99d2d
 
         add(toolBar, BorderLayout.NORTH);
 
