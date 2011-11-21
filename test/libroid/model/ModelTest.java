@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package libroid.model;
 
 import java.util.LinkedList;
@@ -13,12 +9,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Michal
- */
 public class ModelTest {
-    
+
     public ModelTest() {
     }
 
@@ -29,11 +21,11 @@ public class ModelTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,9 +39,9 @@ public class ModelTest {
         Book book = new Book("Vlakna hypercasu", "R. Susta");
         Model model = new Model();
         model.addBook(book);
-        assertEquals(book,model.getBook(0));             
+        assertEquals(book, model.getBook(0));
     }
-    
+
     @Test
     public void testAddBook2() {
         System.out.println("addBook");
@@ -59,8 +51,8 @@ public class ModelTest {
         m.addBook(new Book("Velke U", "Neal Stephenson"));
         m.addBook(new Book("Hordubal", "K. Capek"));
         m.addBook(new Book("A", "1"));
-        m.addBook(new Book("B", "2"));   
-        assertEquals(new Book("A", "1"),m.getBook(4));             
+        m.addBook(new Book("B", "2"));
+        assertEquals(new Book("A", "1"), m.getBook(4));
     }
 
     /**
@@ -75,8 +67,8 @@ public class ModelTest {
         m.addBook(new Book("Velke U", "Neal Stephenson"));
         m.addBook(new Book("Hordubal", "K. Capek"));
         m.addBook(new Book("A", "1"));
-        m.addBook(new Book("B", "2"));   
-        assertEquals(6,m.bookCount()); 
+        m.addBook(new Book("B", "2"));
+        assertEquals(6, m.bookCount());
     }
 
     /**
@@ -91,9 +83,9 @@ public class ModelTest {
         m.addBook(new Book("Hordubal", "K. Capek"));
         m.addBook(new Book("A", "1"));
         m.addBook(new Book("B", "2"));
-        assertEquals(new Book("Velke U", "Neal Stephenson"),m.getBook(2));
+        assertEquals(new Book("Velke U", "Neal Stephenson"), m.getBook(2));
     }
-    
+
     @Test
     public void testGetBook2() {
         Model m = new Model();
@@ -103,10 +95,9 @@ public class ModelTest {
         m.addBook(new Book("Hordubal", "K. Capek"));
         m.addBook(new Book("A", "1"));
         m.addBook(new Book("B", "2"));
-        try{
-            Book book=m.getBook(234);
-        }
-        catch (IndexOutOfBoundsException e){
+        try {
+            Book book = m.getBook(234);
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("chyba podchycena");
         }
     }
@@ -117,15 +108,15 @@ public class ModelTest {
     @Test
     public void testRemoveBooks() {
         System.out.println("removeBooks");
-        List <Book> booksToRemove = new LinkedList<Book>();
-        List <Book> sampleList = new LinkedList<Book>();
+        List<Book> booksToRemove = new LinkedList<Book>();
+        List<Book> sampleList = new LinkedList<Book>();
         booksToRemove.add(new Book("Vlakna hypercasu", "R. Susta"));
         booksToRemove.add(new Book("Velke U", "Neal Stephenson"));
         booksToRemove.add(new Book("A", "1"));
         sampleList.add(new Book("Kryptonomikon", "N. Stephenson"));
         sampleList.add(new Book("Hordubal", "K. Capek"));
         sampleList.add(new Book("B", "2"));
-        
+
         Model m = new Model();
         m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
         m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
@@ -134,18 +125,17 @@ public class ModelTest {
         m.addBook(new Book("A", "1"));
         m.addBook(new Book("B", "2"));
         m.removeBooks(booksToRemove);
-        
-        assertEquals(sampleList,m.getAllBooks());
+
+        assertEquals(sampleList, m.getAllBooks());
     }
+
     @Test
     public void testRemoveBooks2() {
         System.out.println("removeBooks from empty library");
-        List <Book> booksToRemove = new LinkedList<Book>();
-        List <Book> sampleList = new LinkedList<Book>(); 
+        List<Book> booksToRemove = new LinkedList<Book>();
+        List<Book> sampleList = new LinkedList<Book>();
         Model m = new Model();
-        m.removeBooks(booksToRemove);      
-        assertEquals(sampleList,m.getAllBooks());
+        m.removeBooks(booksToRemove);
+        assertEquals(sampleList, m.getAllBooks());
     }
-
-    
 }
