@@ -42,10 +42,29 @@ public class Model {
         m.addBook(new Book("A", "1"));
         m.addBook(new Book("B", "2"));
 
+        BookList bl;
+        bl = new BookList("Stephenson");
+        bl.addBook(m.getBook(1));
+        bl.addBook(m.getBook(2));
+        m.addBookList(bl);
+        bl = new BookList("Ceske knihy");
+        bl.addBook(m.getBook(0));
+        bl.addBook(m.getBook(3));
+        m.addBookList(bl);
+        m.addBookList(new BookList("Seznam 3"));
+
         return m;
     }
 
     public List<Book> getAllBooks() {
         return allBooks;
+    }
+
+    public void addBookList(BookList bl) {
+        alLBookLists.add(bl);
+    }
+
+    public List<BookList> getAlLBookLists() {
+        return alLBookLists;
     }
 }

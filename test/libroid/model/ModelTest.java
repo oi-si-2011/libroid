@@ -138,4 +138,8 @@ public class ModelTest {
         m.removeBooks(booksToRemove);
         assertEquals(sampleList, m.getAllBooks());
     }
+    /* XXX TODO: zkontrolovat (tedy otestovat kontrolu) treba, ze do booklistu
+     * se neda pridat kniha, ktera neni v modelu, apod. - proste
+     * kontrola integrity
+     */
 }

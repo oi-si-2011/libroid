@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
 import libroid.model.Model;
 
 public class MainFrame extends JFrame {
@@ -142,6 +143,8 @@ public class MainFrame extends JFrame {
         leftPanel.setPreferredSize(new Dimension(200, 500));
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
         lists = new JList(new Object[]{"a", "b"});
+        lists.setModel(new ListListModel(model));
+        lists.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         leftPanel.add(new JScrollPane(lists));
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
