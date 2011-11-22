@@ -31,15 +31,12 @@ public class MainFrame extends JFrame {
     private JPanel leftPanel = new JPanel();
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
-    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
-
+    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     private FilterField filterTextField;
     private BookDescription bookDescriptionPanel = new BookDescription();
     private JLayeredPane bookDescriptionLayer = new JLayeredPane();
     private JScrollPane bookTableContainer;
-
     private JList lists;
-
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -158,5 +155,4 @@ public class MainFrame extends JFrame {
         add(content, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
     }
-
 }
