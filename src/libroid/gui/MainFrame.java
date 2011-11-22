@@ -1,16 +1,17 @@
 package libroid.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -36,6 +37,8 @@ public class MainFrame extends JFrame {
     private BookDescription bookDescriptionPanel = new BookDescription();
     private JLayeredPane bookDescriptionLayer = new JLayeredPane();
     private JScrollPane bookTableContainer;
+
+    private JList lists;
 
     // </editor-fold>
 
@@ -140,8 +143,9 @@ public class MainFrame extends JFrame {
         filterTextField = new FilterField(libraryTable);
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
-        leftPanel.setBackground(Color.white);
-
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+        lists = new JList(new Object[]{"a", "b"});
+        leftPanel.add(new JScrollPane(lists));
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         toolBar.add(filterTextField);
