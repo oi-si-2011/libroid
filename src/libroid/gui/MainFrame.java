@@ -32,8 +32,6 @@ public class MainFrame extends JFrame {
     private JPanel bottomBar = new JPanel();
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
 
-    //private FilterField filterTextField;
-
     private FilterField filterTextField;
     private BookDescription bookDescriptionPanel = new BookDescription();
     private JLayeredPane bookDescriptionLayer = new JLayeredPane();

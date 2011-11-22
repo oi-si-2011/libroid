@@ -22,6 +22,9 @@ public class SerializationTest {
         assertEquals(expected, resultStr);
     }
 
+    /**
+     * Otestování serializace do XML modelu s několika knihama.
+     */
     @Test
     public void testSerializeSampleModel() throws UnsupportedEncodingException {
         Model m = new Model();
