@@ -4,20 +4,10 @@ public class Book{
     private String name;
     private String author;
 
-    // private String separator = ":;:";
-
     public Book(String name, String author){
         this.name = name;
         this.author = author;
     }
-
-    /*
-    public Book(String bookInString) {
-        String [] data = bookInString.split(separator);
-        this.name = data[0];
-        this.author = data[1];
-    }
-     */
 
     public String getName() {
         return name;
