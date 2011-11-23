@@ -8,9 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -18,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
 import libroid.model.Model;
 
 public class MainFrame extends JFrame {
@@ -33,6 +36,7 @@ public class MainFrame extends JFrame {
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
     private FilterField filterTextField;
     private JScrollPane bookTableContainer;
+    private JList lists;
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -137,6 +141,12 @@ public class MainFrame extends JFrame {
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
         leftPanel.setBackground(Color.white);
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+        lists = new JList(new Object[]{"a", "b"});
+        lists.setModel(new ListListModel(model));
+        lists.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        leftPanel.add(new JScrollPane(lists));
+
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         toolBar.add(filterTextField);
@@ -148,5 +158,4 @@ public class MainFrame extends JFrame {
         add(content, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
     }
-
 }
