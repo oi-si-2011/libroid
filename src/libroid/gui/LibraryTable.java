@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import libroid.model.Book;
+import libroid.model.BookList;
 import libroid.model.Model;
 
 public class LibraryTable extends JTable {
@@ -19,10 +20,12 @@ public class LibraryTable extends JTable {
 
     public LibraryTable(Model dataModel) {
         this.appDataModel = dataModel;
-        tableModel = new LibraryTableModel(dataModel);
+        BookList allBooksList = new BookList("Vsechny knihy");
+        allBooksList.setBooks(appDataModel.getAllBooks());
+        tableModel = new LibraryTableModel(allBooksList);
+        appDataModel.addBookList(allBooksList);
         setModel(tableModel);
         setAutoCreateRowSorter(true);
-        addMouseListener(new BookMenu(this));
 
         sorter = (TableRowSorter) getRowSorter();
 

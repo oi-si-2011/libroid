@@ -9,7 +9,7 @@ public class Model {
 
     private static final Logger logger = Logger.getLogger(Model.class.getName());
     private List<Book> allBooks = new ArrayList<Book>();
-    private List<BookList> alLBookLists = new ArrayList<BookList>();
+    private List<BookList> allBookLists = new ArrayList<BookList>();
 
     public Model() {
     }
@@ -51,7 +51,6 @@ public class Model {
         bl.addBook(m.getBook(0));
         bl.addBook(m.getBook(3));
         m.addBookList(bl);
-        m.addBookList(new BookList("Seznam 3"));
 
         return m;
     }
@@ -61,10 +60,14 @@ public class Model {
     }
 
     public void addBookList(BookList bl) {
-        alLBookLists.add(bl);
+        allBookLists.add(bl);
     }
 
-    public List<BookList> getAlLBookLists() {
-        return alLBookLists;
+    public BookList getBookList(int i){
+        return allBookLists.get(i);
+    }
+
+    public List<BookList> getAllBookLists() {
+        return allBookLists;
     }
 }

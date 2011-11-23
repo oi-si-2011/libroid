@@ -2,19 +2,19 @@ package libroid.gui;
 
 import javax.swing.table.AbstractTableModel;
 import libroid.model.Book;
-import libroid.model.Model;
+import libroid.model.BookList;
 
 public class LibraryTableModel extends AbstractTableModel {
 
-    private Model dataModel;
+    private BookList bookList;
     private String[] columnNames = {"Name", "Author"};
 
-    public LibraryTableModel(Model dataModel) {
-        this.dataModel = dataModel;
+    public LibraryTableModel(BookList bookList) {
+        this.bookList = bookList;
     }
 
     public int getRowCount() {
-        return dataModel.bookCount();
+        return bookList.getBooksCount();
     }
 
     public int getColumnCount() {
@@ -22,7 +22,7 @@ public class LibraryTableModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Book b = dataModel.getBook(rowIndex);
+        Book b = bookList.getBook(rowIndex);
         switch (columnIndex) {
             case 0:
                 return b.getName();

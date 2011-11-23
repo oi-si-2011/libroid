@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -35,8 +34,7 @@ public class MainFrame extends JFrame {
     private JPanel bottomBar = new JPanel();
     private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
     private FilterField filterTextField;
-    private JScrollPane bookTableContainer;
-    private JList lists;
+    private ListsInventory listsInventory;
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -136,23 +134,20 @@ public class MainFrame extends JFrame {
     private void setupComponents(Model model) {
         LibraryTable libraryTable = new LibraryTable(model);
 
-        bookTableContainer = new JScrollPane(libraryTable);
         filterTextField = new FilterField(libraryTable);
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
-        leftPanel.setBackground(Color.white);
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-        lists = new JList(new Object[]{"a", "b"});
-        lists.setModel(new ListListModel(model));
-        lists.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        leftPanel.add(new JScrollPane(lists));
+        listsInventory = new ListsInventory(model, libraryTable);
+        leftPanel.add(new JScrollPane(listsInventory));
 
+        libraryTable.addMouseListener(new BookMenu(libraryTable, model, listsInventory));
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         toolBar.add(filterTextField);
 
         content.add(leftPanel);
-        content.add(bookTableContainer);
+        content.add(new JScrollPane(libraryTable));
 
         add(toolBar, BorderLayout.NORTH);
         add(content, BorderLayout.CENTER);

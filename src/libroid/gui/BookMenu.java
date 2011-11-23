@@ -7,13 +7,18 @@ import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import libroid.model.Model;
 
 class BookMenu extends JPopupMenu implements MouseListener {
-    private LibraryTable lt;
+    private LibraryTable libraryTable;
     private BookDescription description = new BookDescription();
+    private Model appDataModel;
+    private ListsInventory listsInventory;
 
-    public BookMenu(final LibraryTable lt){
-        this.lt = lt;
+    public BookMenu(LibraryTable lt, Model m, ListsInventory li){
+        this.libraryTable = lt;
+        this.appDataModel = m;
+        this.listsInventory = li;
 
         if(lt.getSelectedRowCount() == 1){
             JMenuItem menuItem = new JMenuItem("Open book");
@@ -27,7 +32,7 @@ class BookMenu extends JPopupMenu implements MouseListener {
             menuItem = new JMenuItem("Remove book");
             menuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    lt.removeSelectedBooks();
+                    libraryTable.removeSelectedBooks();
                 }
             });
             add(menuItem);
@@ -36,7 +41,7 @@ class BookMenu extends JPopupMenu implements MouseListener {
             JMenuItem menuItem = new JMenuItem("Create new list");
             menuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    //lt.createNewList();
+                    listsInventory.createNewList(libraryTable.getSelectedBooks());
                 }
             });
             add(menuItem);
@@ -44,7 +49,7 @@ class BookMenu extends JPopupMenu implements MouseListener {
             menuItem = new JMenuItem("Remove books");
             menuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    lt.removeSelectedBooks();
+                    libraryTable.removeSelectedBooks();
                 }
             });
             add(menuItem);
@@ -54,9 +59,9 @@ class BookMenu extends JPopupMenu implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
-            if(lt.getSelectedRowCount() == 1){
+            if(libraryTable.getSelectedRowCount() == 1){
                 description.setOriginPoint(e.getXOnScreen(), e.getYOnScreen());
-                description.setBook(lt.getSelectedBooks().get(0));
+                description.setBook(libraryTable.getSelectedBooks().get(0));
                 description.showPanel();
             }
         }
@@ -65,11 +70,11 @@ class BookMenu extends JPopupMenu implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON3 || e.isPopupTrigger()){
-            if(lt.getSelectedRowCount() <= 1){
-                int rowIndex = lt.rowAtPoint(e.getPoint());
-                lt.getSelectionModel().setSelectionInterval(rowIndex, rowIndex);
+            if(libraryTable.getSelectedRowCount() <= 1){
+                int rowIndex = libraryTable.rowAtPoint(e.getPoint());
+                libraryTable.getSelectionModel().setSelectionInterval(rowIndex, rowIndex);
             }
-            BookMenu m = new BookMenu(lt);
+            BookMenu m = new BookMenu(libraryTable, appDataModel, listsInventory);
             m.show(e.getComponent(), e.getX(), e.getY());
         }
     }

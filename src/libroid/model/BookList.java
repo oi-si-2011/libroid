@@ -14,6 +14,10 @@ public class BookList {
         this.name = name;
     }
 
+    public void setBooks(List<Book> books){
+        this.books = books;
+    }
+
     public int getDate_created() {
         return date_created;
     }
@@ -30,8 +34,11 @@ public class BookList {
         books.add(book);
     }
 
-    public List<Book> getBooks() {
-        // XXX TODO tohle vraceni celeho Listu se mi nejak nelibi
-        return books;
+    public Book getBook(int i) {
+        return books.get(i);
+    }
+
+    public int getBooksCount(){
+        return books.size();
     }
 }
