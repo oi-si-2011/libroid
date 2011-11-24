@@ -1,0 +1,37 @@
+package libroid.gui;
+
+import java.util.List;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import libroid.model.Book;
+import libroid.model.Model;
+
+public class ListsInventory extends JList {
+
+    private Model model;
+    private LibraryTable table;
+    private ListsInventoryModel inventoryModel;
+
+    public ListsInventory(Model m, LibraryTable t){
+        model = m;
+        table = t;
+
+        inventoryModel = new ListsInventoryModel(model);
+        setModel(inventoryModel);
+        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                table.setModel(new LibraryTableModel(model.getBookList(getSelectedIndex())));
+            }
+        });
+    }
+
+    public void createNewList(List<Book> selectedBooks) {
+        new CreateListDialog(model, selectedBooks).setVisible(true);
+        inventoryModel = new ListsInventoryModel(model);
+        setModel(inventoryModel);
+    }
+}
