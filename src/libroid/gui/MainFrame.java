@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -20,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import libroid.model.Model;
 
 public class MainFrame extends JFrame {
@@ -62,12 +64,7 @@ public class MainFrame extends JFrame {
         menuItem.setMnemonic(KeyEvent.VK_O);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription("Adds a new book into library");
-        menuItem.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                new AddBookDialog().setVisible(true);
-            }
-        });
+        menuItem.addActionListener(new AddBookDialog());
         menu.add(menuItem);
 
         menuItem = new JMenuItem("Add a list", new ImageIcon("icons/addList.gif"));
@@ -146,6 +143,7 @@ public class MainFrame extends JFrame {
 
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         toolBar.add(filterTextField);
+
 
         content.add(leftPanel);
         content.add(new JScrollPane(libraryTable));
