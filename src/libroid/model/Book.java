@@ -3,10 +3,21 @@ package libroid.model;
 public class Book{
     private String name;
     private String author;
+    private int isbn;
+    private String uri;
+    private String genre;
 
     public Book(String name, String author){
         this.name = name;
         this.author = author;
+    }
+
+    public Book(String name, String author, String uri, String genre, int isbn){
+        this.name = name;
+        this.author = author;
+        this.uri = uri;
+        this.genre = genre;
+        this.isbn = isbn;
     }
 
     public String getName() {
@@ -15,6 +26,18 @@ public class Book{
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public String getUri() {
+        return uri;
     }
 
     /**
