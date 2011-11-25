@@ -30,8 +30,6 @@ public class ListsInventory extends JList {
     }
 
     public void createNewList(List<Book> selectedBooks) {
-        new CreateListDialog(model, selectedBooks).setVisible(true);
-        inventoryModel = new ListsInventoryModel(model);
-        setModel(inventoryModel);
+        new CreateListDialog(model, selectedBooks, this).setVisible(true);
     }
 }

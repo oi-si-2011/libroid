@@ -4,9 +4,6 @@ import javax.swing.AbstractListModel;
 import libroid.model.BookList;
 import libroid.model.Model;
 
-/**
- * Ano, tato trida je opravdu docela hloupe pojmenovana. Nejake navrhy?
- */
 public class ListsInventoryModel extends AbstractListModel {
 
     Model appModel;

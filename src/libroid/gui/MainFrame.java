@@ -65,6 +65,7 @@ public class MainFrame extends JFrame {
         menuItem.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+                new AddBookDialog().setVisible(true);
             }
         });
         menu.add(menuItem);
