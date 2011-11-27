@@ -34,6 +34,10 @@ public class BookList {
         books.add(book);
     }
 
+    public void addBooks(List<Book> books){
+        this.books.addAll(books);
+    }
+
     public Book getBook(int i) {
         return books.get(i);
     }

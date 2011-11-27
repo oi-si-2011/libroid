@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import libroid.model.Book;
+import libroid.model.Model;
 
 class AddBookDialog extends JFrame implements ActionListener{
     private FileFilter fileFilter = new FileFilter() {
@@ -36,6 +37,7 @@ class AddBookDialog extends JFrame implements ActionListener{
     private File file;
 
     private Book book;
+    private Model model;
 
     private String uri;
     private JButton confirm = new JButton("Confirm");
@@ -44,7 +46,8 @@ class AddBookDialog extends JFrame implements ActionListener{
     private JTextField genre = new JTextField(12);
     private JTextField isbn = new JTextField(12);
 
-    public AddBookDialog() {
+    public AddBookDialog(Model m) {
+        this.model = m;
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         
@@ -108,6 +111,19 @@ class AddBookDialog extends JFrame implements ActionListener{
             
         pack();
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
+
+        confirm.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                uri = file.getAbsolutePath();
+                int isbnInt = 0;
+                try{
+                    isbnInt = Integer.valueOf(isbn.getText());
+                }catch (Exception ex){}
+                book = new Book(name.getText(), author.getText(), uri, genre.getText(), isbnInt);
+                model.addBook(book);
+                dispose();
+            }
+        });
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -115,7 +131,6 @@ class AddBookDialog extends JFrame implements ActionListener{
         fileChooser.showOpenDialog(this);
         file = fileChooser.getSelectedFile();
         if(file != null){
-
             setVisible(true);
         }
     }

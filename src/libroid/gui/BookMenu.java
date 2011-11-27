@@ -1,32 +1,53 @@
 package libroid.gui;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import libroid.model.Book;
 import libroid.model.Model;
 
 class BookMenu extends JPopupMenu implements MouseListener {
     private LibraryTable libraryTable;
     private BookDescription description = new BookDescription();
-    private Model appDataModel;
+    private Model model;
     private ListsInventory listsInventory;
 
     public BookMenu(LibraryTable lt, Model m, ListsInventory li){
         this.libraryTable = lt;
-        this.appDataModel = m;
+        this.model = m;
         this.listsInventory = li;
 
         if(lt.getSelectedRowCount() == 1){
             JMenuItem menuItem = new JMenuItem("Open book");
             menuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    
+                    Book book = libraryTable.getSelectedBooks().get(0);
+                    File f = new File(book.getUri());
+                    System.out.println(book.getUri());
+                    try {
+                        if (Desktop.isDesktopSupported()) {
+                            Desktop.getDesktop().open(f);
+                        }else{
+                            throw new IOException("Desktop not supported");
+                        }
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Couldn't open the book. The source file wasn't found or the filetype isn't supported.", "An error has occured", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             });
+            add(menuItem);
+
+            menuItem = new JMenuItem("Add to list");
+            menuItem.addActionListener(new SelectListDialog(model, libraryTable.getSelectedBooks()));
             add(menuItem);
 
             menuItem = new JMenuItem("Remove book");
@@ -44,6 +65,10 @@ class BookMenu extends JPopupMenu implements MouseListener {
                     listsInventory.createNewList(libraryTable.getSelectedBooks());
                 }
             });
+            add(menuItem);
+
+            menuItem = new JMenuItem("Add to list");
+            menuItem.addActionListener(new SelectListDialog(model, libraryTable.getSelectedBooks()));
             add(menuItem);
 
             menuItem = new JMenuItem("Remove books");
@@ -74,7 +99,7 @@ class BookMenu extends JPopupMenu implements MouseListener {
                 int rowIndex = libraryTable.rowAtPoint(e.getPoint());
                 libraryTable.getSelectionModel().setSelectionInterval(rowIndex, rowIndex);
             }
-            BookMenu m = new BookMenu(libraryTable, appDataModel, listsInventory);
+            BookMenu m = new BookMenu(libraryTable, model, listsInventory);
             m.show(e.getComponent(), e.getX(), e.getY());
         }
     }

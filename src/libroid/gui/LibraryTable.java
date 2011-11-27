@@ -26,7 +26,7 @@ public class LibraryTable extends JTable {
         appDataModel.addBookList(allBooksList);
         setModel(tableModel);
         setAutoCreateRowSorter(true);
-
+        setDragEnabled(true);
         sorter = (TableRowSorter) getRowSorter();
 
     }
