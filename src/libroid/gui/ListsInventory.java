@@ -3,10 +3,12 @@ package libroid.gui;
 import java.awt.dnd.DropTarget;
 import java.util.List;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import libroid.model.Book;
+import libroid.model.BookList;
 import libroid.model.Model;
 
 public class ListsInventory extends JList{
@@ -32,6 +34,11 @@ public class ListsInventory extends JList{
     }
 
     public void createNewList(List<Book> selectedBooks) {
-        new CreateListDialog(model, selectedBooks, this).setVisible(true);
+        String name = JOptionPane.showInputDialog(null, "What's the new list name?", "Create new empty list", JOptionPane.PLAIN_MESSAGE);
+        if(name==null || name.equals("")) return;
+        BookList bl = new BookList(name);
+        bl.addBooks(selectedBooks);
+        model.addBookList(bl); 
+        updateUI();
     }
 }

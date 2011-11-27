@@ -138,7 +138,8 @@ public class MainFrame extends JFrame {
 
     private void addListDialog(){
         String name = JOptionPane.showInputDialog(null, "What's the new list name?", "Create new empty list", JOptionPane.PLAIN_MESSAGE);
-        if(!name.equals("")) model.addBookList(new BookList(name));
+        if(name==null || name.equals("")) return;
+        model.addBookList(new BookList(name));
         listsInventory.updateUI();
     }
 
