@@ -4,6 +4,9 @@ import javax.swing.AbstractListModel;
 import libroid.model.BookList;
 import libroid.model.Model;
 
+/**
+ * Model pro seznamy knih.
+ */
 public class ListsInventoryModel extends AbstractListModel {
 
     Model appModel;

@@ -23,6 +23,9 @@ import javax.swing.KeyStroke;
 import libroid.model.BookList;
 import libroid.model.Model;
 
+/**
+ * Hlavní okno aplikace.
+ */
 public class MainFrame extends JFrame {
 
     private static final Logger logger = Logger.getLogger(MainFrame.class.getName());
@@ -33,7 +36,7 @@ public class MainFrame extends JFrame {
     private JPanel leftPanel = new JPanel();
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
-    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT );
+    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     private FilterField filterTextField;
     private ListsInventory listsInventory;
     private Model model;
@@ -75,6 +78,7 @@ public class MainFrame extends JFrame {
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription("Adds a new list of books");
         menuItem.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 addListDialog();
             }
@@ -136,9 +140,14 @@ public class MainFrame extends JFrame {
         // </editor-fold>
     }
 
-    private void addListDialog(){
-        String name = JOptionPane.showInputDialog(null, "What's the new list name?", "Create new empty list", JOptionPane.PLAIN_MESSAGE);
-        if(name==null || name.equals("")) return;
+    private void addListDialog() {
+        String name = JOptionPane.showInputDialog(null,
+                "What's the new list name?",
+                "Create new empty list",
+                JOptionPane.PLAIN_MESSAGE);
+        if (name == null || name.equals("")) {
+            return;
+        }
         model.addBookList(new BookList(name));
         listsInventory.updateUI();
     }
@@ -165,11 +174,12 @@ public class MainFrame extends JFrame {
         add(bottomBar, BorderLayout.SOUTH);
     }
 
-    private void setupToolBar(){
+    private void setupToolBar() {
         toolBar.setLayout(new GridLayout(1, 2));
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT));
         addBookButton.addActionListener(new AddBookDialog(model));
         addListButton.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 addListDialog();
             }
