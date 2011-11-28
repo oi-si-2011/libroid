@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.regex.Pattern;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
@@ -71,5 +72,9 @@ public class FilterField extends JTextField {
         };
         
         table.setRowFilter(rf);
+    }
+
+    void setTable(LibraryTable t){
+        table = t;
     }
 }

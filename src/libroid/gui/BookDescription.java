@@ -75,8 +75,8 @@ public class BookDescription extends JFrame {
             edit.add(genreText);          
             edit.add(isbnText);
 
-        content.add(view);
-        content.add(edit);
+        content.add(view, "");
+        content.add(edit, "");
 
         add(content, BorderLayout.CENTER);
 

@@ -11,26 +11,29 @@ import libroid.model.Book;
 import libroid.model.BookList;
 import libroid.model.Model;
 
-public class ListsInventory extends JList{
+public class ListsInventory extends JList implements ListSelectionListener{
 
     private Model model;
     private LibraryTable table;
+    private FilterField filterField;
     private ListsInventoryModel inventoryModel;
 
-    public ListsInventory(Model m, LibraryTable t){
+    public ListsInventory(Model m, LibraryTable t, FilterField ff){
         model = m;
         table = t;
+        filterField = ff;
 
         inventoryModel = new ListsInventoryModel(model);
         setModel(inventoryModel);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setDropTarget(new DropTarget());
 
-        addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                table.setModel(new LibraryTableModel(model.getBookList(getSelectedIndex())));
-            }
-        });
+        addListSelectionListener(this);
+    }
+
+    public void valueChanged(ListSelectionEvent e) {
+        table.setModel(new LibraryTableModel(model.getBookList(getSelectedIndex())));
+        filterField.setTable(table);
     }
 
     public void createNewList(List<Book> selectedBooks) {

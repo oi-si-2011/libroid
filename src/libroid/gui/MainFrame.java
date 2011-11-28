@@ -150,7 +150,7 @@ public class MainFrame extends JFrame {
 
         leftPanel.setPreferredSize(new Dimension(200, 500));
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-        listsInventory = new ListsInventory(model, libraryTable);
+        listsInventory = new ListsInventory(model, libraryTable, filterTextField);
         leftPanel.add(new JScrollPane(listsInventory));
 
         libraryTable.addMouseListener(new BookMenu(libraryTable, model, listsInventory));

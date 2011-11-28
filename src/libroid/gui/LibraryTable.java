@@ -28,7 +28,6 @@ public class LibraryTable extends JTable {
         setAutoCreateRowSorter(true);
         setDragEnabled(true);
         sorter = (TableRowSorter) getRowSorter();
-
     }
 
     List<Book> getSelectedBooks() {
