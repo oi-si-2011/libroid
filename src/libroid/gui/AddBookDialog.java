@@ -16,25 +16,11 @@ import javax.swing.filechooser.FileFilter;
 import libroid.model.Book;
 import libroid.model.Model;
 
+/**
+ * Dialogové okno pro přidání knížky.
+ */
 class AddBookDialog extends JFrame implements ActionListener {
 
-    private FileFilter fileFilter = new FileFilter() {
-
-        @Override
-        public boolean accept(File f) {
-            String fileName = f.getName().toLowerCase();
-            return (f.isDirectory())
-                    || fileName.endsWith(".epub")
-                    || fileName.endsWith(".pdf")
-                    || fileName.endsWith(".mobi")
-                    ? true : false;
-        }
-
-        @Override
-        public String getDescription() {
-            return "Ebook files";
-        }
-    };
     private JFileChooser fileChooser = new JFileChooser();
     private File file;
     private Book book;
@@ -129,11 +115,36 @@ class AddBookDialog extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        fileChooser.setFileFilter(fileFilter);
+        fileChooser.setFileFilter(new BookFileFilter());
         fileChooser.showOpenDialog(this);
         file = fileChooser.getSelectedFile();
         if (file != null) {
             setVisible(true);
+        }
+    }
+
+    /**
+     * Filtr souborů určitého typu (ebooky) v dialogovém okně pro vybrání
+     * souboru.
+     */
+    private static class BookFileFilter extends FileFilter {
+
+        public BookFileFilter() {
+        }
+
+        @Override
+        public boolean accept(File f) {
+            String fileName = f.getName().toLowerCase();
+            return (f.isDirectory())
+                    || fileName.endsWith(".epub")
+                    || fileName.endsWith(".pdf")
+                    || fileName.endsWith(".mobi")
+                    ? true : false;
+        }
+
+        @Override
+        public String getDescription() {
+            return "Ebook files";
         }
     }
 }
