@@ -70,7 +70,10 @@ public class FilterField extends JTextField {
 
             @Override
             public boolean include(Entry<? extends LibraryTableModel, ? extends Object> entry) {
-                if (entry.getStringValue(0).toLowerCase().startsWith(getText().toLowerCase()) || entry.getStringValue(1).toLowerCase().startsWith(getText().toLowerCase())) {
+                String name = entry.getStringValue(0).toLowerCase();
+                String author = entry.getStringValue(1).toLowerCase();
+                String t = getText().toLowerCase();
+                if (name.contains(t) || author.contains(t)) {
                     return true;
                 } else {
                     return false;
