@@ -10,8 +10,20 @@ public class Model {
     private static final Logger logger = Logger.getLogger(Model.class.getName());
     private List<Book> allBooks = new ArrayList<Book>();
     private List<BookList> allBookLists = new ArrayList<BookList>();
+    private List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
 
     public Model() {
+    }
+
+    public void addChangeListener(ChangeListener chl) {
+        changeListeners.add(chl);
+    }
+
+    public void fireChange() {
+        logger.info("fired");
+        for (ChangeListener chl : changeListeners) {
+            chl.changePerformed();
+        }
     }
 
     public void addBook(Book book) {
