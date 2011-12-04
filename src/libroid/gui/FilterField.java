@@ -70,7 +70,7 @@ public class FilterField extends JTextField {
                 }
             }
         };
-        
+
         table.setRowFilter(rf);
     }
 

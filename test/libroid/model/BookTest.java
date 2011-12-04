@@ -46,6 +46,22 @@ public class BookTest {
         assertFalse(new Book("name1", "author1").equals(new Book("name1", "author2")));
     }
 
+    @Test
+    public void testEquals2() {
+        Book a = new Book("A", "Antonín");
+        Book b = a;
+        Book c = new Book("C", "Cyril");
+        Book d = a;
+        Book e = null;
+
+        assertTrue(a.equals(b));
+        assertFalse(c.equals(d));
+        try {
+            assertFalse(e.equals(a));
+        } catch (NullPointerException exception) {
+        }
+    }
+
     /**
      * Test of hashCode method, of class Book.
      */

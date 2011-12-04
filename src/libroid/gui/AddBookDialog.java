@@ -50,52 +50,52 @@ class AddBookDialog extends JFrame implements ActionListener{
         this.model = m;
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        
+
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.add(new JLabel("Name"));
         c.gridx = 0;
         c.gridy = 0;
         add(panel, c);
-        
+
         panel = new JPanel();
         panel.add(name);
         c.gridx = 1;
         c.gridy = 0;
         c.gridwidth = 2;
         add(panel, c);
-        
+
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.add(new JLabel("Author"));
         c.gridx = 0;
         c.gridy = 1;
         add(panel, c);
-        
+
         panel = new JPanel();
         panel.add(author);
         c.gridx = 1;
         c.gridy = 1;
         c.gridwidth = 2;
         add(panel, c);
-        
+
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.add(new JLabel("Genre"));
         c.gridx = 0;
         c.gridy = 2;
         add(panel, c);
-        
+
         panel = new JPanel();
         panel.add(genre);
         c.gridx = 1;
         c.gridy = 2;
         c.gridwidth = 2;
         add(panel, c);
-        
+
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.add(new JLabel("ISBN"));
         c.gridx = 0;
         c.gridy = 3;
         add(panel, c);
-        
+
         panel = new JPanel();
         panel.add(isbn);
         c.gridx = 1;
@@ -108,7 +108,7 @@ class AddBookDialog extends JFrame implements ActionListener{
         c.gridx = 2;
         c.gridy = 4;
         add(panel, c);
-            
+
         pack();
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
 
