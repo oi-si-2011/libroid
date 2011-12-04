@@ -162,7 +162,7 @@ public class MainFrame extends JFrame {
         listsInventory = new ListsInventory(model, libraryTable, filterTextField);
         leftPanel.add(new JScrollPane(listsInventory));
 
-        libraryTable.addMouseListener(new BookMenu(libraryTable, model, listsInventory));
+        libraryTable.addMouseListener(new LibraryTableMouseListener(libraryTable, model, listsInventory));
 
         setupToolBar();
 
