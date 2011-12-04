@@ -47,7 +47,8 @@ public class ListsInventory extends JList implements ListSelectionListener {
         });
 
         addListSelectionListener(this);
-        addMouseListener(new ListsMenu(this));
+        //addMouseListener(new ListsMenu(this));
+        addMouseListener(new ListsInventoryMouseListener(this));
 
         setCellRenderer(new CellRenderer());
     }
@@ -82,6 +83,27 @@ public class ListsInventory extends JList implements ListSelectionListener {
         model.getBookList(getSelectedIndex()).setName(name);
         updateUI();
     }
+
+    private static class ListsInventoryMouseListener extends MouseAdapter {
+
+        private final ListsInventory listInventory;
+
+        private ListsInventoryMouseListener(ListsInventory li) {
+            this.listInventory = li;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            listInventory.getComponentAt(e.getPoint());
+            listInventory.getSelectionModel().setSelectionInterval(WIDTH, WIDTH);
+
+            ListsMenu m = new ListsMenu(listInventory);
+
+            if (e.getButton() == MouseEvent.BUTTON3 || e.isPopupTrigger()) {
+                m.show(e.getComponent(), e.getX(), e.getY());
+            }
+        }
+    }
 }
 
 class CellRenderer extends JLabel implements ListCellRenderer {
@@ -98,6 +120,7 @@ class CellRenderer extends JLabel implements ListCellRenderer {
             setBackground(Color.green);
             addMouseListener(new MouseAdapter() {
 
+                @Override
                 public void mouseClicked(MouseEvent e) {
                     setBackground(Color.red);
                 }
