@@ -19,7 +19,7 @@ import libroid.model.Model;
 /**
  * Dialogové okno pro přidání knížky.
  */
-class AddBookDialog extends JFrame implements ActionListener {
+class AddBookDialog extends JFrame {
 
     private JFileChooser fileChooser = new JFileChooser();
     private File file;
@@ -114,12 +114,25 @@ class AddBookDialog extends JFrame implements ActionListener {
         });
     }
 
-    public void actionPerformed(ActionEvent e) {
-        fileChooser.setFileFilter(new BookFileFilter());
-        fileChooser.showOpenDialog(this);
-        file = fileChooser.getSelectedFile();
-        if (file != null) {
-            setVisible(true);
+    /**
+     * ActionListener, který zobrazí dialog pro přidání knihy.
+     */
+    public static class ShowDialogActionListener implements ActionListener {
+
+        private Model model;
+
+        ShowDialogActionListener(Model model) {
+            this.model = model;
+        }
+
+        public void actionPerformed(ActionEvent ae) {
+            AddBookDialog d = new AddBookDialog(model);
+            d.fileChooser.setFileFilter(new BookFileFilter());
+            d.fileChooser.showOpenDialog(d);
+            d.file = d.fileChooser.getSelectedFile();
+            if (d.file != null) {
+                d.setVisible(true);
+            }
         }
     }
 

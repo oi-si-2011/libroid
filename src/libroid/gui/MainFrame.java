@@ -70,7 +70,7 @@ public class MainFrame extends JFrame {
         menuItem.setMnemonic(KeyEvent.VK_O);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription("Adds a new book into library");
-        menuItem.addActionListener(new AddBookDialog(model));
+        menuItem.addActionListener(new AddBookDialog.ShowDialogActionListener(model));
         menu.add(menuItem);
 
         menuItem = new JMenuItem("Add a list", new ImageIcon("icons/addList.gif"));
@@ -177,7 +177,7 @@ public class MainFrame extends JFrame {
     private void setupToolBar() {
         toolBar.setLayout(new GridLayout(1, 2));
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        addBookButton.addActionListener(new AddBookDialog(model));
+        addBookButton.addActionListener(new AddBookDialog.ShowDialogActionListener(model));
         addListButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
