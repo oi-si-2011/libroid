@@ -40,7 +40,10 @@ class BookMenu extends JPopupMenu {
                             throw new IOException("Desktop not supported");
                         }
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Couldn't open the book. Eighter the source file wasn't found or the filetype isn't supported.", "An error has occured", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null,
+                                "Couldn't open the book. Eithter the source file wasn't found or the filetype isn't supported.",
+                                "An error has occured",
+                                JOptionPane.WARNING_MESSAGE);
                     }
                 }
             });
