@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +17,7 @@ import libroid.model.Model;
 /**
  * Dialogové okno pro přidání knihy nebo úpravu stávající knihy.
  */
-public class EditBookDialog extends JFrame {
+public class EditBookDialog extends JDialog {
 
     private JFileChooser fileChooser = new JFileChooser();
     private File file;
@@ -121,6 +122,7 @@ public class EditBookDialog extends JFrame {
 
         public void actionPerformed(ActionEvent ae) {
             EditBookDialog d = new EditBookDialog(model);
+            d.setModal(true);
             d.setVisible(true);
         }
     }
