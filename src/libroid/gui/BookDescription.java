@@ -12,11 +12,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import libroid.model.Book;
 
+/**
+ * Popis knihy s možností editace, který se objeví po dvojitém kliku na knihu
+ * v tabulce knih.
+ */
 public class BookDescription extends JFrame {
     private Book book;
     private Point origin;
