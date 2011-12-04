@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package libroid.gui;
 
 import libroid.model.Book;
@@ -15,14 +11,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Michal
- */
 public class LibraryTableModelTest {
-    
+
     LibraryTableModel testLibraryLibraryTableModel;
-    
+
     public LibraryTableModelTest() {
     }
 
@@ -33,25 +25,25 @@ public class LibraryTableModelTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
-        
+
         BookList testList = new BookList("testList");
-        List <Book> testBookList = new ArrayList<Book>();
-        
+        List<Book> testBookList = new ArrayList<Book>();
+
         testBookList.add(new Book("Vlakna hypercasu", "R. Susta"));
         testBookList.add(new Book("Kryptonomikon", "N. Stephenson"));
         testBookList.add(new Book("Velke U", "Neal Stephenson"));
         testBookList.add(new Book("Hordubal", "K. Capek"));
         testBookList.add(new Book("A", "1"));
         testBookList.add(new Book("B", "2"));
-        
+
         testList.setBooks(testBookList);
         testLibraryLibraryTableModel = new LibraryTableModel(testList);
-        
+
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -61,7 +53,7 @@ public class LibraryTableModelTest {
      */
     @Test
     public void testGetRowCount() {
-        System.out.println("getRowCount");      
+        System.out.println("getRowCount");
         int expResult = 6;
         int result = testLibraryLibraryTableModel.getRowCount();
         assertEquals(expResult, result);
@@ -87,7 +79,7 @@ public class LibraryTableModelTest {
         System.out.println("getValueAt");
         int rowIndex = 0;
         int columnIndex = 0;
-        
+
         Object expResult = "Vlakna hypercasu";
         Object result = testLibraryLibraryTableModel.getValueAt(rowIndex, columnIndex);
         assertEquals(expResult, result);
@@ -106,6 +98,6 @@ public class LibraryTableModelTest {
         String expResult = "Name";
         String result = testLibraryLibraryTableModel.getColumnName(col);
         assertEquals(expResult, result);
-        
+
     }
 }

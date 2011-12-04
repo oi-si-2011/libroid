@@ -64,15 +64,15 @@ public class BookDescription extends JFrame {
         add(toolBar, BorderLayout.NORTH);
 
         JPanel view = new JPanel();
-            view.add(titleLabel);            
-            view.add(authorLabel);            
-            view.add(genreLabel);            
+            view.add(titleLabel);
+            view.add(authorLabel);
+            view.add(genreLabel);
             view.add(isbnLabel);
 
-        JPanel edit = new JPanel();            
-            edit.add(titleText);            
-            edit.add(authorText);            
-            edit.add(genreText);          
+        JPanel edit = new JPanel();
+            edit.add(titleText);
+            edit.add(authorText);
+            edit.add(genreText);
             edit.add(isbnText);
 
         content.add(view, "");
