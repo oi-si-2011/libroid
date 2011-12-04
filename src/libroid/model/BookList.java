@@ -14,7 +14,7 @@ public class BookList {
         this.name = name;
     }
 
-    public void setBooks(List<Book> books){
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 
@@ -34,7 +34,7 @@ public class BookList {
         books.add(book);
     }
 
-    public void addBooks(List<Book> books){
+    public void addBooks(List<Book> books) {
         this.books.addAll(books);
     }
 
@@ -42,7 +42,7 @@ public class BookList {
         return books.get(i);
     }
 
-    public int getBooksCount(){
+    public int getBooksCount() {
         return books.size();
     }
 

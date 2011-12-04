@@ -1,18 +1,19 @@
 package libroid.model;
 
-public class Book{
+public class Book {
+
     private String name;
     private String author;
     private int isbn;
     private String uri;
     private String genre;
 
-    public Book(String name, String author){
+    public Book(String name, String author) {
         this.name = name;
         this.author = author;
     }
 
-    public Book(String name, String author, String uri, String genre, int isbn){
+    public Book(String name, String author, String uri, String genre, int isbn) {
         this.name = name;
         this.author = author;
         this.uri = uri;
@@ -45,7 +46,7 @@ public class Book{
      * Only for debugging purposes.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("Book(name='%s' author='%s')", this.name, this.author);
     }
 
@@ -74,5 +75,4 @@ public class Book{
         hash = 29 * hash + (this.author != null ? this.author.hashCode() : 0);
         return hash;
     }
-
 }

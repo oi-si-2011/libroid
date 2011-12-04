@@ -63,7 +63,7 @@ public class Model {
         allBookLists.add(bl);
     }
 
-    public BookList getBookList(int i){
+    public BookList getBookList(int i) {
         return allBookLists.get(i);
     }
 

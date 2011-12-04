@@ -16,15 +16,17 @@ import javax.swing.filechooser.FileFilter;
 import libroid.model.Book;
 import libroid.model.Model;
 
-class AddBookDialog extends JFrame implements ActionListener{
+class AddBookDialog extends JFrame implements ActionListener {
+
     private FileFilter fileFilter = new FileFilter() {
+
         @Override
         public boolean accept(File f) {
             String fileName = f.getName().toLowerCase();
-            return (f.isDirectory()) ||
-                    fileName.endsWith(".epub") ||
-                    fileName.endsWith(".pdf") ||
-                    fileName.endsWith(".mobi")
+            return (f.isDirectory())
+                    || fileName.endsWith(".epub")
+                    || fileName.endsWith(".pdf")
+                    || fileName.endsWith(".mobi")
                     ? true : false;
         }
 
@@ -35,10 +37,8 @@ class AddBookDialog extends JFrame implements ActionListener{
     };
     private JFileChooser fileChooser = new JFileChooser();
     private File file;
-
     private Book book;
     private Model model;
-
     private String uri;
     private JButton confirm = new JButton("Confirm");
     private JTextField name = new JTextField(12);
@@ -113,12 +113,14 @@ class AddBookDialog extends JFrame implements ActionListener{
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
 
         confirm.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 uri = file.getAbsolutePath();
                 int isbnInt = 0;
-                try{
+                try {
                     isbnInt = Integer.valueOf(isbn.getText());
-                }catch (Exception ex){}
+                } catch (Exception ex) {
+                }
                 book = new Book(name.getText(), author.getText(), uri, genre.getText(), isbnInt);
                 model.addBook(book);
                 dispose();
@@ -130,9 +132,8 @@ class AddBookDialog extends JFrame implements ActionListener{
         fileChooser.setFileFilter(fileFilter);
         fileChooser.showOpenDialog(this);
         file = fileChooser.getSelectedFile();
-        if(file != null){
+        if (file != null) {
             setVisible(true);
         }
     }
 }
-
