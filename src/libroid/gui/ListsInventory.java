@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.dnd.DropTarget;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -95,15 +96,10 @@ class CellRenderer extends JLabel implements ListCellRenderer{
         setText(name);
         if(isSelected){
             setBackground(Color.green);
-            addMouseListener(new MouseListener() {
+            addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
                     setBackground(Color.red);
                 }
-
-                public void mousePressed(MouseEvent e) {}
-                public void mouseReleased(MouseEvent e) {}
-                public void mouseEntered(MouseEvent e) {}
-                public void mouseExited(MouseEvent e) {}
             });
             return this;
         }else{
