@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -20,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import libroid.model.Book;
 import libroid.model.BookList;
 import libroid.model.Model;
 
@@ -40,6 +44,7 @@ public class MainFrame extends JFrame {
     private FilterField filterTextField;
     private ListsInventory listsInventory;
     private Model model;
+    private BookInfo bookInfo = new BookInfo();
     private JButton addBookButton = new JButton("+ Book");
     private JButton addListButton = new JButton("+ List");
     // </editor-fold>
@@ -153,7 +158,19 @@ public class MainFrame extends JFrame {
     }
 
     private void setupComponents() {
-        LibraryTable libraryTable = new LibraryTable(model);
+        final LibraryTable libraryTable = new LibraryTable(model);
+
+        libraryTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent lse) {
+                if (lse.getValueIsAdjusting()) {
+                    return;
+                }
+                logger.log(Level.INFO, "lse: {0}", lse);
+                Book b = libraryTable.getSelectedBook();
+                bookInfo.showBook(b);
+            }
+        });
 
         filterTextField = new FilterField(libraryTable);
 
@@ -167,7 +184,11 @@ public class MainFrame extends JFrame {
         setupToolBar();
 
         content.add(leftPanel);
-        content.add(new JScrollPane(libraryTable));
+
+        JSplitPane content2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        content2.add(new JScrollPane(libraryTable));
+        content2.add(bookInfo);
+        content.add(content2);
 
         add(toolBar, BorderLayout.NORTH);
         add(content, BorderLayout.CENTER);

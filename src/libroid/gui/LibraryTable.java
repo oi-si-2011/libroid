@@ -42,6 +42,17 @@ public class LibraryTable extends JTable {
         return selectedBooks;
     }
 
+    /**
+     * Vrátí vybranou knihu, nebo null, pokud není žádná vybrána.
+     */
+    Book getSelectedBook() {
+        List<Book> selectedBooks = getSelectedBooks();
+        if (selectedBooks.size() == 1) {
+            return selectedBooks.get(0);
+        }
+        return null;
+    }
+
     void removeSelectedBooks() {
         if (getSelectedRowCount() <= 0) {
             logger.info("No rows selected.");
