@@ -7,39 +7,49 @@ import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-class ListsMenu extends JPopupMenu implements MouseListener{
-    private ListsInventory list;
+class ListsMenu extends JPopupMenu implements MouseListener {
+
+    private ListsInventory listInventory;
 
     public ListsMenu(ListsInventory aThis) {
-        list = aThis;
+        listInventory = aThis;
 
         JMenuItem menuItem = new JMenuItem("Rename list");
         menuItem.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
-                list.rename();
+                listInventory.rename();
             }
         });
         add(menuItem);
 
         menuItem = new JMenuItem("Delete list");
         menuItem.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
-                list.delete();
+                listInventory.delete();
             }
         });
         add(menuItem);
     }
 
     public void mouseClicked(MouseEvent e) {
-        list.getComponentAt(e.getPoint());
-        list.getSelectionModel().setSelectionInterval(WIDTH, WIDTH);
-        if(e.getButton() == MouseEvent.BUTTON3 || e.isPopupTrigger()){
+        listInventory.getComponentAt(e.getPoint());
+        listInventory.getSelectionModel().setSelectionInterval(WIDTH, WIDTH);
+        if (e.getButton() == MouseEvent.BUTTON3 || e.isPopupTrigger()) {
             show(e.getComponent(), e.getX(), e.getY());
         }
     }
 
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+    }
+
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    public void mouseExited(MouseEvent e) {
+    }
 }
