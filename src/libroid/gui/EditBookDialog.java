@@ -1,5 +1,6 @@
 package libroid.gui;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -30,7 +31,8 @@ public class EditBookDialog extends JDialog {
     private JTextField genre = new JTextField(12);
     private JTextField isbn = new JTextField(12);
 
-    private EditBookDialog(final Model model) {
+    private EditBookDialog(JFrame owner, final Model model) {
+        super(owner);
         this.model = model;
 
         setTitle("Add Book");
@@ -115,13 +117,15 @@ public class EditBookDialog extends JDialog {
     public static class ShowDialogActionListener implements ActionListener {
 
         private Model model;
+        private final JFrame owner;
 
-        ShowDialogActionListener(Model model) {
+        ShowDialogActionListener(JFrame owner, Model model) {
+            this.owner = owner;
             this.model = model;
         }
 
         public void actionPerformed(ActionEvent ae) {
-            EditBookDialog d = new EditBookDialog(model);
+            EditBookDialog d = new EditBookDialog(owner, model);
             d.setModal(true);
             d.setVisible(true);
         }
