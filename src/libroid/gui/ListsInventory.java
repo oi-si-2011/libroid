@@ -41,10 +41,9 @@ public class ListsInventory extends JList implements ListSelectionListener {
         setModel(inventoryModel);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setDropTarget(new DropTarget());
-        setLayoutOrientation( JList.HORIZONTAL_WRAP );
+        setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
-        setTransferHandler(new TransferHandler(){
-
+        setTransferHandler(new TransferHandler() {
         });
 
         addListSelectionListener(this);
@@ -78,15 +77,16 @@ public class ListsInventory extends JList implements ListSelectionListener {
         updateUI();
     }
 
-    void rename(){
+    void rename() {
         String name = JOptionPane.showInputDialog(null, "What's the new name?", "Rename list", JOptionPane.PLAIN_MESSAGE);
         model.getBookList(getSelectedIndex()).setName(name);
         updateUI();
     }
 }
 
-class CellRenderer extends JLabel implements ListCellRenderer{
-    public CellRenderer(){
+class CellRenderer extends JLabel implements ListCellRenderer {
+
+    public CellRenderer() {
         setOpaque(true);
         setBackground(Color.white);
     }
@@ -94,15 +94,16 @@ class CellRenderer extends JLabel implements ListCellRenderer{
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         String name = (String) list.getModel().getElementAt(index);
         setText(name);
-        if(isSelected){
+        if (isSelected) {
             setBackground(Color.green);
             addMouseListener(new MouseAdapter() {
+
                 public void mouseClicked(MouseEvent e) {
                     setBackground(Color.red);
                 }
             });
             return this;
-        }else{
+        } else {
             setBackground(Color.white);
             //JLabel label = new JLabel(name);
             //label.setMinimumSize(new Dimension(200, 60));
