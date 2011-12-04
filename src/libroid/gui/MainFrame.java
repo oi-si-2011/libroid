@@ -187,7 +187,7 @@ public class MainFrame extends JFrame {
     private void setupToolBar() {
         toolBar.setLayout(new GridLayout(1, 2));
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        addBookButton.addActionListener(new AddBookDialog.ShowDialogActionListener(model));
+        addBookButton.addActionListener(new EditBookDialog.ShowDialogActionListener(model));
         addListButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
