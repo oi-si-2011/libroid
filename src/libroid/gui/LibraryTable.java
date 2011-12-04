@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import libroid.model.Book;
 import libroid.model.BookList;
@@ -77,5 +78,9 @@ public class LibraryTable extends JTable {
 
     void setRowFilter(RowFilter<LibraryTableModel, Object> rf) {
         sorter.setRowFilter(rf);
+    }
+
+    void addListSelectionListener(ListSelectionListener lsl) {
+        getSelectionModel().addListSelectionListener(lsl);
     }
 }

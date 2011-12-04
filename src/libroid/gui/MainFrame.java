@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -40,13 +39,13 @@ public class MainFrame extends JFrame {
     private JPanel leftPanel = new JPanel();
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
-    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     private FilterField filterTextField;
     private ListsInventory listsInventory;
     private Model model;
     private BookInfo bookInfo = new BookInfo();
     private JButton addBookButton = new JButton("+ Book");
     private JButton addListButton = new JButton("+ List");
+    private LibraryTable libraryTable;
     // </editor-fold>
 
     public MainFrame(Model model) {
@@ -158,19 +157,8 @@ public class MainFrame extends JFrame {
     }
 
     private void setupComponents() {
-        final LibraryTable libraryTable = new LibraryTable(model);
-
-        libraryTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            public void valueChanged(ListSelectionEvent lse) {
-                if (lse.getValueIsAdjusting()) {
-                    return;
-                }
-                logger.log(Level.INFO, "lse: {0}", lse);
-                Book b = libraryTable.getSelectedBook();
-                bookInfo.showBook(b);
-            }
-        });
+        libraryTable = new LibraryTable(model);
+        libraryTable.addListSelectionListener(new LibraryTableSelectionListener(this));
 
         filterTextField = new FilterField(libraryTable);
 
@@ -183,15 +171,16 @@ public class MainFrame extends JFrame {
 
         setupToolBar();
 
-        content.add(leftPanel);
+        JSplitPane tableAndBookInfo = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        tableAndBookInfo.add(new JScrollPane(libraryTable));
+        tableAndBookInfo.add(bookInfo);
 
-        JSplitPane content2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        content2.add(new JScrollPane(libraryTable));
-        content2.add(bookInfo);
-        content.add(content2);
+        JSplitPane leftPanelAndBooks = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        leftPanelAndBooks.add(leftPanel);
+        leftPanelAndBooks.add(tableAndBookInfo);
 
         add(toolBar, BorderLayout.NORTH);
-        add(content, BorderLayout.CENTER);
+        add(leftPanelAndBooks, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
     }
 
@@ -213,5 +202,24 @@ public class MainFrame extends JFrame {
 
         toolBar.add(left);
         toolBar.add(right);
+    }
+
+    private static class LibraryTableSelectionListener implements ListSelectionListener {
+
+        private final LibraryTable libraryTable;
+        private final BookInfo bookInfo;
+
+        private LibraryTableSelectionListener(MainFrame mf) {
+            this.libraryTable = mf.libraryTable;
+            this.bookInfo = mf.bookInfo;
+        }
+
+        public void valueChanged(ListSelectionEvent lse) {
+            if (lse.getValueIsAdjusting()) {
+                return;
+            }
+            Book b = libraryTable.getSelectedBook();
+            bookInfo.showBook(b);
+        }
     }
 }
