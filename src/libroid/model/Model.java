@@ -70,4 +70,12 @@ public class Model {
     public List<BookList> getAllBookLists() {
         return allBookLists;
     }
+
+    public void removeList(int selectedIndex) {
+        allBookLists.remove(selectedIndex);
+    }
+
+    public void renameList(int selectedIndex) {
+
+    }
 }

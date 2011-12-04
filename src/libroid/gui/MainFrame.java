@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
     public MainFrame(Model model) {
         this.model = model;
         setupAttributes();
-        setupMenu();
+        //setupMenu();
         setupComponents();
     }
 

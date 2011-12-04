@@ -45,4 +45,8 @@ public class BookList {
     public int getBooksCount(){
         return books.size();
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

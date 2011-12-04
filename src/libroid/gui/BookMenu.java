@@ -31,16 +31,16 @@ class BookMenu extends JPopupMenu implements MouseListener {
             menuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     Book book = libraryTable.getSelectedBooks().get(0);
-                    File f = new File(book.getUri());
-                    System.out.println(book.getUri());
                     try {
+                        File f = new File(book.getUri());
+                        System.out.println(book.getUri());
                         if (Desktop.isDesktopSupported()) {
                             Desktop.getDesktop().open(f);
                         }else{
                             throw new IOException("Desktop not supported");
                         }
-                    } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(null, "Couldn't open the book. The source file wasn't found or the filetype isn't supported.", "An error has occured", JOptionPane.WARNING_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Couldn't open the book. Eighter the source file wasn't found or the filetype isn't supported.", "An error has occured", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             });
