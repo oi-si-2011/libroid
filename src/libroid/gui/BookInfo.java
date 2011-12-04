@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import libroid.model.Book;
 
 /**
- *
+ * Panel v pravé části okna pro zobrazení detailnějších informací o knize.
  */
 public class BookInfo extends JPanel {
 
@@ -21,11 +21,6 @@ public class BookInfo extends JPanel {
         setupComponents();
     }
 
-    private void reset() {
-        nameLabel.setText("-");
-        authorLabel.setText("-");
-    }
-
     private void setupComponents() {
         add(GUIUtil.withBoldFont(new JLabel("Name:")));
         add(nameLabel);
@@ -33,6 +28,18 @@ public class BookInfo extends JPanel {
         add(authorLabel);
     }
 
+    /**
+     * Uvedení do výchozího stavu - na začátku a po nevybrání žádné knihy.
+     */
+    private void reset() {
+        nameLabel.setText("-");
+        authorLabel.setText("-");
+    }
+
+    /**
+     * Zobrazí informace o konkrétní knize. Voláno ze selection listeneru při
+     * změně výběru v libraryTable.
+     */
     void showBook(Book b) {
         if (b == null) {
             reset();

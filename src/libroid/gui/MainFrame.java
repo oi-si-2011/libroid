@@ -204,6 +204,10 @@ public class MainFrame extends JFrame {
         toolBar.add(right);
     }
 
+    /**
+     * Listener pro změny označení knih v libraryTable.
+     * Způsobí zobrazení detailu knihy v bookInfo vpravo.
+     */
     private static class LibraryTableSelectionListener implements ListSelectionListener {
 
         private final LibraryTable libraryTable;
