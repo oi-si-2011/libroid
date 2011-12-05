@@ -97,7 +97,7 @@ public class ListsInventory extends JList implements ListSelectionListener {
         @Override
         public void mouseClicked(MouseEvent e) {
             listInventory.getComponentAt(e.getPoint());
-            listInventory.getSelectionModel().setSelectionInterval(WIDTH, WIDTH);
+            //listInventory.getSelectionModel().setSelectionInterval(WIDTH, WIDTH);
 
             ListsMenu m = new ListsMenu(listInventory);
 
