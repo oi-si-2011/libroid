@@ -43,10 +43,9 @@ public class ListsInventory extends JList implements ListSelectionListener {
         });
 
         addListSelectionListener(this);
-        //addMouseListener(new ListsMenu(this));
         addMouseListener(new ListsInventoryMouseListener(this));
 
-        setCellRenderer(new CellRenderer());
+        //setCellRenderer(new CellRenderer());
     }
 
     public void valueChanged(ListSelectionEvent e) {
