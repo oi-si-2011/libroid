@@ -21,36 +21,31 @@ import libroid.model.Model;
 /**
  * Seznamy knih v levé části okna.
  */
-public class ListsInventory extends JList implements ListSelectionListener {
+public class ListsInventory extends JList {
 
     private Model model;
-    private LibraryTable table;
+    private LibraryTable libraryTable;
     private FilterField filterField;
     private ListsInventoryModel inventoryModel;
 
     public ListsInventory(Model m, LibraryTable t, FilterField ff) {
         model = m;
-        table = t;
+        libraryTable = t;
         filterField = ff;
 
         inventoryModel = new ListsInventoryModel(model);
         setModel(inventoryModel);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setDropTarget(new DropTarget());
-        setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        setLayoutOrientation(JList.VERTICAL);
 
         setTransferHandler(new TransferHandler() {
         });
 
-        addListSelectionListener(this);
+        addListSelectionListener(new ListsInventorySelectionListener(this, libraryTable));
         addMouseListener(new ListsInventoryMouseListener(this));
 
         //setCellRenderer(new CellRenderer());
-    }
-
-    public void valueChanged(ListSelectionEvent e) {
-        table.setModel(new LibraryTableModel(model.getBookList(getSelectedIndex())));
-        //filterField.setTable(table);
     }
 
     public void createNewList(List<Book> selectedBooks) {
@@ -103,6 +98,29 @@ public class ListsInventory extends JList implements ListSelectionListener {
             if (e.getButton() == MouseEvent.BUTTON3 || e.isPopupTrigger()) {
                 m.show(e.getComponent(), e.getX(), e.getY());
             }
+        }
+    }
+
+    /**
+     * ListSelectionListener navěšený na ListsInventory.
+     * Způsobí, že po vybrání seznamu se v tabulce knih zobrazí pouze knihy
+     * z toho vybraného seznamu.
+     */
+    private static class ListsInventorySelectionListener implements ListSelectionListener {
+
+        private final LibraryTableModel libraryTableModel;
+        private final ListsInventory listsInventory;
+
+        private ListsInventorySelectionListener(ListsInventory li, LibraryTable libraryTable) {
+            this.listsInventory = li;
+            this.libraryTableModel = libraryTable.getLibraryTableModel();
+        }
+
+        public void valueChanged(ListSelectionEvent lse) {
+            // V libraryTable zobrazíme zvolený seznam knih.
+            int selectedIndex = listsInventory.getSelectedIndex();
+            BookList bookList = listsInventory.inventoryModel.getBookList(selectedIndex);
+            libraryTableModel.setBookList(bookList);
         }
     }
 }

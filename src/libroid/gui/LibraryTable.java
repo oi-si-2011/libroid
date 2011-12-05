@@ -9,7 +9,6 @@ import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import libroid.model.Book;
-import libroid.model.BookList;
 import libroid.model.Model;
 
 /**
@@ -24,10 +23,7 @@ public class LibraryTable extends JTable {
 
     public LibraryTable(Model dataModel) {
         this.appDataModel = dataModel;
-        BookList allBooksList = new BookList("Vsechny knihy");
-        allBooksList.setBooks(appDataModel.getAllBooks());
-        tableModel = new LibraryTableModel(allBooksList);
-        appDataModel.addBookList(allBooksList);
+        tableModel = new LibraryTableModel(appDataModel);
         setModel(tableModel);
         setAutoCreateRowSorter(true);
         setDragEnabled(true);
@@ -84,4 +80,10 @@ public class LibraryTable extends JTable {
     void addListSelectionListener(ListSelectionListener lsl) {
         getSelectionModel().addListSelectionListener(lsl);
     }
+
+    public LibraryTableModel getLibraryTableModel() {
+        assert tableModel == super.getModel();
+        return tableModel;
+    }
+
 }

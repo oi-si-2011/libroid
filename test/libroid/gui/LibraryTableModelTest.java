@@ -40,7 +40,8 @@ public class LibraryTableModelTest {
         testBookList.add(new Book("B", "2"));
 
         testList.setBooks(testBookList);
-        testLibraryLibraryTableModel = new LibraryTableModel(testList);
+        // XXX TODO
+        //testLibraryLibraryTableModel = new LibraryTableModel(testList);
 
     }
 
