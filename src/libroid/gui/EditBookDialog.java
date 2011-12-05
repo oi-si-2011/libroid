@@ -55,31 +55,36 @@ public class EditBookDialog extends JDialog {
         confirmButton.addActionListener(new ConfirmActionListener(model));
 
         layout.setHorizontalGroup(
-                layout.createParallelGroup().
-                addGroup(
-                layout.createSequentialGroup().
-                addGroup(layout.createParallelGroup().
-                addComponent(nameLabel).
-                addComponent(authorLabel)).
-                addGroup(layout.createParallelGroup().
-                addComponent(nameField).
-                addComponent(authorField))).
-                addGroup(
-                layout.createSequentialGroup().
-                addComponent(cancelButton).
-                addComponent(confirmButton)));
+                /* */layout.createParallelGroup().
+                /*   */addGroup(
+                /*     */layout.createSequentialGroup().
+                /*       */addGroup(
+                /*         */layout.createParallelGroup().
+                /*           */addComponent(nameLabel).
+                /*           */addComponent(authorLabel)).
+                /*       */addGroup(
+                /*         */layout.createParallelGroup().
+                /*           */addComponent(nameField).
+                /*           */addComponent(authorField))).
+                /*   */addGroup(
+                /*     */layout.createSequentialGroup().
+                /*       */addComponent(cancelButton).
+                /*       */addComponent(confirmButton)));
 
         layout.setVerticalGroup(
-                layout.createSequentialGroup().
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(nameLabel).
-                addComponent(nameField)).
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(authorLabel).
-                addComponent(authorField)).
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(cancelButton).
-                addComponent(confirmButton)));
+                /* */layout.createSequentialGroup().
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(nameLabel).
+                /*       */addComponent(nameField)).
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(authorLabel).
+                /*       */addComponent(authorField)).
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(cancelButton).
+                /*       */addComponent(confirmButton)));
 
         pack();
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
