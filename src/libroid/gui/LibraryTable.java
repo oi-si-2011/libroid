@@ -77,6 +77,7 @@ public class LibraryTable extends JTable {
     }
 
     void setRowFilter(RowFilter<LibraryTableModel, Object> rf) {
+        // XXX TODO unchecked
         sorter.setRowFilter(rf);
     }
 
