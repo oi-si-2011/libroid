@@ -2,17 +2,13 @@ package libroid.gui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.dnd.DropTarget;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.TransferHandler;
@@ -73,13 +69,19 @@ public class ListsInventory extends JList implements ListSelectionListener {
     }
 
     void delete() {
-        JOptionPane.showConfirmDialog(null, "Do you really want to remove this list?", "Confirm removal", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showConfirmDialog(null,
+                "Do you really want to remove this list?",
+                "Confirm removal",
+                JOptionPane.WARNING_MESSAGE);
         model.removeList(getSelectedIndex());
         updateUI();
     }
 
     void rename() {
-        String name = JOptionPane.showInputDialog(null, "What's the new name?", "Rename list", JOptionPane.PLAIN_MESSAGE);
+        String name = JOptionPane.showInputDialog(null,
+                "What's the new name?",
+                "Rename list",
+                JOptionPane.PLAIN_MESSAGE);
         model.getBookList(getSelectedIndex()).setName(name);
         updateUI();
     }
