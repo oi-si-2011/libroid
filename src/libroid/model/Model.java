@@ -28,6 +28,8 @@ public class Model {
 
     public void addBook(Book book) {
         allBooks.add(book);
+        logger.log(Level.INFO, "Added book{0}", book);
+        fireChange();
     }
 
     public int bookCount() {

@@ -1,8 +1,10 @@
 package libroid.gui;
 
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import libroid.model.Book;
 import libroid.model.BookList;
+import libroid.model.ChangeListener;
 import libroid.model.Model;
 
 /**
@@ -17,6 +19,7 @@ public class LibraryTableModel extends AbstractTableModel {
 
     public LibraryTableModel(Model model) {
         this.model = model;
+        model.addChangeListener(new ModelChangeListener(this));
     }
 
     /**
@@ -59,5 +62,23 @@ public class LibraryTableModel extends AbstractTableModel {
     @Override
     public String getColumnName(int col) {
         return columnNames[col];
+    }
+
+    private static class ModelChangeListener implements ChangeListener {
+
+        private final LibraryTableModel libraryTableModel;
+
+        private ModelChangeListener(LibraryTableModel m) {
+            this.libraryTableModel = m;
+        }
+
+        public void changePerformed() {
+            SwingUtilities.invokeLater(new Runnable() {
+
+                public void run() {
+                    libraryTableModel.fireTableDataChanged();
+                }
+            });
+        }
     }
 }
