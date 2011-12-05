@@ -55,7 +55,7 @@ public class EditBookDialog extends JDialog {
         confirmButton.addActionListener(new ConfirmActionListener(model));
 
         layout.setHorizontalGroup(
-                /* */layout.createParallelGroup().
+                /* */layout.createParallelGroup(GroupLayout.Alignment.TRAILING).
                 /*   */addGroup(
                 /*     */layout.createSequentialGroup().
                 /*       */addGroup(
