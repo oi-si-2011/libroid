@@ -75,4 +75,12 @@ public class Book {
         hash = 29 * hash + (this.author != null ? this.author.hashCode() : 0);
         return hash;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }
