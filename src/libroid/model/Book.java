@@ -2,6 +2,7 @@ package libroid.model;
 
 public class Book {
 
+    private Model model;
     private String name;
     private String author;
     private int isbn;
@@ -19,6 +20,20 @@ public class Book {
         this.uri = uri;
         this.genre = genre;
         this.isbn = isbn;
+    }
+
+    public void setModel(Model model) {
+        if (this.model != null) {
+            assert !this.model.hasBook(this);
+        }
+        if (model != null) {
+            assert model.hasBook(this);
+        }
+        this.model = model;
+    }
+
+    Model getModel() {
+        return this.model;
     }
 
     public String getName() {
@@ -78,9 +93,17 @@ public class Book {
 
     public void setName(String name) {
         this.name = name;
+        fireModelChange();
     }
 
     public void setAuthor(String author) {
         this.author = author;
+        fireModelChange();
+    }
+
+    private void fireModelChange() {
+        if (model != null) {
+            model.fireChange();
+        }
     }
 }
