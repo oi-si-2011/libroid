@@ -6,11 +6,14 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import libroid.model.Book;
-import libroid.model.BookList;
 import libroid.model.Model;
 
+/**
+ * Tabulka se seznamem knih. Asi nejdůležiější prvek hlavního okna.
+ */
 public class LibraryTable extends JTable {
 
     private static final Logger logger = Logger.getLogger(LibraryTable.class.getName());
@@ -20,10 +23,7 @@ public class LibraryTable extends JTable {
 
     public LibraryTable(Model dataModel) {
         this.appDataModel = dataModel;
-        BookList allBooksList = new BookList("Vsechny knihy");
-        allBooksList.setBooks(appDataModel.getAllBooks());
-        tableModel = new LibraryTableModel(allBooksList);
-        appDataModel.addBookList(allBooksList);
+        tableModel = new LibraryTableModel(appDataModel);
         setModel(tableModel);
         setAutoCreateRowSorter(true);
         setDragEnabled(true);
@@ -39,6 +39,17 @@ public class LibraryTable extends JTable {
         return selectedBooks;
     }
 
+    /**
+     * Vrátí vybranou knihu, nebo null, pokud není žádná vybrána.
+     */
+    Book getSelectedBook() {
+        List<Book> selectedBooks = getSelectedBooks();
+        if (selectedBooks.size() == 1) {
+            return selectedBooks.get(0);
+        }
+        return null;
+    }
+
     void removeSelectedBooks() {
         if (getSelectedRowCount() <= 0) {
             logger.info("No rows selected.");
@@ -47,7 +58,12 @@ public class LibraryTable extends JTable {
 
         List<Book> selectedBooks = getSelectedBooks();
 
-        switch (JOptionPane.showConfirmDialog(null, "Do you really want to remove selected book(s) from your library?", "Remove book", JOptionPane.WARNING_MESSAGE)) {
+        int confirmDialogResult = JOptionPane.showConfirmDialog(null,
+                "Do you really want to remove selected book(s) from your library?",
+                "Remove book",
+                JOptionPane.WARNING_MESSAGE);
+
+        switch (confirmDialogResult) {
             case JOptionPane.OK_OPTION:
                 appDataModel.removeBooks(selectedBooks);
                 tableModel.fireTableDataChanged();
@@ -57,6 +73,17 @@ public class LibraryTable extends JTable {
     }
 
     void setRowFilter(RowFilter<LibraryTableModel, Object> rf) {
+        // XXX TODO unchecked
         sorter.setRowFilter(rf);
     }
+
+    void addListSelectionListener(ListSelectionListener lsl) {
+        getSelectionModel().addListSelectionListener(lsl);
+    }
+
+    public LibraryTableModel getLibraryTableModel() {
+        assert tableModel == super.getModel();
+        return tableModel;
+    }
+
 }

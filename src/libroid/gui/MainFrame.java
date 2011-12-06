@@ -20,6 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import libroid.model.Book;
 import libroid.model.BookList;
 import libroid.model.Model;
 
@@ -36,18 +39,19 @@ public class MainFrame extends JFrame {
     private JPanel leftPanel = new JPanel();
     private JPanel toolBar = new JPanel(); //not used JToolbar for a reason!
     private JPanel bottomBar = new JPanel();
-    private JSplitPane content = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     private FilterField filterTextField;
     private ListsInventory listsInventory;
     private Model model;
+    private BookInfo bookInfo = new BookInfo();
     private JButton addBookButton = new JButton("+ Book");
     private JButton addListButton = new JButton("+ List");
+    private LibraryTable libraryTable;
     // </editor-fold>
 
     public MainFrame(Model model) {
         this.model = model;
         setupAttributes();
-        setupMenu();
+        //setupMenu();
         setupComponents();
     }
 
@@ -70,7 +74,7 @@ public class MainFrame extends JFrame {
         menuItem.setMnemonic(KeyEvent.VK_O);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription("Adds a new book into library");
-        menuItem.addActionListener(new AddBookDialog(model));
+        menuItem.addActionListener(new AddBookDialog.ShowDialogActionListener(model));
         menu.add(menuItem);
 
         menuItem = new JMenuItem("Add a list", new ImageIcon("icons/addList.gif"));
@@ -153,7 +157,8 @@ public class MainFrame extends JFrame {
     }
 
     private void setupComponents() {
-        LibraryTable libraryTable = new LibraryTable(model);
+        libraryTable = new LibraryTable(model);
+        libraryTable.addListSelectionListener(new LibraryTableSelectionListener(this));
 
         filterTextField = new FilterField(libraryTable);
 
@@ -162,22 +167,27 @@ public class MainFrame extends JFrame {
         listsInventory = new ListsInventory(model, libraryTable, filterTextField);
         leftPanel.add(new JScrollPane(listsInventory));
 
-        libraryTable.addMouseListener(new BookMenu(libraryTable, model, listsInventory));
+        libraryTable.addMouseListener(new LibraryTableMouseListener(libraryTable, model, listsInventory));
 
         setupToolBar();
 
-        content.add(leftPanel);
-        content.add(new JScrollPane(libraryTable));
+        JSplitPane tableAndBookInfo = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        tableAndBookInfo.add(new JScrollPane(libraryTable));
+        tableAndBookInfo.add(bookInfo);
+
+        JSplitPane leftPanelAndBooks = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        leftPanelAndBooks.add(leftPanel);
+        leftPanelAndBooks.add(tableAndBookInfo);
 
         add(toolBar, BorderLayout.NORTH);
-        add(content, BorderLayout.CENTER);
+        add(leftPanelAndBooks, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
     }
 
     private void setupToolBar() {
         toolBar.setLayout(new GridLayout(1, 2));
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        addBookButton.addActionListener(new AddBookDialog(model));
+        addBookButton.addActionListener(new EditBookDialog.ShowDialogActionListener(this, model));
         addListButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -192,5 +202,28 @@ public class MainFrame extends JFrame {
 
         toolBar.add(left);
         toolBar.add(right);
+    }
+
+    /**
+     * Listener pro změny označení knih v libraryTable.
+     * Způsobí zobrazení detailu knihy v bookInfo vpravo.
+     */
+    private static class LibraryTableSelectionListener implements ListSelectionListener {
+
+        private final LibraryTable libraryTable;
+        private final BookInfo bookInfo;
+
+        private LibraryTableSelectionListener(MainFrame mf) {
+            this.libraryTable = mf.libraryTable;
+            this.bookInfo = mf.bookInfo;
+        }
+
+        public void valueChanged(ListSelectionEvent lse) {
+            if (lse.getValueIsAdjusting()) {
+                return;
+            }
+            Book b = libraryTable.getSelectedBook();
+            bookInfo.showBook(b);
+        }
     }
 }

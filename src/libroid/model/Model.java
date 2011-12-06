@@ -10,12 +10,26 @@ public class Model {
     private static final Logger logger = Logger.getLogger(Model.class.getName());
     private List<Book> allBooks = new ArrayList<Book>();
     private List<BookList> allBookLists = new ArrayList<BookList>();
+    private List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
 
     public Model() {
     }
 
+    public void addChangeListener(ChangeListener chl) {
+        changeListeners.add(chl);
+    }
+
+    public void fireChange() {
+        logger.info("fired");
+        for (ChangeListener chl : changeListeners) {
+            chl.changePerformed();
+        }
+    }
+
     public void addBook(Book book) {
         allBooks.add(book);
+        logger.log(Level.INFO, "Added book{0}", book);
+        fireChange();
     }
 
     public int bookCount() {
@@ -63,11 +77,19 @@ public class Model {
         allBookLists.add(bl);
     }
 
-    public BookList getBookList(int i){
+    public BookList getBookList(int i) {
         return allBookLists.get(i);
     }
 
     public List<BookList> getAllBookLists() {
         return allBookLists;
+    }
+
+    public void removeList(int selectedIndex) {
+        allBookLists.remove(selectedIndex);
+    }
+
+    public void renameList(int selectedIndex) {
+
     }
 }

@@ -12,16 +12,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import libroid.model.Book;
 
+/**
+ * Popis knihy s možností editace, který se objeví po dvojitém kliku na knihu
+ * v tabulce knih.
+ */
 public class BookDescription extends JFrame {
+
     private Book book;
     private Point origin;
     private boolean editMode = true;
-
     private String title = "";
     JLabel titleLabel = new JLabel();
     JTextField titleText = new JTextField(12);
@@ -34,10 +37,9 @@ public class BookDescription extends JFrame {
     private String isbn;
     JLabel isbnLabel = new JLabel();
     JTextField isbnText = new JTextField(12);
-
     JPanel content = new JPanel(new CardLayout());
 
-    public BookDescription(){
+    public BookDescription() {
         setSize(200, 200);
         setLayout(new BorderLayout());
         setUndecorated(true);
@@ -46,6 +48,7 @@ public class BookDescription extends JFrame {
 
         JToggleButton editButton = new JToggleButton("Edit");
         editButton.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) content.getLayout();
                 cl.next(content);
@@ -55,6 +58,7 @@ public class BookDescription extends JFrame {
 
         JButton hideButton = new JButton("Hide");
         hideButton.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
@@ -64,16 +68,16 @@ public class BookDescription extends JFrame {
         add(toolBar, BorderLayout.NORTH);
 
         JPanel view = new JPanel();
-            view.add(titleLabel);            
-            view.add(authorLabel);            
-            view.add(genreLabel);            
-            view.add(isbnLabel);
+        view.add(titleLabel);
+        view.add(authorLabel);
+        view.add(genreLabel);
+        view.add(isbnLabel);
 
-        JPanel edit = new JPanel();            
-            edit.add(titleText);            
-            edit.add(authorText);            
-            edit.add(genreText);          
-            edit.add(isbnText);
+        JPanel edit = new JPanel();
+        edit.add(titleText);
+        edit.add(authorText);
+        edit.add(genreText);
+        edit.add(isbnText);
 
         content.add(view, "");
         content.add(edit, "");
@@ -81,16 +85,19 @@ public class BookDescription extends JFrame {
         add(content, BorderLayout.CENTER);
 
         addWindowFocusListener(new WindowFocusListener() {
-            public void windowGainedFocus(WindowEvent e) {}
+
+            public void windowGainedFocus(WindowEvent e) {
+            }
+
             public void windowLostFocus(WindowEvent e) {
-                if(isVisible()){
-                   dispose();
+                if (isVisible()) {
+                    dispose();
                 }
             }
         });
     }
 
-    public void showPanel(){
+    public void showPanel() {
         requestFocusInWindow();
         setLocation(origin.x, origin.y);
         setVisible(true);
@@ -104,7 +111,7 @@ public class BookDescription extends JFrame {
         setSize(getSize().width, height);
     }
 
-    void setBook(Book b){
+    void setBook(Book b) {
         this.book = b;
         title = b.getName();
         titleText.setText(title);
@@ -115,7 +122,7 @@ public class BookDescription extends JFrame {
         genre = b.getGenre();
         genreLabel.setText(genre);
         genreText.setText(genre);
-        isbn = ""+b.getIsbn();
+        isbn = "" + b.getIsbn();
         isbnLabel.setText(isbn);
         isbnText.setText(isbn);
     }

@@ -16,11 +16,22 @@ public class ListsInventoryModel extends AbstractListModel {
     }
 
     public int getSize() {
-        return appModel.getAllBookLists().size();
+        return appModel.getAllBookLists().size() + 1;
     }
 
     public Object getElementAt(int i) {
-        BookList bl = appModel.getAllBookLists().get(i);
+        if (i == 0) {
+            return "All books";
+        }
+        BookList bl = appModel.getAllBookLists().get(i-1);
         return bl.getName();
+    }
+
+    BookList getBookList(int i) {
+        if (i == 0) {
+            return null;
+        }
+        BookList bl = appModel.getAllBookLists().get(i-1);
+        return bl;
     }
 }

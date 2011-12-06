@@ -11,12 +11,13 @@ import libroid.model.Book;
 import libroid.model.BookList;
 import libroid.model.Model;
 
-public class SelectListDialog extends JFrame implements ActionListener{
+public class SelectListDialog extends JFrame implements ActionListener {
+
     Model model;
     JList list;
     List<Book> books;
 
-    public SelectListDialog(Model m, List<Book> b){
+    public SelectListDialog(Model m, List<Book> b) {
         this.model = m;
         this.books = b;
 
@@ -24,6 +25,7 @@ public class SelectListDialog extends JFrame implements ActionListener{
         //setUndecorated(true);
         list = new JList(new ListsInventoryModel(model));
         list.addListSelectionListener(new ListSelectionListener() {
+
             public void valueChanged(ListSelectionEvent e) {
                 BookList bookList = model.getBookList(list.getSelectedIndex());
                 bookList.addBooks(books);
