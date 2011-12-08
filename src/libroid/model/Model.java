@@ -28,7 +28,8 @@ public class Model {
 
     public void addBook(Book book) {
         allBooks.add(book);
-        logger.log(Level.INFO, "Added book{0}", book);
+        book.setModel(this);
+        logger.log(Level.INFO, "Added book {0}", book);
         fireChange();
     }
 
@@ -37,13 +38,18 @@ public class Model {
     }
 
     public Book getBook(int index) {
-        return allBooks.get(index);
+        Book b = allBooks.get(index);
+        assert b.getModel() == this;
+        return b;
     }
 
     public void removeBooks(List<Book> booksToRemove) {
         logger.log(Level.INFO, "Removing {0} books: {1}",
                 new Object[]{booksToRemove.size(), booksToRemove});
         allBooks.removeAll(booksToRemove);
+        for (Book b : booksToRemove) {
+            b.setModel(null);
+        }
     }
 
     public static Model createSampleModel() {
@@ -91,5 +97,9 @@ public class Model {
 
     public void renameList(int selectedIndex) {
 
+    }
+
+    boolean hasBook(Book b) {
+        return allBooks.contains(b);
     }
 }

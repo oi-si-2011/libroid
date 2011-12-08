@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
     private FilterField filterTextField;
     private ListsInventory listsInventory;
     private Model model;
-    private BookInfo bookInfo = new BookInfo();
+    private BookInfo bookInfo;
     private JButton addBookButton = new JButton("+ Book");
     private JButton addListButton = new JButton("+ List");
     private LibraryTable libraryTable;
@@ -157,6 +157,8 @@ public class MainFrame extends JFrame {
     }
 
     private void setupComponents() {
+        bookInfo = new BookInfo(this, model);
+
         libraryTable = new LibraryTable(model);
         libraryTable.addListSelectionListener(new LibraryTableSelectionListener(this));
 
@@ -214,6 +216,8 @@ public class MainFrame extends JFrame {
         private final BookInfo bookInfo;
 
         private LibraryTableSelectionListener(MainFrame mf) {
+            assert mf.libraryTable != null;
+            assert mf.bookInfo != null;
             this.libraryTable = mf.libraryTable;
             this.bookInfo = mf.bookInfo;
         }

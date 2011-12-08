@@ -19,10 +19,21 @@ import libroid.model.Model;
  */
 public class EditBookDialog extends JDialog {
 
+    public static EditBookDialog show(JFrame owner, Model model) {
+        return show(owner, model, null);
+    }
+
+    public static EditBookDialog show(JFrame owner, Model model, Book book) {
+        EditBookDialog d = new EditBookDialog(owner, model, book);
+        d.setModal(true);
+        d.setVisible(true);
+        return d;
+    }
     private JFileChooser fileChooser = new JFileChooser();
     private File file;
     private Book book;
-    private Model model;
+    private final Model model;
+    private final Book editedBook;
     private String uri;
     private JButton confirm = new JButton("Confirm");
     private JTextField nameField = new JTextField(20);
@@ -30,11 +41,16 @@ public class EditBookDialog extends JDialog {
     private JTextField genre = new JTextField(12);
     private JTextField isbn = new JTextField(12);
 
-    private EditBookDialog(JFrame owner, final Model model) {
+    private EditBookDialog(JFrame owner, final Model model, Book book) {
         super(owner);
         this.model = model;
+        this.editedBook = book;
 
-        setTitle("Add Book");
+        if (editedBook == null) {
+            setTitle("Add Book");
+        } else {
+            setTitle("Edit Book");
+        }
 
         GroupLayout layout = new GroupLayout(this.getContentPane());
         getContentPane().setLayout(layout);
@@ -51,38 +67,56 @@ public class EditBookDialog extends JDialog {
         final JButton cancelButton = new JButton("Cancel");
         final JButton confirmButton = new JButton("Confirm");
 
+        fillFieldValuesWithBookParameters();
+
         cancelButton.addActionListener(new DisposeActionListener());
         confirmButton.addActionListener(new ConfirmActionListener(model));
 
         layout.setHorizontalGroup(
-                layout.createParallelGroup().
-                addGroup(
-                layout.createSequentialGroup().
-                addGroup(layout.createParallelGroup().
-                addComponent(nameLabel).
-                addComponent(authorLabel)).
-                addGroup(layout.createParallelGroup().
-                addComponent(nameField).
-                addComponent(authorField))).
-                addGroup(
-                layout.createSequentialGroup().
-                addComponent(cancelButton).
-                addComponent(confirmButton)));
+                /* */layout.createParallelGroup(GroupLayout.Alignment.TRAILING).
+                /*   */addGroup(
+                /*     */layout.createSequentialGroup().
+                /*       */addGroup(
+                /*         */layout.createParallelGroup().
+                /*           */addComponent(nameLabel).
+                /*           */addComponent(authorLabel)).
+                /*       */addGroup(
+                /*         */layout.createParallelGroup().
+                /*           */addComponent(nameField).
+                /*           */addComponent(authorField))).
+                /*   */addGroup(
+                /*     */layout.createSequentialGroup().
+                /*       */addComponent(cancelButton).
+                /*       */addComponent(confirmButton)));
 
         layout.setVerticalGroup(
-                layout.createSequentialGroup().
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(nameLabel).
-                addComponent(nameField)).
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(authorLabel).
-                addComponent(authorField)).
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(cancelButton).
-                addComponent(confirmButton)));
+                /* */layout.createSequentialGroup().
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(nameLabel).
+                /*       */addComponent(nameField)).
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(authorLabel).
+                /*       */addComponent(authorField)).
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(cancelButton).
+                /*       */addComponent(confirmButton)));
 
         pack();
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
+    }
+
+    /**
+     * Voláno z konstruktoru.
+     */
+    private void fillFieldValuesWithBookParameters() {
+        if (editedBook == null) {
+            return;
+        }
+        nameField.setText(editedBook.getName());
+        authorField.setText(editedBook.getAuthor());
     }
 
     /**
@@ -124,9 +158,7 @@ public class EditBookDialog extends JDialog {
         }
 
         public void actionPerformed(ActionEvent ae) {
-            EditBookDialog d = new EditBookDialog(owner, model);
-            d.setModal(true);
-            d.setVisible(true);
+            EditBookDialog.show(owner, model);
         }
     }
 
@@ -158,7 +190,12 @@ public class EditBookDialog extends JDialog {
         public void actionPerformed(ActionEvent ae) {
             String name = nameField.getText();
             String author = authorField.getText();
+            if (editedBook == null) {
             model.addBook(new Book(name, author));
+            } else {
+                editedBook.setName(name);
+                editedBook.setAuthor(author);
+            }
             dispose();
         }
     }
