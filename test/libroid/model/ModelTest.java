@@ -9,23 +9,41 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
 public class ModelTest {
 
+    /**
+     * 
+     */
     public ModelTest() {
     }
 
+    /**
+     * 
+     * @throws Exception
+     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
+    /**
+     * 
+     * @throws Exception
+     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
+    /**
+     * 
+     */
     @Before
     public void setUp() {
     }
 
+    /**
+     * 
+     */
     @After
     public void tearDown() {
     }
@@ -42,6 +60,9 @@ public class ModelTest {
         assertEquals(book, model.getBook(0));
     }
 
+    /**
+     * 
+     */
     @Test
     public void testAddBook2() {
         System.out.println("addBook");
@@ -86,6 +107,9 @@ public class ModelTest {
         assertEquals(new Book("Velke U", "Neal Stephenson"), m.getBook(2));
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGetBook2() {
         Model m = new Model();
@@ -129,6 +153,9 @@ public class ModelTest {
         assertEquals(sampleList, m.getAllBooks());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testRemoveBooks2() {
         System.out.println("removeBooks from empty library");

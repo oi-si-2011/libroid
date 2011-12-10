@@ -12,23 +12,44 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * 
+ * @author Michal
+ */
 public class ListsInventoryModelTest {
 
+    /**
+     * 
+     */
     public ListsInventoryModelTest() {
     }
 
+    /**
+     * 
+     * @throws Exception
+     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
+    /**
+     * 
+     * @throws Exception
+     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
+    /**
+     * 
+     */
     @Before
     public void setUp() {
     }
 
+    /**
+     * 
+     */
     @After
     public void tearDown() {
     }
@@ -40,7 +61,7 @@ public class ListsInventoryModelTest {
     public void testGetSize() {
         System.out.println("getSize");
         ListsInventoryModel instance = new ListsInventoryModel(null);
-        int expResult = 0;
+        int expResult = 1;
 
         try {
             int result = instance.getSize();
@@ -50,16 +71,22 @@ public class ListsInventoryModelTest {
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGetSize2() {
         System.out.println("getSize2");
         Model m = new Model();
         ListsInventoryModel instance = new ListsInventoryModel(m);
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.getSize();
         assertEquals(expResult, result);
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGetSize3() {
         System.out.println("getSize3");
@@ -80,13 +107,16 @@ public class ListsInventoryModelTest {
 
         ListsInventoryModel instance = new ListsInventoryModel(m);
 
-        int expResult = 1;
+        int expResult = 2;
         int result = instance.getSize();
 
         assertEquals(expResult, result);
 
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGetSize4() {
         System.out.println("getSize4");
@@ -117,13 +147,16 @@ public class ListsInventoryModelTest {
 
         ListsInventoryModel instance = new ListsInventoryModel(m);
 
-        int expResult = 3;
+        int expResult = 4;
         int result = instance.getSize();
 
         assertEquals(expResult, result);
 
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGetSize5() {
         System.out.println("getSize2");
@@ -156,7 +189,7 @@ public class ListsInventoryModelTest {
 
         ListsInventoryModel instance = new ListsInventoryModel(m);
 
-        int expResult = 4;
+        int expResult = 5;
         int result = instance.getSize();
 
         assertEquals(expResult, result);
@@ -196,7 +229,7 @@ public class ListsInventoryModelTest {
 
         ListsInventoryModel instance = new ListsInventoryModel(m);
 
-        String expResult = testList3.getName();
+        String expResult = testList2.getName();
         Object result = instance.getElementAt(2);
 
         assertTrue(expResult.equals(result));

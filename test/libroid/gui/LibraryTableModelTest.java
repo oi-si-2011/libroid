@@ -4,6 +4,7 @@ import libroid.model.Book;
 import java.util.List;
 import java.util.ArrayList;
 import libroid.model.BookList;
+import libroid.model.Model;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,40 +12,55 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
 public class LibraryTableModelTest {
 
     LibraryTableModel testLibraryLibraryTableModel;
 
+    /**
+     * Unit testy, které ověřují funkčnost metod ve třídě LibraryTableModel. 
+     */
     public LibraryTableModelTest() {
     }
 
+    /**
+     * 
+     * @throws Exception
+     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
+    /**
+     * 
+     * @throws Exception
+     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
+    /**
+     * 
+     */
     @Before
     public void setUp() {
 
-        BookList testList = new BookList("testList");
-        List<Book> testBookList = new ArrayList<Book>();
+        Model m = new Model();
 
-        testBookList.add(new Book("Vlakna hypercasu", "R. Susta"));
-        testBookList.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList.add(new Book("Velke U", "Neal Stephenson"));
-        testBookList.add(new Book("Hordubal", "K. Capek"));
-        testBookList.add(new Book("A", "1"));
-        testBookList.add(new Book("B", "2"));
-
-        testList.setBooks(testBookList);
-        // XXX TODO
-        //testLibraryLibraryTableModel = new LibraryTableModel(testList);
+        m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
+        m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
+        m.addBook(new Book("Velke U", "Neal Stephenson"));
+        m.addBook(new Book("Hordubal", "K. Capek"));
+        m.addBook(new Book("A", "1"));
+        m.addBook(new Book("B", "2"));
+    
+        testLibraryLibraryTableModel = new LibraryTableModel(m);
 
     }
 
+    /**
+     * 
+     */
     @After
     public void tearDown() {
     }

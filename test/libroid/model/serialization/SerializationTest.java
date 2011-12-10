@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 public class SerializationTest {
 
+
     @Test
     public void testSerializeEmptyModel() throws UnsupportedEncodingException {
         Model m = new Model();
@@ -23,7 +24,8 @@ public class SerializationTest {
     }
 
     /**
-     * Otestování serializace do XML modelu s několika knihama.
+     * Otestování serializace do XML modelu s několika knihami.
+     * @throws UnsupportedEncodingException 
      */
     @Test
     public void testSerializeSampleModel() throws UnsupportedEncodingException {
