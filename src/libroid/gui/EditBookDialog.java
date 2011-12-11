@@ -1,8 +1,12 @@
 package libroid.gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -19,22 +23,37 @@ import libroid.model.Model;
  */
 public class EditBookDialog extends JDialog {
 
-    private JFileChooser fileChooser = new JFileChooser();
-    private File file;
-    private Book book;
-    private Model model;
-    private String uri;
-    private JButton confirm = new JButton("Confirm");
+    public static EditBookDialog show(JFrame owner, Model model) {
+        return show(owner, model, null);
+    }
+
+    public static EditBookDialog show(JFrame owner, Model model, Book book) {
+        EditBookDialog d = new EditBookDialog(owner, model, book);
+        d.setModal(true);
+        d.setVisible(true);
+        return d;
+    }
+    private final Model model;
+    private Book editedBook;
+    private JLabel currentFileLabel = new JLabel("-");
+    private File currentFile;
     private JTextField nameField = new JTextField(20);
     private JTextField authorField = new JTextField(20);
     private JTextField genre = new JTextField(12);
     private JTextField isbn = new JTextField(12);
 
-    private EditBookDialog(JFrame owner, final Model model) {
+    private EditBookDialog(JFrame owner, final Model model, Book book) {
         super(owner);
-        this.model = model;
+        assert owner != null;
 
-        setTitle("Add Book");
+        this.model = model;
+        this.editedBook = book;
+
+        if (editedBook == null) {
+            setTitle("Add Book");
+        } else {
+            setTitle("Edit Book");
+        }
 
         GroupLayout layout = new GroupLayout(this.getContentPane());
         getContentPane().setLayout(layout);
@@ -45,44 +64,83 @@ public class EditBookDialog extends JDialog {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
+        final JLabel fileLabel = new JLabel("File:");
         final JLabel nameLabel = new JLabel("Name:");
         final JLabel authorLabel = new JLabel("Author:");
 
+        final JButton fileShowChooserButton = new JButton("Change");
         final JButton cancelButton = new JButton("Cancel");
         final JButton confirmButton = new JButton("Confirm");
 
+        currentFileLabel.setBackground(Color.BLUE);
+
+        fillFieldValuesWithBookParameters();
+
+        fileShowChooserButton.addActionListener(new ShowFileChooserActionListener(this));
         cancelButton.addActionListener(new DisposeActionListener());
         confirmButton.addActionListener(new ConfirmActionListener(model));
 
         layout.setHorizontalGroup(
-                layout.createParallelGroup().
-                addGroup(
-                layout.createSequentialGroup().
-                addGroup(layout.createParallelGroup().
-                addComponent(nameLabel).
-                addComponent(authorLabel)).
-                addGroup(layout.createParallelGroup().
-                addComponent(nameField).
-                addComponent(authorField))).
-                addGroup(
-                layout.createSequentialGroup().
-                addComponent(cancelButton).
-                addComponent(confirmButton)));
+                /* */layout.createParallelGroup(GroupLayout.Alignment.TRAILING).
+                /*   */addGroup(
+                /*     */layout.createSequentialGroup().
+                /*       */addGroup(
+                /*         */layout.createParallelGroup().
+                /*           */addComponent(fileLabel).
+                /*           */addComponent(nameLabel).
+                /*           */addComponent(authorLabel)).
+                /*       */addGroup(
+                /*         */layout.createParallelGroup().
+                /*           */addGroup(
+                /*             */layout.createSequentialGroup().
+                /*               */addComponent(currentFileLabel).
+                /*               */addComponent(fileShowChooserButton)).
+                /*           */addComponent(nameField).
+                /*           */addComponent(authorField))).
+                /*   */addGroup(
+                /*     */layout.createSequentialGroup().
+                /*       */addComponent(cancelButton).
+                /*       */addComponent(confirmButton)));
 
         layout.setVerticalGroup(
-                layout.createSequentialGroup().
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(nameLabel).
-                addComponent(nameField)).
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(authorLabel).
-                addComponent(authorField)).
-                addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                addComponent(cancelButton).
-                addComponent(confirmButton)));
+                /* */layout.createSequentialGroup().
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(fileLabel).
+                /*       */addComponent(currentFileLabel).
+                /*       */addComponent(fileShowChooserButton)).
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(nameLabel).
+                /*       */addComponent(nameField)).
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(authorLabel).
+                /*       */addComponent(authorField)).
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(cancelButton).
+                /*       */addComponent(confirmButton)));
 
         pack();
+        // okno trochu zvetsime, at se tam vejdou delsi cesty k souboru
+        setPreferredSize(new Dimension(getPreferredSize().width + 200, getPreferredSize().height));
+        pack();
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
+    }
+
+    /**
+     * Voláno z konstruktoru.
+     */
+    private void fillFieldValuesWithBookParameters() {
+        if (editedBook == null) {
+            return;
+        }
+        if (editedBook.getFile() != null) {
+            currentFileLabel.setText(editedBook.getFile().toString());
+        }
+        nameField.setText(editedBook.getName());
+        authorField.setText(editedBook.getAuthor());
     }
 
     /**
@@ -124,9 +182,7 @@ public class EditBookDialog extends JDialog {
         }
 
         public void actionPerformed(ActionEvent ae) {
-            EditBookDialog d = new EditBookDialog(owner, model);
-            d.setModal(true);
-            d.setVisible(true);
+            EditBookDialog.show(owner, model);
         }
     }
 
@@ -156,10 +212,46 @@ public class EditBookDialog extends JDialog {
         }
 
         public void actionPerformed(ActionEvent ae) {
+
             String name = nameField.getText();
             String author = authorField.getText();
-            model.addBook(new Book(name, author));
+
+            if (editedBook == null) {
+                editedBook = new Book();
+            }
+            editedBook.setName(name);
+            editedBook.setAuthor(author);
+            editedBook.setFile(currentFile);
+
+            if (editedBook == null) {
+                model.addBook(new Book(name, author));
+            }
             dispose();
+        }
+    }
+
+    private static class ShowFileChooserActionListener implements ActionListener {
+
+        private static final Logger logger = Logger.getLogger(ShowFileChooserActionListener.class.getName());
+        private final EditBookDialog editBookDialog;
+
+        private ShowFileChooserActionListener(EditBookDialog editBookDialog) {
+            this.editBookDialog = editBookDialog;
+        }
+
+        public void actionPerformed(ActionEvent ae) {
+            logger.info("Showing file chooser dialog");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileFilter(new BookFileFilter());
+            int returnVal = fileChooser.showOpenDialog(editBookDialog);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                logger.log(Level.INFO, "file chooser dialog approved with file '{0}'", file);
+                editBookDialog.currentFile = file;
+                editBookDialog.currentFileLabel.setText(file.getAbsolutePath());
+            } else {
+                logger.log(Level.INFO, "file chooser dialog returned with {0} (not approved)", returnVal);
+            }
         }
     }
 }

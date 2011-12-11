@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+/**
+ * Menu, které se objeví po pravém kliku na seznam v tabulce seznamů.
+ */
 class ListsMenu extends JPopupMenu {
 
     private ListsInventory listInventory;

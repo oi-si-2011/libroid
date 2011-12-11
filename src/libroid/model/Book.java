@@ -1,24 +1,38 @@
 package libroid.model;
 
+import java.io.File;
+import java.util.logging.Logger;
+
 public class Book {
 
+    private static final Logger logger = Logger.getLogger(Book.class.getName());
+    private Model model;
     private String name;
     private String author;
     private int isbn;
-    private String uri;
+    private File file;
     private String genre;
+
+    public Book() {
+    }
 
     public Book(String name, String author) {
         this.name = name;
         this.author = author;
     }
 
-    public Book(String name, String author, String uri, String genre, int isbn) {
-        this.name = name;
-        this.author = author;
-        this.uri = uri;
-        this.genre = genre;
-        this.isbn = isbn;
+    public void setModel(Model model) {
+        if (this.model != null) {
+            assert !this.model.hasBook(this);
+        }
+        if (model != null) {
+            assert model.hasBook(this);
+        }
+        this.model = model;
+    }
+
+    Model getModel() {
+        return this.model;
     }
 
     public String getName() {
@@ -37,8 +51,8 @@ public class Book {
         return isbn;
     }
 
-    public String getUri() {
-        return uri;
+    public File getFile() {
+        return file;
     }
 
     /**
@@ -74,5 +88,25 @@ public class Book {
         hash = 29 * hash + (this.name != null ? this.name.hashCode() : 0);
         hash = 29 * hash + (this.author != null ? this.author.hashCode() : 0);
         return hash;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        fireModelChange();
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+        fireModelChange();
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    private void fireModelChange() {
+        if (model != null) {
+            model.fireChange();
+        }
     }
 }

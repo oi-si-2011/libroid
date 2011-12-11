@@ -6,10 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -19,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.KeyStroke;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import libroid.model.Book;
@@ -42,7 +39,7 @@ public class MainFrame extends JFrame {
     private FilterField filterTextField;
     private ListsInventory listsInventory;
     private Model model;
-    private BookInfo bookInfo = new BookInfo();
+    private BookInfo bookInfo;
     private JButton addBookButton = new JButton("+ Book");
     private JButton addListButton = new JButton("+ List");
     private LibraryTable libraryTable;
@@ -63,87 +60,6 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
     }
 
-    private void setupMenu() {
-        // <editor-fold defaultstate="collapsed" desc="File">
-        menu = new JMenu("File");
-        setJMenuBar(menuBar);
-        menuBar.add(menu);
-        menu.setMnemonic(KeyEvent.VK_F);
-
-        menuItem = new JMenuItem("Add a book", new ImageIcon("icons/addBook.gif"));
-        menuItem.setMnemonic(KeyEvent.VK_O);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription("Adds a new book into library");
-        menuItem.addActionListener(new AddBookDialog.ShowDialogActionListener(model));
-        menu.add(menuItem);
-
-        menuItem = new JMenuItem("Add a list", new ImageIcon("icons/addList.gif"));
-        menuItem.setMnemonic(KeyEvent.VK_S);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription("Adds a new list of books");
-        menuItem.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                addListDialog();
-            }
-        });
-        menu.add(menuItem);
-
-        menu.addSeparator();
-
-        menuItem = new JMenuItem("Exit");
-        menuItem.setMnemonic(KeyEvent.VK_Z);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription("Close the app");
-        menuItem.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-        menu.add(menuItem);
-        // </editor-fold>
-
-        // <editor-fold defaultstate="collapsed" desc="List">
-        menu = new JMenu("List");
-        menuBar.add(menu);
-        menu.setMnemonic(KeyEvent.VK_L);
-
-        menuItem = new JMenuItem("Create");
-        menuItem.setMnemonic(KeyEvent.VK_C);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK + ActionEvent.SHIFT_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription("Create a new list of books");
-        //menuItem.addActionListener();
-        menu.add(menuItem);
-
-        menuItem = new JMenuItem("Import");
-        menuItem.setMnemonic(KeyEvent.VK_I);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription("Import a list of books");
-        //menuItem.addActionListener();
-        menu.add(menuItem);
-
-        menuItem = new JMenuItem("Edit");
-        menuItem.setMnemonic(KeyEvent.VK_E);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription("Edit lists");
-        //menuItem.addActionListener();
-        menu.add(menuItem);
-        // </editor-fold>
-
-        // <editor-fold defaultstate="collapsed" desc="Tools">
-        menu = new JMenu("Tools");
-        menuBar.add(menu);
-        menu.setMnemonic(KeyEvent.VK_T);
-
-        menuItem = new JMenuItem("Settings");
-        menuItem.setMnemonic(KeyEvent.VK_S);
-        menuItem.getAccessibleContext().setAccessibleDescription("Edit setting of the program");
-        //menuItem.addActionListener();
-        menu.add(menuItem);
-        // </editor-fold>
-    }
-
     private void addListDialog() {
         String name = JOptionPane.showInputDialog(null,
                 "What's the new list name?",
@@ -157,6 +73,8 @@ public class MainFrame extends JFrame {
     }
 
     private void setupComponents() {
+        bookInfo = new BookInfo(this, model);
+
         libraryTable = new LibraryTable(model);
         libraryTable.addListSelectionListener(new LibraryTableSelectionListener(this));
 
@@ -214,6 +132,8 @@ public class MainFrame extends JFrame {
         private final BookInfo bookInfo;
 
         private LibraryTableSelectionListener(MainFrame mf) {
+            assert mf.libraryTable != null;
+            assert mf.bookInfo != null;
             this.libraryTable = mf.libraryTable;
             this.bookInfo = mf.bookInfo;
         }

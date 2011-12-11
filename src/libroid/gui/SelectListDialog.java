@@ -28,7 +28,7 @@ public class SelectListDialog extends JFrame implements ActionListener {
 
             public void valueChanged(ListSelectionEvent e) {
                 BookList bookList = model.getBookList(list.getSelectedIndex());
-                bookList.addBooks(books);
+                bookList.addBooks(books); // XXX TODO
                 dispose();
             }
         });

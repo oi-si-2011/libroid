@@ -34,4 +34,5 @@ public class ListsInventoryModel extends AbstractListModel {
         BookList bl = appModel.getAllBookLists().get(i-1);
         return bl;
     }
+
 }
