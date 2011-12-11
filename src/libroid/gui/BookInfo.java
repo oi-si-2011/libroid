@@ -25,6 +25,7 @@ public class BookInfo extends JPanel {
     // GUI widgety
     private final JLabel nameLabel = new JLabel();
     private final JLabel authorLabel = new JLabel();
+    private final JLabel fileLabel = new JLabel();
     private final JButton editButton = new JButton("Edit");
     // aktuálně zobrazená kniha
     private Book shownBook;
@@ -44,6 +45,8 @@ public class BookInfo extends JPanel {
         add(nameLabel);
         add(GUIUtil.withBoldFont(new JLabel("Author:")));
         add(authorLabel);
+        add(GUIUtil.withBoldFont(new JLabel("File:")));
+        add(fileLabel);
         add(editButton);
 
         editButton.addActionListener(new ActionListener() {
@@ -61,6 +64,7 @@ public class BookInfo extends JPanel {
         shownBook = null;
         nameLabel.setText("-");
         authorLabel.setText("-");
+        fileLabel.setText("-");
     }
 
     /**
@@ -82,6 +86,11 @@ public class BookInfo extends JPanel {
         }
         nameLabel.setText(shownBook.getName());
         authorLabel.setText(shownBook.getAuthor());
+        if (shownBook.getUri() == null) {
+            fileLabel.setText("-");
+        } else {
+            fileLabel.setText(shownBook.getUri());
+        }
         logger.log(Level.INFO, "Book reloaded - name: {0} author: {1}",
                 new Object[]{shownBook.getName(), shownBook.getAuthor()});
     }
