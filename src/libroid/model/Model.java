@@ -46,6 +46,9 @@ public class Model {
     public void removeBooks(List<Book> booksToRemove) {
         logger.log(Level.INFO, "Removing {0} books: {1}",
                 new Object[]{booksToRemove.size(), booksToRemove});
+        for (BookList bl : allBookLists) {
+            bl.removeAllBooks(booksToRemove);
+        }
         allBooks.removeAll(booksToRemove);
         for (Book b : booksToRemove) {
             b.setModel(null);
@@ -96,7 +99,6 @@ public class Model {
     }
 
     public void renameList(int selectedIndex) {
-
     }
 
     boolean hasBook(Book b) {

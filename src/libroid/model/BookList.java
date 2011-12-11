@@ -49,4 +49,9 @@ public class BookList {
     public void setName(String name) {
         this.name = name;
     }
+
+    void removeAllBooks(List<Book> booksToRemove) {
+        books.removeAll(booksToRemove);
+    }
+
 }
