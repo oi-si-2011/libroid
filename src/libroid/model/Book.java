@@ -10,7 +10,7 @@ public class Book {
     private String name;
     private String author;
     private int isbn;
-    private String uri;
+    private File file;
     private String genre;
 
     public Book() {
@@ -51,8 +51,8 @@ public class Book {
         return isbn;
     }
 
-    public String getUri() {
-        return uri;
+    public File getFile() {
+        return file;
     }
 
     /**
@@ -100,13 +100,13 @@ public class Book {
         fireModelChange();
     }
 
+    public void setFile(File file) {
+        this.file = file;
+    }
+
     private void fireModelChange() {
         if (model != null) {
             model.fireChange();
         }
-    }
-
-    public void setFile(File file) {
-        this.uri = file.toURI().toString();
     }
 }

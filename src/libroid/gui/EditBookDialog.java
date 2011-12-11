@@ -136,8 +136,8 @@ public class EditBookDialog extends JDialog {
         if (editedBook == null) {
             return;
         }
-        if (editedBook.getUri() != null && !editedBook.getUri().isEmpty()) {
-            currentFileLabel.setText(editedBook.getUri());
+        if (editedBook.getFile() != null) {
+            currentFileLabel.setText(editedBook.getFile().toString());
         }
         nameField.setText(editedBook.getName());
         authorField.setText(editedBook.getAuthor());

@@ -32,8 +32,7 @@ class BookMenu extends JPopupMenu {
                 public void actionPerformed(ActionEvent e) {
                     Book book = libraryTable.getSelectedBooks().get(0);
                     try {
-                        File f = new File(book.getUri());
-                        System.out.println(book.getUri());
+                        File f = book.getFile();
                         if (Desktop.isDesktopSupported()) {
                             Desktop.getDesktop().open(f);
                         } else {

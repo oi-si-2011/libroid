@@ -86,10 +86,10 @@ public class BookInfo extends JPanel {
         }
         nameLabel.setText(shownBook.getName());
         authorLabel.setText(shownBook.getAuthor());
-        if (shownBook.getUri() == null) {
+        if (shownBook.getFile() == null) {
             fileLabel.setText("-");
         } else {
-            fileLabel.setText(shownBook.getUri());
+            fileLabel.setText(shownBook.getFile().toString());
         }
         logger.log(Level.INFO, "Book reloaded - name: {0} author: {1}",
                 new Object[]{shownBook.getName(), shownBook.getAuthor()});
