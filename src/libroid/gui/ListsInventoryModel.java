@@ -2,7 +2,6 @@ package libroid.gui;
 
 import javax.swing.AbstractListModel;
 import libroid.model.BookList;
-import libroid.model.ChangeListener;
 import libroid.model.Model;
 
 /**

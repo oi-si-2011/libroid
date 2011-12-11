@@ -2,6 +2,7 @@ package libroid.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -17,7 +18,7 @@ public class LibraryTable extends JTable {
 
     private static final Logger logger = Logger.getLogger(LibraryTable.class.getName());
     private Model appDataModel;
-    private LibraryTableModel tableModel;
+    private final LibraryTableModel tableModel;
     private TableRowSorter sorter = new TableRowSorter<LibraryTableModel>();
 
     public LibraryTable(Model dataModel) {
@@ -33,8 +34,9 @@ public class LibraryTable extends JTable {
         List<Book> selectedBooks = new ArrayList<Book>();
         for (int sri : getSelectedRows()) {
             int modelIndex = convertRowIndexToModel(sri);
-            selectedBooks.add(appDataModel.getBook(modelIndex));
+            selectedBooks.add(tableModel.getBook(modelIndex));
         }
+        logger.log(Level.INFO, "Selected books: {0}", selectedBooks);
         return selectedBooks;
     }
 

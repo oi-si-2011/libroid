@@ -1,5 +1,7 @@
 package libroid.gui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import libroid.model.Book;
@@ -13,6 +15,7 @@ import libroid.model.Model;
  */
 public class LibraryTableModel extends AbstractTableModel {
 
+    private static final Logger logger = Logger.getLogger(LibraryTableModel.class.getName());
     private Model model;
     private BookList bookList;
     private String[] columnNames = {"Name", "Author"};
@@ -27,7 +30,9 @@ public class LibraryTableModel extends AbstractTableModel {
      */
     public void setBookList(BookList bookList) {
         this.bookList = bookList;
+        logger.log(Level.INFO, "Setting book list {0}", bookList);
         fireTableDataChanged();
+
     }
 
     public int getRowCount() {
@@ -43,12 +48,7 @@ public class LibraryTableModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Book b;
-        if (bookList == null) {
-            b = model.getBook(rowIndex);
-        } else {
-            b = bookList.getBook(rowIndex);
-        }
+        Book b = getBook(rowIndex);
         switch (columnIndex) {
             case 0:
                 return b.getName();
@@ -62,6 +62,15 @@ public class LibraryTableModel extends AbstractTableModel {
     @Override
     public String getColumnName(int col) {
         return columnNames[col];
+    }
+
+    Book getBook(int rowIndex) {
+        if (bookList == null) {
+            return model.getBook(rowIndex);
+        } else {
+            return bookList.getBook(rowIndex);
+        }
+
     }
 
     private static class ModelChangeListener implements ChangeListener {
