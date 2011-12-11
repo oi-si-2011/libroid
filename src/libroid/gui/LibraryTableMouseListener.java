@@ -12,7 +12,6 @@ class LibraryTableMouseListener extends MouseAdapter {
     private final LibraryTable libraryTable;
     private final ListsInventory listsInventory;
     private final Model model;
-    private BookDescription description = new BookDescription();
 
     LibraryTableMouseListener(LibraryTable lt, Model m, ListsInventory li) {
         this.libraryTable = lt;
@@ -23,10 +22,9 @@ class LibraryTableMouseListener extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+            // dvojklik
             if (libraryTable.getSelectedRowCount() == 1) {
-                description.setOriginPoint(e.getXOnScreen(), e.getYOnScreen());
-                description.setBook(libraryTable.getSelectedBooks().get(0));
-                description.showPanel();
+                // tady bylo zobrazeni BookDescription, kdyz jeste nebylo BookInfo
             }
         }
     }

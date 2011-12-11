@@ -33,8 +33,6 @@ public class EditBookDialog extends JDialog {
         d.setVisible(true);
         return d;
     }
-    private File file;
-    private Book book;
     private final Model model;
     private Book editedBook;
     private JLabel currentFileLabel = new JLabel("-");
@@ -217,7 +215,7 @@ public class EditBookDialog extends JDialog {
 
             String name = nameField.getText();
             String author = authorField.getText();
-            
+
             if (editedBook == null) {
                 editedBook = new Book();
             }

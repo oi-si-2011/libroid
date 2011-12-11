@@ -21,14 +21,6 @@ public class Book {
         this.author = author;
     }
 
-    public Book(String name, String author, String uri, String genre, int isbn) {
-        this.name = name;
-        this.author = author;
-        this.uri = uri;
-        this.genre = genre;
-        this.isbn = isbn;
-    }
-
     public void setModel(Model model) {
         if (this.model != null) {
             assert !this.model.hasBook(this);
