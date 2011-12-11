@@ -12,7 +12,7 @@ import libroid.model.Book;
 import libroid.model.Model;
 
 /**
- * Menu, které se objeví po pravém kliku v tabulce knih.
+ * Menu, které se objeví po pravém kliku na knihu v tabulce knih.
  */
 class BookMenu extends JPopupMenu {
 
@@ -31,19 +31,7 @@ class BookMenu extends JPopupMenu {
 
                 public void actionPerformed(ActionEvent e) {
                     Book book = libraryTable.getSelectedBooks().get(0);
-                    try {
-                        File f = book.getFile();
-                        if (Desktop.isDesktopSupported()) {
-                            Desktop.getDesktop().open(f);
-                        } else {
-                            throw new IOException("Desktop not supported");
-                        }
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null,
-                                "Couldn't open the book. Eithter the source file wasn't found or the filetype isn't supported.",
-                                "An error has occured",
-                                JOptionPane.WARNING_MESSAGE);
-                    }
+                    GUIUtil.openBook(book, null);
                 }
             });
             add(menuItem);

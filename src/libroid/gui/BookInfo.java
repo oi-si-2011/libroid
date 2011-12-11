@@ -27,6 +27,7 @@ public class BookInfo extends JPanel {
     private final JLabel authorLabel = new JLabel();
     private final JLabel fileLabel = new JLabel();
     private final JButton editButton = new JButton("Edit");
+    private final JButton openButton = new JButton("Open");
     // aktuálně zobrazená kniha
     private Book shownBook;
 
@@ -48,6 +49,7 @@ public class BookInfo extends JPanel {
         add(GUIUtil.withBoldFont(new JLabel("File:")));
         add(fileLabel);
         add(editButton);
+        add(openButton);
 
         editButton.addActionListener(new ActionListener() {
 
@@ -55,6 +57,8 @@ public class BookInfo extends JPanel {
                 EditBookDialog.show(ownerFrame, model, shownBook);
             }
         });
+
+        openButton.addActionListener(new OpenButtonActionListener(this));
     }
 
     /**
@@ -105,6 +109,19 @@ public class BookInfo extends JPanel {
          */
         public void changePerformed() {
             reloadBook();
+        }
+    }
+
+    private class OpenButtonActionListener implements ActionListener {
+
+        private final BookInfo bookInfo;
+
+        public OpenButtonActionListener(BookInfo bi) {
+            this.bookInfo = bi;
+        }
+
+        public void actionPerformed(ActionEvent ae) {
+            GUIUtil.openBook(shownBook, bookInfo);
         }
     }
 }
