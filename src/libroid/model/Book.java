@@ -1,13 +1,20 @@
 package libroid.model;
 
+import java.io.File;
+import java.util.logging.Logger;
+
 public class Book {
 
+    private static final Logger logger = Logger.getLogger(Book.class.getName());
     private Model model;
     private String name;
     private String author;
     private int isbn;
     private String uri;
     private String genre;
+
+    public Book() {
+    }
 
     public Book(String name, String author) {
         this.name = name;
@@ -105,5 +112,9 @@ public class Book {
         if (model != null) {
             model.fireChange();
         }
+    }
+
+    public void setFile(File file) {
+        this.uri = file.toURI().toString();
     }
 }

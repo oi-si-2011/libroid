@@ -1,9 +1,12 @@
 package libroid.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -33,9 +36,9 @@ public class EditBookDialog extends JDialog {
     private File file;
     private Book book;
     private final Model model;
-    private final Book editedBook;
-    private JFileChooser fileChooser = new JFileChooser();
+    private Book editedBook;
     private JLabel currentFileLabel = new JLabel("-");
+    private File currentFile;
     private JTextField nameField = new JTextField(20);
     private JTextField authorField = new JTextField(20);
     private JTextField genre = new JTextField(12);
@@ -43,6 +46,8 @@ public class EditBookDialog extends JDialog {
 
     private EditBookDialog(JFrame owner, final Model model, Book book) {
         super(owner);
+        assert owner != null;
+
         this.model = model;
         this.editedBook = book;
 
@@ -73,7 +78,7 @@ public class EditBookDialog extends JDialog {
 
         fillFieldValuesWithBookParameters();
 
-        fileShowChooserButton.addActionListener(new ShowFileChooserActionListener());
+        fileShowChooserButton.addActionListener(new ShowFileChooserActionListener(this));
         cancelButton.addActionListener(new DisposeActionListener());
         confirmButton.addActionListener(new ConfirmActionListener(model));
 
@@ -119,6 +124,9 @@ public class EditBookDialog extends JDialog {
                 /*       */addComponent(cancelButton).
                 /*       */addComponent(confirmButton)));
 
+        pack();
+        // okno trochu zvetsime, at se tam vejdou delsi cesty k souboru
+        setPreferredSize(new Dimension(getPreferredSize().width + 200, getPreferredSize().height));
         pack();
         setLocation(GUIUtil.getLocationForScreenCenter(getSize()));
     }
@@ -206,13 +214,19 @@ public class EditBookDialog extends JDialog {
         }
 
         public void actionPerformed(ActionEvent ae) {
+
             String name = nameField.getText();
             String author = authorField.getText();
+            
+            if (editedBook == null) {
+                editedBook = new Book();
+            }
+            editedBook.setName(name);
+            editedBook.setAuthor(author);
+            editedBook.setFile(currentFile);
+
             if (editedBook == null) {
                 model.addBook(new Book(name, author));
-            } else {
-                editedBook.setName(name);
-                editedBook.setAuthor(author);
             }
             dispose();
         }
@@ -220,11 +234,26 @@ public class EditBookDialog extends JDialog {
 
     private static class ShowFileChooserActionListener implements ActionListener {
 
-        public ShowFileChooserActionListener() {
+        private static final Logger logger = Logger.getLogger(ShowFileChooserActionListener.class.getName());
+        private final EditBookDialog editBookDialog;
+
+        private ShowFileChooserActionListener(EditBookDialog editBookDialog) {
+            this.editBookDialog = editBookDialog;
         }
 
         public void actionPerformed(ActionEvent ae) {
-            
+            logger.info("Showing file chooser dialog");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileFilter(new BookFileFilter());
+            int returnVal = fileChooser.showOpenDialog(editBookDialog);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                logger.log(Level.INFO, "file chooser dialog approved with file '{0}'", file);
+                editBookDialog.currentFile = file;
+                editBookDialog.currentFileLabel.setText(file.getAbsolutePath());
+            } else {
+                logger.log(Level.INFO, "file chooser dialog returned with {0} (not approved)", returnVal);
+            }
         }
     }
 }
