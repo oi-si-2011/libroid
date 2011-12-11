@@ -6,6 +6,7 @@ import java.awt.dnd.DropTarget;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -48,8 +49,8 @@ public class ListsInventory extends JList {
         //setCellRenderer(new CellRenderer());
     }
 
-    public void createNewList(List<Book> selectedBooks) {
-        String name = JOptionPane.showInputDialog(null,
+    public static void createNewList(Model model, List<Book> selectedBooks, JComponent dialogOwner) {
+        String name = JOptionPane.showInputDialog(dialogOwner,
                 "What's the new list name?",
                 "Create new empty list",
                 JOptionPane.PLAIN_MESSAGE);
@@ -59,7 +60,7 @@ public class ListsInventory extends JList {
         BookList bl = new BookList(name);
         bl.addBooks(selectedBooks);
         model.addBookList(bl);
-        updateUI();
+        // TODO XXX updateUI();
     }
 
     void delete() {

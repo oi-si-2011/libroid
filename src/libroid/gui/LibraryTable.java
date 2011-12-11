@@ -3,7 +3,6 @@ package libroid.gui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionListener;
@@ -48,28 +47,6 @@ public class LibraryTable extends JTable {
             return selectedBooks.get(0);
         }
         return null;
-    }
-
-    void removeSelectedBooks() {
-        if (getSelectedRowCount() <= 0) {
-            logger.info("No rows selected.");
-            return;
-        }
-
-        List<Book> selectedBooks = getSelectedBooks();
-
-        int confirmDialogResult = JOptionPane.showConfirmDialog(null,
-                "Do you really want to remove selected book(s) from your library?",
-                "Remove book",
-                JOptionPane.WARNING_MESSAGE);
-
-        switch (confirmDialogResult) {
-            case JOptionPane.OK_OPTION:
-                appDataModel.removeBooks(selectedBooks);
-                tableModel.fireTableDataChanged();
-            case JOptionPane.CANCEL_OPTION:
-                break;
-        }
     }
 
     void setRowFilter(RowFilter<LibraryTableModel, Object> rf) {
