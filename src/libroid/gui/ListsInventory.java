@@ -49,20 +49,6 @@ public class ListsInventory extends JList {
         //setCellRenderer(new CellRenderer());
     }
 
-    public static void createNewList(Model model, List<Book> selectedBooks, JComponent dialogOwner) {
-        String name = JOptionPane.showInputDialog(dialogOwner,
-                "What's the new list name?",
-                "Create new empty list",
-                JOptionPane.PLAIN_MESSAGE);
-        if (name == null || name.equals("")) {
-            return;
-        }
-        BookList bl = new BookList(name);
-        bl.addBooks(selectedBooks);
-        model.addBookList(bl);
-        // TODO XXX updateUI();
-    }
-
     void delete() {
         JOptionPane.showConfirmDialog(null,
                 "Do you really want to remove this list?",

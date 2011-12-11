@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import libroid.model.Book;
+import libroid.model.BookList;
 import libroid.model.Model;
 
 /**
@@ -81,7 +82,16 @@ class BookMenu extends JPopupMenu {
         }
 
         public void actionPerformed(ActionEvent e) {
-            ListsInventory.createNewList(model, selectedBooks, dialogOwner);
+            String name = JOptionPane.showInputDialog(dialogOwner,
+                    "What's the new list name?",
+                    "Create new empty list",
+                    JOptionPane.PLAIN_MESSAGE);
+            if (name == null || name.equals("")) {
+                return;
+            }
+            BookList bl = new BookList(name);
+            bl.addBooks(selectedBooks);
+            model.addBookList(bl);
         }
     }
 
