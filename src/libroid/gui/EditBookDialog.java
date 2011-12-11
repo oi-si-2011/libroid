@@ -1,5 +1,6 @@
 package libroid.gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,13 +30,12 @@ public class EditBookDialog extends JDialog {
         d.setVisible(true);
         return d;
     }
-    private JFileChooser fileChooser = new JFileChooser();
     private File file;
     private Book book;
     private final Model model;
     private final Book editedBook;
-    private String uri;
-    private JButton confirm = new JButton("Confirm");
+    private JFileChooser fileChooser = new JFileChooser();
+    private JLabel currentFileLabel = new JLabel("-");
     private JTextField nameField = new JTextField(20);
     private JTextField authorField = new JTextField(20);
     private JTextField genre = new JTextField(12);
@@ -61,14 +61,19 @@ public class EditBookDialog extends JDialog {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
+        final JLabel fileLabel = new JLabel("File:");
         final JLabel nameLabel = new JLabel("Name:");
         final JLabel authorLabel = new JLabel("Author:");
 
+        final JButton fileShowChooserButton = new JButton("Change");
         final JButton cancelButton = new JButton("Cancel");
         final JButton confirmButton = new JButton("Confirm");
 
+        currentFileLabel.setBackground(Color.BLUE);
+
         fillFieldValuesWithBookParameters();
 
+        fileShowChooserButton.addActionListener(new ShowFileChooserActionListener());
         cancelButton.addActionListener(new DisposeActionListener());
         confirmButton.addActionListener(new ConfirmActionListener(model));
 
@@ -78,10 +83,15 @@ public class EditBookDialog extends JDialog {
                 /*     */layout.createSequentialGroup().
                 /*       */addGroup(
                 /*         */layout.createParallelGroup().
+                /*           */addComponent(fileLabel).
                 /*           */addComponent(nameLabel).
                 /*           */addComponent(authorLabel)).
                 /*       */addGroup(
                 /*         */layout.createParallelGroup().
+                /*           */addGroup(
+                /*             */layout.createSequentialGroup().
+                /*               */addComponent(currentFileLabel).
+                /*               */addComponent(fileShowChooserButton)).
                 /*           */addComponent(nameField).
                 /*           */addComponent(authorField))).
                 /*   */addGroup(
@@ -91,6 +101,11 @@ public class EditBookDialog extends JDialog {
 
         layout.setVerticalGroup(
                 /* */layout.createSequentialGroup().
+                /*   */addGroup(
+                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*       */addComponent(fileLabel).
+                /*       */addComponent(currentFileLabel).
+                /*       */addComponent(fileShowChooserButton)).
                 /*   */addGroup(
                 /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
                 /*       */addComponent(nameLabel).
@@ -114,6 +129,9 @@ public class EditBookDialog extends JDialog {
     private void fillFieldValuesWithBookParameters() {
         if (editedBook == null) {
             return;
+        }
+        if (editedBook.getUri() != null && !editedBook.getUri().isEmpty()) {
+            currentFileLabel.setText(editedBook.getUri());
         }
         nameField.setText(editedBook.getName());
         authorField.setText(editedBook.getAuthor());
@@ -191,12 +209,22 @@ public class EditBookDialog extends JDialog {
             String name = nameField.getText();
             String author = authorField.getText();
             if (editedBook == null) {
-            model.addBook(new Book(name, author));
+                model.addBook(new Book(name, author));
             } else {
                 editedBook.setName(name);
                 editedBook.setAuthor(author);
             }
             dispose();
+        }
+    }
+
+    private static class ShowFileChooserActionListener implements ActionListener {
+
+        public ShowFileChooserActionListener() {
+        }
+
+        public void actionPerformed(ActionEvent ae) {
+            
         }
     }
 }
