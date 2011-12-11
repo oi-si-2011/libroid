@@ -2,6 +2,7 @@ package libroid.gui;
 
 import javax.swing.AbstractListModel;
 import libroid.model.BookList;
+import libroid.model.ChangeListener;
 import libroid.model.Model;
 
 /**
@@ -34,4 +35,5 @@ public class ListsInventoryModel extends AbstractListModel {
         BookList bl = appModel.getAllBookLists().get(i-1);
         return bl;
     }
+
 }

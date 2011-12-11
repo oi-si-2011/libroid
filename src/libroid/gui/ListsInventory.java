@@ -5,8 +5,6 @@ import java.awt.Component;
 import java.awt.dnd.DropTarget;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -15,8 +13,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.TransferHandler;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import libroid.model.Book;
 import libroid.model.BookList;
+import libroid.model.ChangeListener;
 import libroid.model.Model;
 
 /**
@@ -47,6 +45,8 @@ public class ListsInventory extends JList {
         addMouseListener(new ListsInventoryMouseListener(this));
 
         //setCellRenderer(new CellRenderer());
+
+        model.addChangeListener(new ModelChangeListener(this));
     }
 
     void delete() {
@@ -108,6 +108,20 @@ public class ListsInventory extends JList {
             int selectedIndex = listsInventory.getSelectedIndex();
             BookList bookList = listsInventory.inventoryModel.getBookList(selectedIndex);
             libraryTableModel.setBookList(bookList);
+        }
+    }
+
+    private static class ModelChangeListener implements ChangeListener {
+
+        private final ListsInventory listsInventory;
+
+        private ModelChangeListener(ListsInventory li) {
+            this.listsInventory = li;
+        }
+
+        public void changePerformed() {
+            // neprisel na lepsi zpusob, jak obnovit obsah po zmene
+            listsInventory.updateUI();
         }
     }
 }
