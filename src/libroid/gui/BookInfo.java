@@ -15,7 +15,7 @@ public class BookInfo extends JPanel {
     final JLabel authorLabel = new JLabel();
 
     public BookInfo() {
-        setPreferredSize(new Dimension(150, 200));
+        setPreferredSize(new Dimension(100, 200));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         reset();
         setupComponents();
