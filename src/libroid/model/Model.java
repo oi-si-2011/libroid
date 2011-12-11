@@ -98,9 +98,6 @@ public class Model {
         allBookLists.remove(selectedIndex);
     }
 
-    public void renameList(int selectedIndex) {
-    }
-
     boolean hasBook(Book b) {
         return allBooks.contains(b);
     }
