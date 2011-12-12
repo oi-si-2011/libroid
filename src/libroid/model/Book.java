@@ -16,11 +16,6 @@ public class Book {
     public Book() {
     }
 
-    public Book(String name, String author) {
-        this.name = name;
-        this.author = author;
-    }
-
     public void setModel(Model newModel) {
         assert this.model == null || !this.model.hasBook(this);
         assert newModel == null || newModel.hasBook(this);
@@ -88,14 +83,18 @@ public class Book {
         return hash;
     }
 
-    public void setName(String name) {
+    public Book setName(String name) {
         this.name = name;
         fireModelChange();
+        return this;
+        // Měl by setter vracet this? Myslím, že zde je to OK.
+        // http://stackoverflow.com/questions/1345001/is-it-bad-practice-to-make-a-setter-return-this
     }
 
-    public void setAuthor(String author) {
+    public Book setAuthor(String author) {
         this.author = author;
         fireModelChange();
+        return this;
     }
 
     public Book setFile(File file) {

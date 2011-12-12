@@ -41,16 +41,16 @@ public class BookTest {
      */
     @Test
     public void testEquals() {
-        assertTrue(new Book("name1", "author1").equals(new Book("name1", "author1")));
-        assertFalse(new Book("name1", "author1").equals(new Book("name2", "author1")));
-        assertFalse(new Book("name1", "author1").equals(new Book("name1", "author2")));
+        assertTrue(new Book().setName("name1").setAuthor("author1").equals(new Book().setName("name1").setAuthor("author1")));
+        assertFalse(new Book().setName("name1").setAuthor("author1").equals(new Book().setName("name2").setAuthor("author1")));
+        assertFalse(new Book().setName("name1").setAuthor("author1").equals(new Book().setName("name1").setAuthor("author2")));
     }
 
     @Test
     public void testEquals2() {
-        Book a = new Book("A", "Antonín");
+        Book a = new Book().setName("A").setAuthor("Antonín");
         Book b = a;
-        Book c = new Book("C", "Cyril");
+        Book c = new Book().setName("C").setAuthor("Cyril");
         Book d = a;
         Book e = null;
 
@@ -67,13 +67,13 @@ public class BookTest {
      */
     @Test
     public void testHashCode() {
-        Book book = new Book("name", "author");
+        Book book = new Book().setName("name").setAuthor("author");
         assertEquals(-1308485047, book.hashCode());
     }
 
     @Test
     public void testToString() {
-        Book b = new Book("name", "author");
+        Book b = new Book().setName("name").setAuthor("author");
         assertTrue(b.toString().equals("Book(name='name' author='author' file='null')"));
     }
 }

@@ -29,8 +29,8 @@ public class SerializationTest {
     @Test
     public void testSerializeSampleModel() throws UnsupportedEncodingException {
         Model m = new Model();
-        m.addBook(new Book("Vlakna hypercasu", "R. Susta").setFile(new File("/some/book.pdf")));
-        m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
+        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta").setFile(new File("/some/book.pdf")));
+        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
         byte[] result = Serialization.serialize(m);
         String resultStr = new String(result, "latin1");
         System.out.println("Result: '" + resultStr + "'");

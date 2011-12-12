@@ -69,9 +69,9 @@ public class ListsInventoryModelTest {
         BookList testList = new BookList("testList");
         List<Book> testBookList = new ArrayList<Book>();
 
-        testBookList.add(new Book("Vlakna hypercasu", "R. Susta"));
-        testBookList.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList.add(new Book("Hordubal", "K. Capek"));
+        testBookList.add(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        testBookList.add(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        testBookList.add(new Book().setName("Hordubal").setAuthor("K. Capek"));
 
         testList.setBooks(testBookList);
         Model m = new Model();
@@ -97,9 +97,9 @@ public class ListsInventoryModelTest {
         List<Book> testBookList2 = new ArrayList<Book>();
         List<Book> testBookList3 = new ArrayList<Book>();
 
-        testBookList1.add(new Book("Vlakna hypercasu", "R. Susta"));
-        testBookList1.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList2.add(new Book("Hordubal", "K. Capek"));
+        testBookList1.add(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        testBookList1.add(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        testBookList2.add(new Book().setName("Hordubal").setAuthor("K. Capek"));
 
         testList1.setBooks(testBookList1);
         testList2.setBooks(testBookList2);
@@ -131,9 +131,9 @@ public class ListsInventoryModelTest {
         List<Book> testBookList2 = new ArrayList<Book>();
         List<Book> testBookList3 = new ArrayList<Book>();
 
-        testBookList1.add(new Book("Vlakna hypercasu", "R. Susta"));
-        testBookList1.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList2.add(new Book("Hordubal", "K. Capek"));
+        testBookList1.add(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        testBookList1.add(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        testBookList2.add(new Book().setName("Hordubal").setAuthor("K. Capek"));
 
         testList1.setBooks(testBookList1);
         testList2.setBooks(testBookList2);
@@ -165,9 +165,9 @@ public class ListsInventoryModelTest {
         List<Book> testBookList2 = new ArrayList<Book>();
         List<Book> testBookList3 = new ArrayList<Book>();
 
-        testBookList1.add(new Book("Vlakna hypercasu", "R. Susta"));
-        testBookList1.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList2.add(new Book("Hordubal", "K. Capek"));
+        testBookList1.add(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        testBookList1.add(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        testBookList2.add(new Book().setName("Hordubal").setAuthor("K. Capek"));
 
         testList1.setBooks(testBookList1);
         testList2.setBooks(testBookList2);

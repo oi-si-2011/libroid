@@ -36,7 +36,7 @@ public class ModelTest {
     @Test
     public void testAddBook() {
         System.out.println("addBook");
-        Book book = new Book("Vlakna hypercasu", "R. Susta");
+        Book book = new Book().setName("Vlakna hypercasu").setAuthor("R. Susta");
         Model model = new Model();
         model.addBook(book);
         assertEquals(book, model.getBook(0));
@@ -46,10 +46,10 @@ public class ModelTest {
     public void testAddBook2() {
         System.out.println("addBook");
         Model m = new Model();
-        m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
-        m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
-        m.addBook(new Book("Hordubal", "K. Capek"));
-        assertEquals(new Book("Kryptonomikon", "N. Stephenson"), m.getBook(1));
+        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
+        assertEquals(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"), m.getBook(1));
     }
 
     /**
@@ -59,9 +59,9 @@ public class ModelTest {
     public void testBookCount() {
         System.out.println("bookCount");
         Model m = new Model();
-        m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
-        m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
-        m.addBook(new Book("Hordubal", "K. Capek"));
+        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
         assertEquals(3, m.bookCount());
     }
 
@@ -71,10 +71,10 @@ public class ModelTest {
     @Test
     public void testGetBook() {
         Model m = new Model();
-        m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
-        m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
-        m.addBook(new Book("Velke U", "Neal Stephenson"));
-        assertEquals(new Book("Velke U", "Neal Stephenson"), m.getBook(2));
+        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        m.addBook(new Book().setName("Velke U").setAuthor("Neal Stephenson"));
+        assertEquals(new Book().setName("Velke U").setAuthor("Neal Stephenson"), m.getBook(2));
     }
 
     /**
@@ -83,7 +83,7 @@ public class ModelTest {
     @Test
     public void testGetBook2() {
         Model m = new Model();
-        m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
+        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
         try {
             Book book = m.getBook(234);
         } catch (IndexOutOfBoundsException e) {
@@ -99,16 +99,16 @@ public class ModelTest {
         System.out.println("removeBooks");
         List<Book> booksToRemove = new LinkedList<Book>();
         List<Book> sampleList = new LinkedList<Book>();
-        booksToRemove.add(new Book("Vlakna hypercasu", "R. Susta"));
-        booksToRemove.add(new Book("Velke U", "Neal Stephenson"));
-        sampleList.add(new Book("Kryptonomikon", "N. Stephenson"));
-        sampleList.add(new Book("Hordubal", "K. Capek"));
+        booksToRemove.add(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        booksToRemove.add(new Book().setName("Velke U").setAuthor("Neal Stephenson"));
+        sampleList.add(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        sampleList.add(new Book().setName("Hordubal").setAuthor("K. Capek"));
 
         Model m = new Model();
-        m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
-        m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
-        m.addBook(new Book("Velke U", "Neal Stephenson"));
-        m.addBook(new Book("Hordubal", "K. Capek"));
+        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        m.addBook(new Book().setName("Velke U").setAuthor("Neal Stephenson"));
+        m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
         m.removeBooks(booksToRemove);
 
         assertEquals(sampleList, m.getAllBooks());

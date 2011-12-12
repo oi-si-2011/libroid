@@ -26,7 +26,7 @@ public class Model {
         }
     }
 
-    public void addBook(Book book) {
+    public Book addBook(Book book) {
         if (hasBook(book)) {
             throw new RuntimeException("Book " + book + " is already present in model " + this);
         }
@@ -34,6 +34,7 @@ public class Model {
         book.setModel(this);
         logger.log(Level.INFO, "Added book {0} to model", book);
         fireChange();
+        return book;
     }
 
     public int bookCount() {
@@ -72,19 +73,19 @@ public class Model {
     public static Model createSampleModel() {
         Model m = new Model();
 
-        m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
-        m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
-        m.addBook(new Book("Velke U", "Neal Stephenson"));
-        m.addBook(new Book("Hordubal", "K. Capek"));
+        Book book0 = m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        Book book1 = m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        Book book2 = m.addBook(new Book().setName("Velke U").setAuthor("Neal Stephenson"));
+        Book book3 = m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
 
         BookList bl;
         bl = new BookList("Stephenson");
-        bl.addBook(m.getBook(1));
-        bl.addBook(m.getBook(2));
+        bl.addBook(book1);
+        bl.addBook(book2);
         m.addBookList(bl);
         bl = new BookList("Ceske knihy");
-        bl.addBook(m.getBook(0));
-        bl.addBook(m.getBook(3));
+        bl.addBook(book0);
+        bl.addBook(book3);
         m.addBookList(bl);
 
         return m;

@@ -33,9 +33,9 @@ public class LibraryTableTest {
     @Before
     public void setUp() {
         Model m = new Model();
-        m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
-        m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
-        m.addBook(new Book("Hordubal", "K. Capek"));
+        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
         testLibraryTable = new LibraryTable(m);
     }
 
