@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 
 public class SerializationTest {
 
-
     @Test
     public void testSerializeEmptyModel() throws UnsupportedEncodingException {
         Model m = new Model();
