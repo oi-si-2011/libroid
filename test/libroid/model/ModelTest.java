@@ -64,18 +64,10 @@ public class ModelTest {
         assertEquals(b0, m.getBook(0));
     }
 
-    /**
-     * 
-     */
-    @Test
-    public void testGetBook2() {
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testGetBookIndexOutOfBounds() {
         Model m = new Model();
-        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
-        try {
-            Book book = m.getBook(234);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("chyba podchycena");
-        }
+        Book book = m.getBook(234);
     }
 
     /**
