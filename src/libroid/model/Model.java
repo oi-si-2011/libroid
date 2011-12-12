@@ -43,16 +43,27 @@ public class Model {
         return b;
     }
 
+    /**
+     * Odstranění knih z tohoto modelu.
+     */
     public void removeBooks(List<Book> booksToRemove) {
         logger.log(Level.INFO, "Removing {0} books: {1}",
                 new Object[]{booksToRemove.size(), booksToRemove});
+
+        // odstraníme knihy ze všech seznamů
         for (BookList bl : allBookLists) {
             bl.removeAllBooks(booksToRemove);
         }
+
+        // samotné odstranění knih
         allBooks.removeAll(booksToRemove);
+        // zrušíme mazaným knihám napojení na tento model
+
         for (Book b : booksToRemove) {
             b.setModel(null);
         }
+
+        fireChange();
     }
 
     public static Model createSampleModel() {
