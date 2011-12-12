@@ -1,9 +1,6 @@
 package libroid.gui;
 
 import libroid.model.Book;
-import java.util.List;
-import java.util.ArrayList;
-import libroid.model.BookList;
 import libroid.model.Model;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,7 +8,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 
 public class LibraryTableModelTest {
 
@@ -53,7 +49,7 @@ public class LibraryTableModelTest {
         m.addBook(new Book("Hordubal", "K. Capek"));
         m.addBook(new Book("A", "1"));
         m.addBook(new Book("B", "2"));
-    
+
         testLibraryLibraryTableModel = new LibraryTableModel(m);
 
     }

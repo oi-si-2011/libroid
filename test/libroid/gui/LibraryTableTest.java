@@ -21,7 +21,9 @@ import static org.junit.Assert.*;
  * @author Michal
  */
 public class LibraryTableTest {
+
     LibraryTable testLibraryTable;
+
     public LibraryTableTest() {
     }
 
@@ -32,7 +34,7 @@ public class LibraryTableTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
         Model m = new Model();
@@ -43,10 +45,10 @@ public class LibraryTableTest {
         m.addBook(new Book("Hordubal", "K. Capek"));
         m.addBook(new Book("A", "1"));
         m.addBook(new Book("B", "2"));
-    
+
         testLibraryTable = new LibraryTable(m);
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -57,16 +59,14 @@ public class LibraryTableTest {
     @Test
     public void testGetSelectedBooks() {
         System.out.println("getSelectedBooks");
-        
+
         List expResult = new ArrayList();
-               
+
         List result = testLibraryTable.getSelectedBooks();
         assertEquals(expResult, result);
 
     }
-
     /**
      * Test of getSelectedBook method, of class LibraryTable.
      */
-    
 }
