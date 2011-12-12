@@ -1,90 +1,92 @@
 package libroid.gui;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import javax.swing.RowFilter.Entry;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class FilterField extends JTextField {
 
+    private static final Logger logger = Logger.getLogger(FilterField.class.getName());
     private LibraryTable table;
+    private boolean helpTextIsSet = false;
 
     public FilterField(LibraryTable table) {
         this.table = table;
 
         setColumns(20);
-        setText("Filter");
-        setForeground(Color.lightGray);
         setFocusAccelerator('f');
         requestFocusInWindow(false);
 
-        addActionListener(new ActionListener() {
+        setHelpText();
 
-            public void actionPerformed(ActionEvent e) {
-                setText("");
-            }
-        });
-
-        getDocument().addDocumentListener(new DocumentListener() {
-
-            public void changedUpdate(DocumentEvent e) {
-                newFilter();
-            }
-
-            public void insertUpdate(DocumentEvent e) {
-                newFilter();
-            }
-
-            public void removeUpdate(DocumentEvent e) {
-                newFilter();
-            }
-        });
-
-        addFocusListener(new FocusListener() {
-
-            public void focusGained(FocusEvent e) {
-                setText("");
-                setForeground(Color.black);
-            }
-
-            public void focusLost(FocusEvent e) {
-                if (getText().equals("")) {
-                    setText("Filter");
-                    setForeground(Color.lightGray);
-                }
-            }
-        });
+        getDocument().addDocumentListener(new TextChangedDocumentListener(this));
+        addFocusListener(new SetHelpTextFocusListener(this));
     }
 
-    private void newFilter() {
-        if (getText().equals("Filter")) {
+    private void textChanged() {
+        if (!helpTextIsSet) {
+            table.setFilterText(getText());
+        }
+    }
+
+    private void setHelpText() {
+        if (helpTextIsSet || !getText().isEmpty()) {
             return;
         }
-        RowFilter<LibraryTableModel, Object> rf = new RowFilter<LibraryTableModel, Object>() {
-
-            @Override
-            public boolean include(Entry<? extends LibraryTableModel, ? extends Object> entry) {
-                String name = entry.getStringValue(0).toLowerCase();
-                String author = entry.getStringValue(1).toLowerCase();
-                String t = getText().toLowerCase();
-                if (name.contains(t) || author.contains(t)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        };
-
-        table.setRowFilter(rf);
+        assert getText().isEmpty();
+        helpTextIsSet = true; // pozor, toto musi byt nastaveno pred setText()
+        setText("Filter");
+        setForeground(Color.lightGray);
     }
 
-    void setTable(LibraryTable t) {
-        table = t;
+    private void removeHelpText() {
+        if (!helpTextIsSet) {
+            return;
+        }
+        setText("");
+        setForeground(Color.black);
+        helpTextIsSet = false;
+    }
+
+    private static class TextChangedDocumentListener implements DocumentListener {
+
+        private final FilterField filterField;
+
+        public TextChangedDocumentListener(FilterField ff) {
+            this.filterField = ff;
+        }
+
+        public void changedUpdate(DocumentEvent e) {
+            filterField.textChanged();
+        }
+
+        public void insertUpdate(DocumentEvent e) {
+            filterField.textChanged();
+        }
+
+        public void removeUpdate(DocumentEvent e) {
+            filterField.textChanged();
+        }
+    }
+
+    private class SetHelpTextFocusListener implements FocusListener {
+
+        private final FilterField filterField;
+
+        private SetHelpTextFocusListener(FilterField ff) {
+            this.filterField = ff;
+        }
+
+        public void focusGained(FocusEvent e) {
+            filterField.removeHelpText();
+        }
+
+        public void focusLost(FocusEvent e) {
+            filterField.setHelpText();
+        }
     }
 }

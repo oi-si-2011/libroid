@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import libroid.model.Book;
@@ -20,6 +19,7 @@ public class LibraryTable extends JTable {
     private Model appDataModel;
     private final LibraryTableModel tableModel;
     private TableRowSorter sorter = new TableRowSorter<LibraryTableModel>();
+    private LibraryTableRowFilter rowFilter;
 
     public LibraryTable(Model dataModel) {
         this.appDataModel = dataModel;
@@ -28,6 +28,12 @@ public class LibraryTable extends JTable {
         setAutoCreateRowSorter(true);
         setDragEnabled(true);
         sorter = (TableRowSorter) getRowSorter();
+        rowFilter = new LibraryTableRowFilter();
+        sorter.setRowFilter(rowFilter);
+    }
+
+    public LibraryTableRowFilter getRowFilter() {
+        return rowFilter;
     }
 
     List<Book> getSelectedBooks() {
@@ -51,11 +57,6 @@ public class LibraryTable extends JTable {
         return null;
     }
 
-    void setRowFilter(RowFilter<LibraryTableModel, Object> rf) {
-        // XXX TODO unchecked
-        sorter.setRowFilter(rf);
-    }
-
     void addListSelectionListener(ListSelectionListener lsl) {
         getSelectionModel().addListSelectionListener(lsl);
     }
@@ -63,6 +64,13 @@ public class LibraryTable extends JTable {
     public LibraryTableModel getLibraryTableModel() {
         assert tableModel == super.getModel();
         return tableModel;
+    }
+
+    void setFilterText(String text) {
+        rowFilter.setFilterText(text);
+        // nevim, jak lepe obnovit tabulku tak, aby se filtr aplikoval, nez
+        // takto:
+        tableModel.fireTableDataChanged();
     }
 
 }
