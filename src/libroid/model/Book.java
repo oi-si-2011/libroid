@@ -10,8 +10,6 @@ public class Book {
     private String name;
     private String author;
     private File file;
-    //private int isbn;
-    //private String genre;
 
     public Book() {
     }
@@ -34,15 +32,6 @@ public class Book {
         return author;
     }
 
-    /*
-    public String getGenre() {
-    return genre;
-    }
-    
-    public int getIsbn() {
-    return isbn;
-    }
-     */
     public File getFile() {
         return file;
     }
@@ -55,32 +44,6 @@ public class Book {
     public String toString() {
         return String.format("Book(name='%s' author='%s' file='%s')",
                 this.name, this.author, this.file);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Book other = (Book) obj;
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
-            return false;
-        }
-        if ((this.author == null) ? (other.author != null) : !this.author.equals(other.author)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 29 * hash + (this.author != null ? this.author.hashCode() : 0);
-        return hash;
     }
 
     public Book setName(String name) {
