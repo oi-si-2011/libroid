@@ -62,8 +62,6 @@ public class Model {
         m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
         m.addBook(new Book("Velke U", "Neal Stephenson"));
         m.addBook(new Book("Hordubal", "K. Capek"));
-        m.addBook(new Book("A", "1"));
-        m.addBook(new Book("B", "2"));
 
         BookList bl;
         bl = new BookList("Stephenson");
