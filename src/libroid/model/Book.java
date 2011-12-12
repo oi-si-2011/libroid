@@ -98,8 +98,9 @@ public class Book {
         fireModelChange();
     }
 
-    public void setFile(File file) {
+    public Book setFile(File file) {
         this.file = file;
+        return this;
     }
 
     private void fireModelChange() {

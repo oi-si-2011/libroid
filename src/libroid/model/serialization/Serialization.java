@@ -55,6 +55,11 @@ public class Serialization {
         Element book = addElement(books, "Book");
         addElement(book, "name", b.getName());
         addElement(book, "author", b.getAuthor());
+        if (b.getFile() == null) {
+            addElement(book, "file", "");
+        } else {
+            addElement(book, "file", b.getFile().getAbsolutePath());
+        }
     }
 
     /**
