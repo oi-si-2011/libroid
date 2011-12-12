@@ -27,9 +27,12 @@ public class Model {
     }
 
     public void addBook(Book book) {
+        if (hasBook(book)) {
+            throw new RuntimeException("Book " + book + " is already present in model " + this);
+        }
         allBooks.add(book);
         book.setModel(this);
-        logger.log(Level.INFO, "Added book {0}", book);
+        logger.log(Level.INFO, "Added book {0} to model", book);
         fireChange();
     }
 

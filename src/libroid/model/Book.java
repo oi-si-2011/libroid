@@ -58,7 +58,8 @@ public class Book {
      */
     @Override
     public String toString() {
-        return String.format("Book(name='%s' author='%s')", this.name, this.author);
+        return String.format("Book(name='%s' author='%s' file='%s')",
+                this.name, this.author, this.file);
     }
 
     @Override

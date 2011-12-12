@@ -28,7 +28,8 @@ public class GUIUtil {
     }
 
     /**
-     * Otevře knihu.
+     * Otevře knihu v externí aplikaci.
+     * Je použito java.awt.Desktop.open().
      */
     static void openBook(Book book, JComponent dialogOwner) {
         File f = book.getFile();
