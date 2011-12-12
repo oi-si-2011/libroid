@@ -212,18 +212,19 @@ public class EditBookDialog extends JDialog {
         }
 
         public void actionPerformed(ActionEvent ae) {
-
             String name = nameField.getText();
             String author = authorField.getText();
+            boolean isNewBook = false;
 
             if (editedBook == null) {
                 editedBook = new Book();
+                isNewBook = true;
             }
             editedBook.setName(name);
             editedBook.setAuthor(author);
             editedBook.setFile(currentFile);
 
-            if (editedBook == null) {
+            if (isNewBook) {
                 model.addBook(new Book(name, author));
             }
             dispose();
