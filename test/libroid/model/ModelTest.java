@@ -1,7 +1,10 @@
 package libroid.model;
 
+import org.junit.rules.ExpectedException;
+import org.junit.Rule;
 import java.util.ArrayList;
 import java.util.Arrays;
+import libroid.model.exceptions.ModelIntegrityError;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,6 +13,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ModelTest {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     public ModelTest() {
     }
@@ -64,7 +70,7 @@ public class ModelTest {
         assertEquals(b0, m.getBook(0));
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testGetBookIndexOutOfBounds() {
         Model m = new Model();
         Book book = m.getBook(234);
@@ -92,8 +98,16 @@ public class ModelTest {
         m.removeBooks(new ArrayList<Book>());
         assertEquals(0, m.getAllBooks().size());
     }
-    /* XXX TODO: zkontrolovat (tedy otestovat kontrolu) treba, ze do booklistu
-     * se neda pridat kniha, ktera neni v modelu, apod. - proste
-     * kontrola integrity
+
+    /**
+     * Kontrola, že se do BookListu nedá přidat kniha, která není v modelu.
      */
+    @Test
+    public void testForeignBookCannotBeAddedToAList() {
+        Model m = new Model();
+        BookList bookList = m.addBookList(new BookList("Test BookList"));
+        Book b = new Book().setName("Some Book");
+        exception.expect(ModelIntegrityError.class);
+        bookList.addBook(b);
+    }
 }

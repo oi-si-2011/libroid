@@ -95,8 +95,9 @@ public class Model {
         return allBooks;
     }
 
-    public void addBookList(BookList bl) {
+    public BookList addBookList(BookList bl) {
         allBookLists.add(bl);
+        return bl;
     }
 
     public BookList getBookList(int i) {
