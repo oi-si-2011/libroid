@@ -22,7 +22,7 @@ public class Book {
         this.model = newModel;
     }
 
-    Model getModel() {
+    public Model getModel() {
         return this.model;
     }
 
