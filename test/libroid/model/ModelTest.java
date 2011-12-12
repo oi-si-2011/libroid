@@ -1,7 +1,7 @@
 package libroid.model;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,16 +42,6 @@ public class ModelTest {
         assertEquals(book, model.getBook(0));
     }
 
-    @Test
-    public void testAddBook2() {
-        System.out.println("addBook");
-        Model m = new Model();
-        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
-        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
-        m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
-        assertEquals(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"), m.getBook(1));
-    }
-
     /**
      * Test of bookCount method, of class Model.
      */
@@ -59,10 +49,9 @@ public class ModelTest {
     public void testBookCount() {
         System.out.println("bookCount");
         Model m = new Model();
+        assertEquals(0, m.bookCount());
         m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
-        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
-        m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
-        assertEquals(3, m.bookCount());
+        assertEquals(1, m.bookCount());
     }
 
     /**
@@ -71,10 +60,8 @@ public class ModelTest {
     @Test
     public void testGetBook() {
         Model m = new Model();
-        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
-        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
-        m.addBook(new Book().setName("Velke U").setAuthor("Neal Stephenson"));
-        assertEquals(new Book().setName("Velke U").setAuthor("Neal Stephenson"), m.getBook(2));
+        Book b0 = m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        assertEquals(b0, m.getBook(0));
     }
 
     /**
@@ -97,31 +84,21 @@ public class ModelTest {
     @Test
     public void testRemoveBooks() {
         System.out.println("removeBooks");
-        List<Book> booksToRemove = new LinkedList<Book>();
-        List<Book> sampleList = new LinkedList<Book>();
-        booksToRemove.add(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
-        booksToRemove.add(new Book().setName("Velke U").setAuthor("Neal Stephenson"));
-        sampleList.add(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
-        sampleList.add(new Book().setName("Hordubal").setAuthor("K. Capek"));
-
         Model m = new Model();
-        m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
-        m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
-        m.addBook(new Book().setName("Velke U").setAuthor("Neal Stephenson"));
-        m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
-        m.removeBooks(booksToRemove);
-
-        assertEquals(sampleList, m.getAllBooks());
+        Book b0 = m.addBook(new Book().setName("Vlakna hypercasu").setAuthor("R. Susta"));
+        Book b1 = m.addBook(new Book().setName("Kryptonomikon").setAuthor("N. Stephenson"));
+        Book b2 = m.addBook(new Book().setName("Velke U").setAuthor("Neal Stephenson"));
+        Book b3 = m.addBook(new Book().setName("Hordubal").setAuthor("K. Capek"));
+        m.removeBooks(Arrays.asList(b0, b2));
+        assertEquals(Arrays.asList(b1, b3), m.getAllBooks());
     }
 
     @Test
-    public void testRemoveBooks2() {
+    public void testRemoveZeroBooksFromEmptyLibrary() {
         System.out.println("removeBooks from empty library");
-        List<Book> booksToRemove = new LinkedList<Book>();
-        List<Book> sampleList = new LinkedList<Book>();
         Model m = new Model();
-        m.removeBooks(booksToRemove);
-        assertEquals(sampleList, m.getAllBooks());
+        m.removeBooks(new ArrayList<Book>());
+        assertEquals(0, m.getAllBooks().size());
     }
     /* XXX TODO: zkontrolovat (tedy otestovat kontrolu) treba, ze do booklistu
      * se neda pridat kniha, ktera neni v modelu, apod. - proste

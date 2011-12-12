@@ -29,46 +29,15 @@ public class BookTest {
     }
 
     /**
-     * Test of getName method, of class Book.
-     */
-    @Test
-    public void testGetName() {
-        assertEquals(1, 1);
-    }
-
-    /**
      * Test of equals method, of class Book.
      */
     @Test
     public void testEquals() {
-        assertTrue(new Book().setName("name1").setAuthor("author1").equals(new Book().setName("name1").setAuthor("author1")));
-        assertFalse(new Book().setName("name1").setAuthor("author1").equals(new Book().setName("name2").setAuthor("author1")));
-        assertFalse(new Book().setName("name1").setAuthor("author1").equals(new Book().setName("name1").setAuthor("author2")));
-    }
-
-    @Test
-    public void testEquals2() {
-        Book a = new Book().setName("A").setAuthor("Antonín");
-        Book b = a;
-        Book c = new Book().setName("C").setAuthor("Cyril");
-        Book d = a;
-        Book e = null;
-
-        assertTrue(a.equals(b));
-        assertFalse(c.equals(d));
-        try {
-            assertFalse(e.equals(a));
-        } catch (NullPointerException exception) {
-        }
-    }
-
-    /**
-     * Test of hashCode method, of class Book.
-     */
-    @Test
-    public void testHashCode() {
-        Book book = new Book().setName("name").setAuthor("author");
-        assertEquals(-1308485047, book.hashCode());
+        Book b0 = new Book().setName("Vlakna hypercasu").setAuthor("R. Susta");
+        Book b1 = new Book().setName("Kryptonomikon").setAuthor("N. Stephenson");
+        assertTrue(b0.equals(b0));
+        assertFalse(b0.equals(b1));
+        assertFalse(b0.equals(null));
     }
 
     @Test
