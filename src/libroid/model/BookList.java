@@ -6,8 +6,8 @@ import java.util.List;
 public class BookList {
 
     private String name;
-    private int date_created;
-    private int date_last_modified;
+    //private int date_created;
+    //private int date_last_modified;
     private List<Book> books = new ArrayList<Book>();
 
     public BookList(String name) {
@@ -18,14 +18,15 @@ public class BookList {
         this.books = books;
     }
 
+    /*
     public int getDate_created() {
-        return date_created;
+    return date_created;
     }
 
     public int getDate_last_modified() {
-        return date_last_modified;
+    return date_last_modified;
     }
-
+     */
     public String getName() {
         return name;
     }
@@ -53,5 +54,4 @@ public class BookList {
     void removeAllBooks(List<Book> booksToRemove) {
         books.removeAll(booksToRemove);
     }
-
 }

@@ -9,9 +9,9 @@ public class Book {
     private Model model;
     private String name;
     private String author;
-    private int isbn;
     private File file;
-    private String genre;
+    //private int isbn;
+    //private String genre;
 
     public Book() {
     }
@@ -43,14 +43,15 @@ public class Book {
         return author;
     }
 
+    /*
     public String getGenre() {
-        return genre;
+    return genre;
     }
-
+    
     public int getIsbn() {
-        return isbn;
+    return isbn;
     }
-
+     */
     public File getFile() {
         return file;
     }
