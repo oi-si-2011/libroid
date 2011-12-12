@@ -99,6 +99,13 @@ public class ModelTest {
         assertEquals(0, m.getAllBooks().size());
     }
 
+    @Test
+    public void testBookListAddedToModelHasModelSet() {
+        Model m = new Model();
+        BookList bookList = m.addBookList(new BookList("Test BookList"));
+        assertEquals(m, bookList.getModel());
+    }
+
     /**
      * Kontrola, že se do BookListu nedá přidat kniha, která není v modelu.
      */

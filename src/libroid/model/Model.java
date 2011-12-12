@@ -97,6 +97,7 @@ public class Model {
 
     public BookList addBookList(BookList bl) {
         allBookLists.add(bl);
+        bl.setModel(this);
         return bl;
     }
 
