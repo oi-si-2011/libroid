@@ -225,7 +225,7 @@ public class EditBookDialog extends JDialog {
             editedBook.setFile(currentFile);
 
             if (isNewBook) {
-                model.addBook(new Book(name, author));
+                model.addBook(editedBook);
             }
             dispose();
         }
