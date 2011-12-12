@@ -6,6 +6,8 @@ import libroid.model.Model;
 
 /**
  * Model pro seznamy knih.
+ * Pozor, první položka je taková speciální, znamená, že žádné seznam knih
+ * není vybrán a mají se zobrazit všechny knihy.
  */
 public class ListsInventoryModel extends AbstractListModel {
 
