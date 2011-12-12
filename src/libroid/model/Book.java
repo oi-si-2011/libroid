@@ -21,14 +21,10 @@ public class Book {
         this.author = author;
     }
 
-    public void setModel(Model model) {
-        if (this.model != null) {
-            assert !this.model.hasBook(this);
-        }
-        if (model != null) {
-            assert model.hasBook(this);
-        }
-        this.model = model;
+    public void setModel(Model newModel) {
+        assert this.model == null || !this.model.hasBook(this);
+        assert newModel == null || newModel.hasBook(this);
+        this.model = newModel;
     }
 
     Model getModel() {
