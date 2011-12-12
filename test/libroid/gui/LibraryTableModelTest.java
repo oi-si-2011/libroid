@@ -9,54 +9,33 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Unit testy, které ověřují funkčnost metod ve třídě LibraryTableModel.
+ */
 public class LibraryTableModelTest {
 
     LibraryTableModel testLibraryLibraryTableModel;
 
-    /**
-     * Unit testy, které ověřují funkčnost metod ve třídě LibraryTableModel. 
-     */
     public LibraryTableModelTest() {
     }
 
-    /**
-     * 
-     * @throws Exception
-     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
-    /**
-     * 
-     * @throws Exception
-     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
-    /**
-     * 
-     */
     @Before
     public void setUp() {
-
         Model m = new Model();
-
         m.addBook(new Book("Vlakna hypercasu", "R. Susta"));
         m.addBook(new Book("Kryptonomikon", "N. Stephenson"));
-        m.addBook(new Book("Velke U", "Neal Stephenson"));
         m.addBook(new Book("Hordubal", "K. Capek"));
-        m.addBook(new Book("A", "1"));
-        m.addBook(new Book("B", "2"));
-
         testLibraryLibraryTableModel = new LibraryTableModel(m);
-
     }
 
-    /**
-     * 
-     */
     @After
     public void tearDown() {
     }
@@ -67,7 +46,7 @@ public class LibraryTableModelTest {
     @Test
     public void testGetRowCount() {
         System.out.println("getRowCount");
-        int expResult = 6;
+        int expResult = 3;
         int result = testLibraryLibraryTableModel.getRowCount();
         assertEquals(expResult, result);
 

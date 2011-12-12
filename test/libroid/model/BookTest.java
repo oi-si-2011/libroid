@@ -7,44 +7,23 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * 
- * @author Michal
- */
 public class BookTest {
 
-    /**
-     * 
-     */
     public BookTest() {
     }
 
-    /**
-     * 
-     * @throws Exception
-     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
-    /**
-     * 
-     * @throws Exception
-     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
-    /**
-     * 
-     */
     @Before
     public void setUp() {
     }
 
-    /**
-     * 
-     */
     @After
     public void tearDown() {
     }
@@ -67,9 +46,6 @@ public class BookTest {
         assertFalse(new Book("name1", "author1").equals(new Book("name1", "author2")));
     }
 
-    /**
-     * 
-     */
     @Test
     public void testEquals2() {
         Book a = new Book("A", "Antonín");
@@ -95,9 +71,6 @@ public class BookTest {
         assertEquals(-1308485047, book.hashCode());
     }
 
-    /**
-     * 
-     */
     @Test
     public void testToString() {
         Book b = new Book("name", "author");

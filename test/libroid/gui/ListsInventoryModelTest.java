@@ -13,43 +13,25 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * 
- * @author Michal
+ * Testy tridy ListsInventoryModel.
  */
 public class ListsInventoryModelTest {
 
-    /**
-     * 
-     */
     public ListsInventoryModelTest() {
     }
 
-    /**
-     * 
-     * @throws Exception
-     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
-    /**
-     * 
-     * @throws Exception
-     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
-    /**
-     * 
-     */
     @Before
     public void setUp() {
     }
 
-    /**
-     * 
-     */
     @After
     public void tearDown() {
     }
@@ -71,9 +53,6 @@ public class ListsInventoryModelTest {
         }
     }
 
-    /**
-     * 
-     */
     @Test
     public void testGetSize2() {
         System.out.println("getSize2");
@@ -84,9 +63,6 @@ public class ListsInventoryModelTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * 
-     */
     @Test
     public void testGetSize3() {
         System.out.println("getSize3");
@@ -95,15 +71,11 @@ public class ListsInventoryModelTest {
 
         testBookList.add(new Book("Vlakna hypercasu", "R. Susta"));
         testBookList.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList.add(new Book("Velke U", "Neal Stephenson"));
         testBookList.add(new Book("Hordubal", "K. Capek"));
-        testBookList.add(new Book("A", "1"));
-        testBookList.add(new Book("B", "2"));
 
         testList.setBooks(testBookList);
         Model m = new Model();
         m.addBookList(testList);
-
 
         ListsInventoryModel instance = new ListsInventoryModel(m);
 
@@ -111,12 +83,8 @@ public class ListsInventoryModelTest {
         int result = instance.getSize();
 
         assertEquals(expResult, result);
-
     }
 
-    /**
-     * 
-     */
     @Test
     public void testGetSize4() {
         System.out.println("getSize4");
@@ -131,10 +99,7 @@ public class ListsInventoryModelTest {
 
         testBookList1.add(new Book("Vlakna hypercasu", "R. Susta"));
         testBookList1.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList2.add(new Book("Velke U", "Neal Stephenson"));
         testBookList2.add(new Book("Hordubal", "K. Capek"));
-        testBookList3.add(new Book("A", "1"));
-        testBookList3.add(new Book("B", "2"));
 
         testList1.setBooks(testBookList1);
         testList2.setBooks(testBookList2);
@@ -151,12 +116,8 @@ public class ListsInventoryModelTest {
         int result = instance.getSize();
 
         assertEquals(expResult, result);
-
     }
 
-    /**
-     * 
-     */
     @Test
     public void testGetSize5() {
         System.out.println("getSize2");
@@ -172,10 +133,7 @@ public class ListsInventoryModelTest {
 
         testBookList1.add(new Book("Vlakna hypercasu", "R. Susta"));
         testBookList1.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList2.add(new Book("Velke U", "Neal Stephenson"));
         testBookList2.add(new Book("Hordubal", "K. Capek"));
-        testBookList3.add(new Book("A", "1"));
-        testBookList3.add(new Book("B", "2"));
 
         testList1.setBooks(testBookList1);
         testList2.setBooks(testBookList2);
@@ -193,12 +151,8 @@ public class ListsInventoryModelTest {
         int result = instance.getSize();
 
         assertEquals(expResult, result);
-
     }
 
-    /**
-     * Test of getElementAt method, of class ListsInventoryModel.
-     */
     @Test
     public void testGetElementAt() {
         System.out.println("getElementAt");
@@ -213,10 +167,7 @@ public class ListsInventoryModelTest {
 
         testBookList1.add(new Book("Vlakna hypercasu", "R. Susta"));
         testBookList1.add(new Book("Kryptonomikon", "N. Stephenson"));
-        testBookList2.add(new Book("Velke U", "Neal Stephenson"));
         testBookList2.add(new Book("Hordubal", "K. Capek"));
-        testBookList3.add(new Book("A", "1"));
-        testBookList3.add(new Book("B", "2"));
 
         testList1.setBooks(testBookList1);
         testList2.setBooks(testBookList2);
@@ -233,6 +184,5 @@ public class ListsInventoryModelTest {
         Object result = instance.getElementAt(2);
 
         assertTrue(expResult.equals(result));
-
     }
 }

@@ -25,7 +25,6 @@ public class SerializationTest {
 
     /**
      * Otestování serializace do XML modelu s několika knihami.
-     * @throws UnsupportedEncodingException 
      */
     @Test
     public void testSerializeSampleModel() throws UnsupportedEncodingException {
