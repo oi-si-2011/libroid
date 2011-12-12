@@ -19,8 +19,24 @@ public class Serialization {
         xmldoc = XMLUtil.createDocument();
         Element root = xmldoc.createElement("LibroidLibrary");
         xmldoc.appendChild(root);
-        books = xmldoc.createElement("books");
-        root.appendChild(books);
+        books = addElement(root, "books");
+    }
+
+    /**
+     * Přidá element do XML.
+     */
+    private Element addElement(Element parentElement, String elementName) {
+        Element e = xmldoc.createElement(elementName);
+        parentElement.appendChild(e);
+        return e;
+    }
+
+    /**
+     * Přidá element do XML a vloží do něj daný text.
+     */
+    private void addElement(Element parentElement, String elementName, String contents) {
+        Element e = addElement(parentElement, elementName);
+        e.appendChild(xmldoc.createTextNode(contents));
     }
 
     /**
@@ -36,15 +52,9 @@ public class Serialization {
      * Přidá knihu do XML.
      */
     private void addBook(Book b) {
-        Element book = xmldoc.createElement("Book");
-        books.appendChild(book);
-        Element e;
-        e = xmldoc.createElement("name");
-        e.appendChild(xmldoc.createTextNode(b.getName()));
-        book.appendChild(e);
-        e = xmldoc.createElement("author");
-        e.appendChild(xmldoc.createTextNode(b.getAuthor()));
-        book.appendChild(e);
+        Element book = addElement(books, "Book");
+        addElement(book, "name", b.getName());
+        addElement(book, "author", b.getAuthor());
     }
 
     /**
