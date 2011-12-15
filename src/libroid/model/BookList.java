@@ -47,10 +47,12 @@ public class BookList {
     }
 
     public void addBooks(List<Book> booksToAdd) {
-        if (model != null)
-        for (Book b : booksToAdd) {
-            if (!model.hasBook(b))
-                throw new ModelIntegrityError("Book " + b + " is not present in model " + model);
+        if (model != null) {
+            for (Book b : booksToAdd) {
+                if (!model.hasBook(b)) {
+                    throw new ModelIntegrityError("Book " + b + " is not present in model " + model);
+                }
+            }
         }
         this.books.addAll(booksToAdd);
     }
@@ -65,9 +67,16 @@ public class BookList {
 
     public void setName(String name) {
         this.name = name;
+        fireChange();
     }
 
-    void removeAllBooks(List<Book> booksToRemove) {
+    public void removeAllBooks(List<Book> booksToRemove) {
         books.removeAll(booksToRemove);
+    }
+
+    private void fireChange() {
+        if (model != null) {
+            model.fireChange();
+        }
     }
 }

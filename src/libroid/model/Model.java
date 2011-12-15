@@ -1,6 +1,7 @@
 package libroid.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -109,8 +110,16 @@ public class Model {
         return allBookLists;
     }
 
-    public void removeList(int selectedIndex) {
-        allBookLists.remove(selectedIndex);
+    public void removeList(BookList bookList) {
+        removeLists(Arrays.asList(bookList));
+    }
+
+    private void removeLists(List<BookList> bookListsToRemove) {
+        allBookLists.removeAll(bookListsToRemove);
+        for (BookList bl : bookListsToRemove) {
+            bl.setModel(null);
+        }
+        fireChange();
     }
 
     boolean hasBook(Book b) {

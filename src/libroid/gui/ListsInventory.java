@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.dnd.DropTarget;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -49,26 +51,14 @@ public class ListsInventory extends JList {
         model.addChangeListener(new ModelChangeListener(this));
     }
 
-    void delete() {
-        JOptionPane.showConfirmDialog(null,
-                "Do you really want to remove this list?",
-                "Confirm removal",
-                JOptionPane.WARNING_MESSAGE);
-        model.removeList(getSelectedIndex());
-        updateUI();
-    }
-
-    void rename() {
-        String name = JOptionPane.showInputDialog(null,
-                "What's the new name?",
-                "Rename list",
-                JOptionPane.PLAIN_MESSAGE);
-        model.getBookList(getSelectedIndex()).setName(name);
-        updateUI();
+    private BookList getSelectedList() {
+        int i = getSelectedIndex();
+        return inventoryModel.getBookList(i);
     }
 
     private static class ListsInventoryMouseListener extends MouseAdapter {
 
+        private static final Logger logger = Logger.getLogger(ListsInventoryMouseListener.class.getName());
         private final ListsInventory listInventory;
 
         private ListsInventoryMouseListener(ListsInventory li) {
@@ -77,13 +67,14 @@ public class ListsInventory extends JList {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            listInventory.getComponentAt(e.getPoint());
-            //listInventory.getSelectionModel().setSelectionInterval(WIDTH, WIDTH);
-
-            ListsMenu m = new ListsMenu(listInventory);
-
             if (e.getButton() == MouseEvent.BUTTON3 || e.isPopupTrigger()) {
-                m.show(e.getComponent(), e.getX(), e.getY());
+                BookList bookList = listInventory.getSelectedList();
+                logger.log(Level.INFO, "rightclick in ListsInventory on {0}", bookList);
+                if (bookList != null) {
+                    ListsMenu m = new ListsMenu(listInventory.model, bookList);
+                    m.show(e.getComponent(), e.getX(), e.getY());
+
+                }
             }
         }
     }
@@ -105,8 +96,7 @@ public class ListsInventory extends JList {
 
         public void valueChanged(ListSelectionEvent lse) {
             // V libraryTable zobrazíme zvolený seznam knih.
-            int selectedIndex = listsInventory.getSelectedIndex();
-            BookList bookList = listsInventory.inventoryModel.getBookList(selectedIndex);
+            BookList bookList = listsInventory.getSelectedList();
             libraryTableModel.setBookList(bookList);
         }
     }
