@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +27,7 @@ public class BookInfo extends JPanel {
     private final JLabel nameLabel = new JLabel();
     private final JLabel authorLabel = new JLabel();
     private final JLabel fileLabel = new JLabel();
+    private final JLabel booklet = new JLabel(new ImageIcon("icons/logo.jpg"));
     private final JButton editButton = new JButton("Edit");
     private final JButton openButton = new JButton("Open");
     // aktuálně zobrazená kniha
@@ -48,6 +50,7 @@ public class BookInfo extends JPanel {
         add(authorLabel);
         add(GUIUtil.withBoldFont(new JLabel("File:")));
         add(fileLabel);
+        add(booklet);
         add(editButton);
         add(openButton);
 
@@ -90,6 +93,7 @@ public class BookInfo extends JPanel {
         }
         nameLabel.setText(shownBook.getName());
         authorLabel.setText(shownBook.getAuthor());
+        booklet.setIcon(new ImageIcon(shownBook.getBooklet()));
         if (shownBook.getFile() == null) {
             fileLabel.setText("-");
         } else {

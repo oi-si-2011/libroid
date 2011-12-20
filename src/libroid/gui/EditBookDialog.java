@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -37,10 +38,12 @@ public class EditBookDialog extends JDialog {
     private Book editedBook;
     private JLabel currentFileLabel = new JLabel("-");
     private File currentFile;
+    private File currentImage;
     private JTextField nameField = new JTextField(20);
     private JTextField authorField = new JTextField(20);
-    private JTextField genre = new JTextField(12);
-    private JTextField isbn = new JTextField(12);
+    private JButton bookletButton = new JButton("icons/logo.jpg");
+    //private JTextField genre = new JTextField(12);
+    //private JTextField isbn = new JTextField(12);
 
     private EditBookDialog(JFrame owner, final Model model, Book book) {
         super(owner);
@@ -77,6 +80,7 @@ public class EditBookDialog extends JDialog {
         fillFieldValuesWithBookParameters();
 
         fileShowChooserButton.addActionListener(new ShowFileChooserActionListener(this));
+        bookletButton.addActionListener(new bookletButtonListener(this));
         cancelButton.addActionListener(new DisposeActionListener());
         confirmButton.addActionListener(new ConfirmActionListener(model));
 
@@ -138,6 +142,9 @@ public class EditBookDialog extends JDialog {
         }
         if (editedBook.getFile() != null) {
             currentFileLabel.setText(editedBook.getFile().toString());
+        }
+        if(editedBook.getBooklet() != null){
+            bookletButton.setIcon(new ImageIcon(editedBook.getBooklet()));
         }
         nameField.setText(editedBook.getName());
         authorField.setText(editedBook.getAuthor());
@@ -252,6 +259,44 @@ public class EditBookDialog extends JDialog {
                 editBookDialog.currentFileLabel.setText(file.getAbsolutePath());
             } else {
                 logger.log(Level.INFO, "file chooser dialog returned with {0} (not approved)", returnVal);
+            }
+        }
+    }
+
+    private static class bookletButtonListener implements ActionListener {
+        private static final Logger logger = Logger.getLogger(ShowFileChooserActionListener.class.getName());
+        private final EditBookDialog editBookDialog;
+
+        private bookletButtonListener(EditBookDialog editBookDialog) {
+            this.editBookDialog = editBookDialog;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            logger.info("Showing booklet chooser dialog");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    String fileName = f.getName().toLowerCase();
+                    return (f.isDirectory())
+                         || fileName.endsWith(".jpg")
+                         || fileName.endsWith(".png")
+                         || fileName.endsWith(".gif")
+                    ? true : false;
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Image Files";
+                }
+            });
+            int returnVal = fileChooser.showOpenDialog(editBookDialog);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                logger.log(Level.INFO, "booklet chooser dialog approved with file '{0}'", file);
+                editBookDialog.currentImage = file;
+            } else {
+                logger.log(Level.INFO, "booklet chooser dialog returned with {0} (not approved)", returnVal);
             }
         }
     }

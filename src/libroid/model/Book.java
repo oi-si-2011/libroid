@@ -1,7 +1,9 @@
 package libroid.model;
 
+import java.awt.Image;
 import java.io.File;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 public class Book {
 
@@ -10,8 +12,10 @@ public class Book {
     private String name;
     private String author;
     private File file;
+    private Image booklet;
 
     public Book() {
+        booklet = new ImageIcon("icons/logo.jpg").getImage();
     }
 
     public void setModel(Model newModel) {
@@ -34,6 +38,10 @@ public class Book {
 
     public File getFile() {
         return file;
+    }
+
+    public Image getBooklet(){
+        return booklet;
     }
 
     /**
@@ -62,6 +70,18 @@ public class Book {
 
     public Book setFile(File file) {
         this.file = file;
+        return this;
+    }
+
+    public Book setBooklet(File f){
+        Image img = new ImageIcon(f.getAbsolutePath()).getImage();
+        int width = img.getWidth(null);
+        int height = img.getHeight(null);
+        if(height > width){
+            this.booklet = img.getScaledInstance(width*100/height, 100, Image.SCALE_SMOOTH);
+        }else{
+            this.booklet = img.getScaledInstance(100, height*100/width, Image.SCALE_SMOOTH);
+        }
         return this;
     }
 
