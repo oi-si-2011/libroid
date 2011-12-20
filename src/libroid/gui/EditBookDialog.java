@@ -79,8 +79,8 @@ public class EditBookDialog extends JDialog {
 
         fillFieldValuesWithBookParameters();
 
-        fileShowChooserButton.addActionListener(new ShowFileChooserActionListener(this));
-        bookletButton.addActionListener(new bookletButtonListener(this));
+        fileShowChooserButton.addActionListener(new ShowBookFileChooserButtonListener(this));
+        bookletButton.addActionListener(new ShowBookletFileChooserButtonListener(this));
         cancelButton.addActionListener(new DisposeActionListener());
         confirmButton.addActionListener(new ConfirmActionListener(model));
 
@@ -244,12 +244,12 @@ public class EditBookDialog extends JDialog {
         }
     }
 
-    private static class ShowFileChooserActionListener implements ActionListener {
+    private static class ShowBookFileChooserButtonListener implements ActionListener {
 
-        private static final Logger logger = Logger.getLogger(ShowFileChooserActionListener.class.getName());
+        private static final Logger logger = Logger.getLogger(ShowBookFileChooserButtonListener.class.getName());
         private final EditBookDialog editBookDialog;
 
-        private ShowFileChooserActionListener(EditBookDialog editBookDialog) {
+        private ShowBookFileChooserButtonListener(EditBookDialog editBookDialog) {
             this.editBookDialog = editBookDialog;
         }
 
@@ -269,12 +269,12 @@ public class EditBookDialog extends JDialog {
         }
     }
 
-    private static class bookletButtonListener implements ActionListener {
+    private static class ShowBookletFileChooserButtonListener implements ActionListener {
 
-        private static final Logger logger = Logger.getLogger(ShowFileChooserActionListener.class.getName());
+        private static final Logger logger = Logger.getLogger(ShowBookFileChooserButtonListener.class.getName());
         private final EditBookDialog editBookDialog;
 
-        private bookletButtonListener(EditBookDialog editBookDialog) {
+        private ShowBookletFileChooserButtonListener(EditBookDialog editBookDialog) {
             this.editBookDialog = editBookDialog;
         }
 
