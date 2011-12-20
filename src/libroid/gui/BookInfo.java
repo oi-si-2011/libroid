@@ -38,7 +38,7 @@ public class BookInfo extends JPanel {
         this.model = model;
         setPreferredSize(new Dimension(150, 200));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        reset();
+        reloadBook();
         setupComponents();
         model.addChangeListener(new ModelChangeListener());
     }
@@ -65,16 +65,6 @@ public class BookInfo extends JPanel {
     }
 
     /**
-     * Uvedení do výchozího stavu - na začátku a po nevybrání žádné knihy.
-     */
-    private void reset() {
-        shownBook = null;
-        nameLabel.setText("-");
-        authorLabel.setText("-");
-        fileLabel.setText("-");
-    }
-
-    /**
      * Zobrazí informace o konkrétní knize. Voláno ze selection listeneru při
      * změně výběru v libraryTable.
      */
@@ -88,7 +78,10 @@ public class BookInfo extends JPanel {
      */
     private void reloadBook() {
         if (shownBook == null) {
-            reset();
+            // Uvedení do výchozího stavu - na začátku a po nevybrání žádné knihy.
+            nameLabel.setText("-");
+            authorLabel.setText("-");
+            fileLabel.setText("-");
             return;
         }
         nameLabel.setText(shownBook.getName());
