@@ -140,6 +140,7 @@ public class EditBookDialog extends JDialog {
     }
 
     /**
+     * Předvyplnění hodnot.
      * Voláno z konstruktoru.
      */
     private void fillFieldValuesWithBookParameters() {
@@ -254,7 +255,7 @@ public class EditBookDialog extends JDialog {
         }
 
         public void actionPerformed(ActionEvent ae) {
-            logger.info("Showing file chooser dialog");
+            logger.info("Showing book file chooser dialog");
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new BookFileFilter());
             int returnVal = fileChooser.showOpenDialog(editBookDialog);
@@ -303,6 +304,8 @@ public class EditBookDialog extends JDialog {
                 File file = fileChooser.getSelectedFile();
                 logger.log(Level.INFO, "booklet chooser dialog approved with file '{0}'", file);
                 editBookDialog.currentImage = file;
+                editBookDialog.bookletButton.setText(file.getPath());
+                editBookDialog.bookletButton.setIcon(new ImageIcon(file.getPath()));
             } else {
                 logger.log(Level.INFO, "booklet chooser dialog returned with {0} (not approved)", returnVal);
             }
