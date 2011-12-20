@@ -100,7 +100,8 @@ public class EditBookDialog extends JDialog {
                 /*               */addComponent(currentFileLabel).
                 /*               */addComponent(fileShowChooserButton)).
                 /*           */addComponent(nameField).
-                /*           */addComponent(authorField))).
+                /*           */addComponent(authorField)).
+                /*       */addComponent(bookletButton)).
                 /*   */addGroup(
                 /*     */layout.createSequentialGroup().
                 /*       */addComponent(cancelButton).
@@ -109,18 +110,23 @@ public class EditBookDialog extends JDialog {
         layout.setVerticalGroup(
                 /* */layout.createSequentialGroup().
                 /*   */addGroup(
-                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                /*       */addComponent(fileLabel).
-                /*       */addComponent(currentFileLabel).
-                /*       */addComponent(fileShowChooserButton)).
-                /*   */addGroup(
-                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                /*       */addComponent(nameLabel).
-                /*       */addComponent(nameField)).
-                /*   */addGroup(
-                /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-                /*       */addComponent(authorLabel).
-                /*       */addComponent(authorField)).
+                /*     */layout.createParallelGroup().
+                /*       */addGroup(
+                /*         */layout.createSequentialGroup().
+                /*           */addGroup(
+                /*             */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*               */addComponent(fileLabel).
+                /*               */addComponent(currentFileLabel).
+                /*               */addComponent(fileShowChooserButton)).
+                /*           */addGroup(
+                /*             */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*               */addComponent(nameLabel).
+                /*               */addComponent(nameField)).
+                /*           */addGroup(
+                /*             */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                /*               */addComponent(authorLabel).
+                /*               */addComponent(authorField))).
+                /*       */addComponent(bookletButton)).
                 /*   */addGroup(
                 /*     */layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
                 /*       */addComponent(cancelButton).
