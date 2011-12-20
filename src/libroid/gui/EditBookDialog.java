@@ -149,7 +149,7 @@ public class EditBookDialog extends JDialog {
         if (editedBook.getFile() != null) {
             currentFileLabel.setText(editedBook.getFile().toString());
         }
-        if(editedBook.getBooklet() != null){
+        if (editedBook.getBooklet() != null) {
             bookletButton.setIcon(new ImageIcon(editedBook.getBooklet()));
         }
         nameField.setText(editedBook.getName());
@@ -270,6 +270,7 @@ public class EditBookDialog extends JDialog {
     }
 
     private static class bookletButtonListener implements ActionListener {
+
         private static final Logger logger = Logger.getLogger(ShowFileChooserActionListener.class.getName());
         private final EditBookDialog editBookDialog;
 
@@ -281,14 +282,15 @@ public class EditBookDialog extends JDialog {
             logger.info("Showing booklet chooser dialog");
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new FileFilter() {
+
                 @Override
                 public boolean accept(File f) {
                     String fileName = f.getName().toLowerCase();
                     return (f.isDirectory())
-                         || fileName.endsWith(".jpg")
-                         || fileName.endsWith(".png")
-                         || fileName.endsWith(".gif")
-                    ? true : false;
+                            || fileName.endsWith(".jpg")
+                            || fileName.endsWith(".png")
+                            || fileName.endsWith(".gif")
+                            ? true : false;
                 }
 
                 @Override
