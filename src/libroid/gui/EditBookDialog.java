@@ -312,7 +312,7 @@ public class EditBookDialog extends JDialog {
                 logger.log(Level.INFO, "booklet chooser dialog approved with file {0}", file);
                 Image im = Toolkit.getDefaultToolkit().createImage(file.getAbsolutePath());
                 editBookDialog.currentBookletImage = GUIUtil.scaleImage(im, new Configuration().getMaxBookletDimensions());
-                editBookDialog.bookletButton.setText(file.getPath());
+                //editBookDialog.bookletButton.setText(file.getPath());
                 editBookDialog.bookletButton.setIcon(new ImageIcon(editBookDialog.currentBookletImage));
             } else {
                 logger.log(Level.INFO, "booklet chooser dialog returned with {0} (not approved)", returnVal);
