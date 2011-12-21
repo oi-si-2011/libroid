@@ -12,7 +12,7 @@ import libroid.model.BookList;
 import libroid.model.Model;
 
 /**
- * Menu, které se objeví po pravém kliku na knihu v tabulce knih.
+ * Kontextové menu, které se objeví po pravém kliku na knihu v tabulce knih.
  */
 class BookMenu extends JPopupMenu {
 

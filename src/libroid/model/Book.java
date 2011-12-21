@@ -3,8 +3,10 @@ package libroid.model;
 import java.awt.Image;
 import java.io.File;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 
+/**
+ * Kniha.
+ */
 public class Book {
 
     private static final Logger logger = Logger.getLogger(Book.class.getName());

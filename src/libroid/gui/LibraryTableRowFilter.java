@@ -6,6 +6,9 @@ import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 import javax.swing.table.TableModel;
 
+/**
+ * Filtr řádků v LibraryTable na základě řetězce v FilterField.
+ */
 public class LibraryTableRowFilter extends RowFilter<TableModel, Integer> {
 
     private static final Logger logger = Logger.getLogger(LibraryTableRowFilter.class.getName());

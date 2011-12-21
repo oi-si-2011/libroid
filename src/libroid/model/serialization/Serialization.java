@@ -6,6 +6,9 @@ import libroid.model.Model;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * Serializace.
+ */
 public class Serialization {
 
     Document xmldoc;

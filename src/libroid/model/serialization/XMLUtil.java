@@ -15,6 +15,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 
+/**
+ * Různé nástroje pro snadnější práci s XML.
+ */
 public class XMLUtil {
 
     static Document createDocument() {

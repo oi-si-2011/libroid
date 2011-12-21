@@ -8,6 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+/**
+ * Filtr tabulky knih.
+ */
 public class FilterField extends JTextField {
 
     private static final Logger logger = Logger.getLogger(FilterField.class.getName());

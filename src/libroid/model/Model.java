@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Uchovává kolekce knih a seznamů knih.
+ */
 public class Model {
 
     private static final Logger logger = Logger.getLogger(Model.class.getName());

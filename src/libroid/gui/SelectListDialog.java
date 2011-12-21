@@ -12,6 +12,9 @@ import libroid.model.Book;
 import libroid.model.BookList;
 import libroid.model.Model;
 
+/**
+ * Dialog pro výběr seznamu knih, např. při přidávání knihy do seznamu knih.
+ */
 public class SelectListDialog extends JFrame implements ActionListener {
 
     Model model;

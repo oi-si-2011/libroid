@@ -17,16 +17,25 @@ import javax.swing.JOptionPane;
 import libroid.gui.Configuration.Dimensions;
 import libroid.model.Book;
 
+/**
+ * Různé nástroje (statické funkce).
+ */
 public class GUIUtil {
 
     private static final Logger logger = Logger.getLogger(Book.class.getName());
 
-    static Point getLocationForScreenCenter(Dimension size) {
+    /**
+     * Pro umístění okna doprostřed obrazovky.
+     */
+    public static Point getLocationForScreenCenter(Dimension size) {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         return new Point((d.width - size.width) / 2, (d.height - size.height) / 2);
     }
 
-    static JComponent withBoldFont(JComponent c) {
+    /**
+     * Nastaví komponentě tučný font. Užitečné např. při vytváření objektů JLabel.
+     */
+    public static JComponent withBoldFont(JComponent c) {
         c.setFont(c.getFont().deriveFont(Font.BOLD));
         return c;
     }
@@ -35,7 +44,7 @@ public class GUIUtil {
      * Otevře knihu v externí aplikaci.
      * Je použito java.awt.Desktop.open().
      */
-    static void openBook(Book book, JComponent dialogOwner) {
+    public static void openBook(Book book, JComponent dialogOwner) {
         File f = book.getFile();
         if (f == null) {
             JOptionPane.showMessageDialog(dialogOwner,
@@ -62,11 +71,19 @@ public class GUIUtil {
 
     }
 
-    static Image scaleImage(Image im, Dimensions maxDimensions) {
+    /**
+     * Zmenšení obrázku tak, aby jeho rozměry nepřesahovalu dané rozměry.
+     * Zachovává poměr stran obrázku.
+     */
+    public static Image scaleImage(Image im, Dimensions maxDimensions) {
         return scaleImage(im, maxDimensions.getWidth(), maxDimensions.getHeight());
     }
 
-    private static Image scaleImage(Image im, int maxWidth, int maxHeight) {
+    /**
+     * Zmenšení obrázku tak, aby jeho rozměry nepřesahovalu dané rozměry.
+     * Zachovává poměr stran obrázku.
+     */
+    public static Image scaleImage(Image im, int maxWidth, int maxHeight) {
         letImageLoad(im);
         int w = im.getWidth(null);
         int h = im.getHeight(null);

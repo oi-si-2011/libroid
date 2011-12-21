@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import libroid.model.exceptions.ModelIntegrityError;
 
+/**
+ * Seznam knih.
+ */
 public class BookList {
 
     private Model model;
