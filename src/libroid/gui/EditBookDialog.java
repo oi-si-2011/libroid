@@ -43,7 +43,7 @@ public class EditBookDialog extends JDialog {
     private Image currentBookletImage;
     private JTextField nameField = new JTextField(20);
     private JTextField authorField = new JTextField(20);
-    private JButton bookletButton = new JButton("-");
+    private JButton bookletButton = new JButton();          //Myslim, ze tlacitko bude lepsi bez cesty, ne?
     //private JTextField genre = new JTextField(12);
     //private JTextField isbn = new JTextField(12);
 
