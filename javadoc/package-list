@@ -1,0 +1,5 @@
+libroid
+libroid.gui
+libroid.model
+libroid.model.exceptions
+libroid.model.serialization
