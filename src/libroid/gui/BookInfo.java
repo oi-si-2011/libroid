@@ -86,7 +86,11 @@ public class BookInfo extends JPanel {
         }
         nameLabel.setText(shownBook.getName());
         authorLabel.setText(shownBook.getAuthor());
-        booklet.setIcon(new ImageIcon(shownBook.getBooklet()));
+        if (shownBook.getBookletImage() == null) {
+            booklet.setIcon(new ImageIcon(new Configuration().getDefaultBookletImage()));
+        } else {
+            booklet.setIcon(new ImageIcon(shownBook.getBookletImage()));
+        }
         if (shownBook.getFile() == null) {
             fileLabel.setText("-");
         } else {

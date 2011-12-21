@@ -2,6 +2,8 @@ package libroid.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -38,10 +40,10 @@ public class EditBookDialog extends JDialog {
     private Book editedBook;
     private JLabel currentFileLabel = new JLabel("-");
     private File currentFile;
-    private File currentImage;
+    private Image currentBookletImage;
     private JTextField nameField = new JTextField(20);
     private JTextField authorField = new JTextField(20);
-    private JButton bookletButton = new JButton("icons/logo.jpg");
+    private JButton bookletButton = new JButton("-");
     //private JTextField genre = new JTextField(12);
     //private JTextField isbn = new JTextField(12);
 
@@ -76,6 +78,8 @@ public class EditBookDialog extends JDialog {
         final JButton confirmButton = new JButton("Confirm");
 
         currentFileLabel.setBackground(Color.BLUE);
+        Image im = new Configuration().getDefaultBookletImage();
+        bookletButton.setIcon(new ImageIcon(im));
 
         fillFieldValuesWithBookParameters();
 
@@ -148,10 +152,12 @@ public class EditBookDialog extends JDialog {
             return;
         }
         if (editedBook.getFile() != null) {
-            currentFileLabel.setText(editedBook.getFile().toString());
+            currentFile = editedBook.getFile();
+            currentFileLabel.setText(currentFile.toString());
         }
-        if (editedBook.getBooklet() != null) {
-            bookletButton.setIcon(new ImageIcon(editedBook.getBooklet()));
+        if (editedBook.getBookletImage() != null) {
+            currentBookletImage = editedBook.getBookletImage();
+            bookletButton.setIcon(new ImageIcon(currentBookletImage));
         }
         nameField.setText(editedBook.getName());
         authorField.setText(editedBook.getAuthor());
@@ -237,6 +243,7 @@ public class EditBookDialog extends JDialog {
             editedBook.setName(name);
             editedBook.setAuthor(author);
             editedBook.setFile(currentFile);
+            editedBook.setBookletImage(currentBookletImage);
 
             if (isNewBook) {
                 model.addBook(editedBook);
@@ -302,10 +309,11 @@ public class EditBookDialog extends JDialog {
             int returnVal = fileChooser.showOpenDialog(editBookDialog);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                logger.log(Level.INFO, "booklet chooser dialog approved with file '{0}'", file);
-                editBookDialog.currentImage = file;
+                logger.log(Level.INFO, "booklet chooser dialog approved with file {0}", file);
+                Image im = Toolkit.getDefaultToolkit().createImage(file.getAbsolutePath());
+                editBookDialog.currentBookletImage = GUIUtil.scaleImage(im, new Configuration().getMaxBookletDimensions());
                 editBookDialog.bookletButton.setText(file.getPath());
-                editBookDialog.bookletButton.setIcon(new ImageIcon(file.getPath()));
+                editBookDialog.bookletButton.setIcon(new ImageIcon(editBookDialog.currentBookletImage));
             } else {
                 logger.log(Level.INFO, "booklet chooser dialog returned with {0} (not approved)", returnVal);
             }

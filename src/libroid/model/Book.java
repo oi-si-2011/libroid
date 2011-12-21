@@ -12,10 +12,9 @@ public class Book {
     private String name;
     private String author;
     private File file;
-    private Image booklet;
+    private Image bookletImage;
 
     public Book() {
-        booklet = new ImageIcon("icons/logo.jpg").getImage();
     }
 
     public void setModel(Model newModel) {
@@ -40,8 +39,8 @@ public class Book {
         return file;
     }
 
-    public Image getBooklet(){
-        return booklet;
+    public Image getBookletImage() {
+        return bookletImage;
     }
 
     /**
@@ -73,15 +72,8 @@ public class Book {
         return this;
     }
 
-    public Book setBooklet(File f){
-        Image img = new ImageIcon(f.getAbsolutePath()).getImage();
-        int width = img.getWidth(null);
-        int height = img.getHeight(null);
-        if(height > width){
-            this.booklet = img.getScaledInstance(width*100/height, 100, Image.SCALE_SMOOTH);
-        }else{
-            this.booklet = img.getScaledInstance(100, height*100/width, Image.SCALE_SMOOTH);
-        }
+    public Book setBookletImage(Image newImage) {
+        this.bookletImage = newImage;
         return this;
     }
 
